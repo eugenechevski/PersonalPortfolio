@@ -1,7 +1,9 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
+import Image from "next/image";
 
 const lato = Lato({ weight: "400", subsets: ["latin-ext"] });
+const backgroundImg = require("@/assets/background.jpg");
 
 export const metadata = {
   title: "Eugene Chevski - Software Engineer",
@@ -16,7 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={lato.className}>{children}</body>
+      <body className={lato.className}>
+        <Image src={backgroundImg} alt="purple haze background" fill={true} />
+        {children}
+      </body>
     </html>
   );
 }
