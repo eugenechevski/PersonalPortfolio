@@ -18,8 +18,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={lato.className}>
-        <Image src={backgroundImg} alt="purple haze background" fill={true} />
+      <body className={lato.className + " relative text-shadow"}>
+        <Image
+          className="absolute -z-10"
+          src={backgroundImg}
+          alt="purple haze background"
+          fill={true}
+          quality={100}
+          priority={true}
+        />
         {children}
       </body>
     </html>
