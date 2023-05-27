@@ -1,8 +1,16 @@
 "use client";
 
-import tw from "tailwind-styled-components";
 import Image from "next/image";
 import Link from "next/link";
+
+import tw from "tailwind-styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGithub,
+  faInstagram,
+  faTwitter,
+  faLinkedinIn,
+} from "@fortawesome/free-brands-svg-icons";
 
 const introImg = require("@/assets/intro.jpeg");
 const aboutImg = require("@/assets/about.jpeg");
@@ -79,8 +87,8 @@ export default function Page() {
     lg:w-1/2
   `;
 
-  const AboutHeading = tw.h1`
-    text-2xl
+  const SectionHeading = tw.h1`
+    text-3xl
     text-center
     sm:text-6xl
     font-bold
@@ -155,6 +163,23 @@ export default function Page() {
     mb-12
   `;
 
+  const SocialMedia = tw.section`
+    flex
+    flex-col
+    items-center
+    justify-center
+    gap-12
+    min-h-[100vh]
+  `;
+
+  const SocialMediaLinks = tw.div`
+    flex  
+    items-center
+    justify-center
+    gap-12
+    h-[60vh]
+  `;
+
   return (
     <MainContainer>
       <Intro>
@@ -184,7 +209,7 @@ export default function Page() {
           />
         </AboutImageContainer>
         <AboutContent>
-          <AboutHeading>About me</AboutHeading>
+          <SectionHeading>About me</SectionHeading>
           <AboutText>
             I am a passionate software engineer specializing in innovative and
             user-friendly application development. My expertise spans
@@ -199,7 +224,7 @@ export default function Page() {
         </AboutContent>
       </About>
       <FeaturedProjects>
-        <AboutHeading>Featured Projects</AboutHeading>
+        <SectionHeading>Featured Projects</SectionHeading>
         <ProjectsContainer>
           <Project>
             <ProjectImageContainer>
@@ -271,6 +296,27 @@ export default function Page() {
           <ExploreButton>Explore</ExploreButton>
         </Link>
       </FeaturedProjects>
+      <SocialMedia>
+        <SectionHeading>Social Media</SectionHeading>
+        <SocialMediaLinks>
+          <Link href={"https://www.instagram.com/eugenechevski/"}>
+            <FontAwesomeIcon size="3x" icon={faInstagram} />
+          </Link>
+          <Link href={"https://twitter.com/eugenechevski7"}>
+            <FontAwesomeIcon size="3x" icon={faTwitter} />
+          </Link>
+          <Link
+            href={
+              "https://www.linkedin.com/in/yauheni-khvashcheuski-181b06263/"
+            }
+          >
+            <FontAwesomeIcon size="3x" icon={faLinkedinIn} />
+          </Link>
+          <Link href={"https://github.com/eugenechevski"}>
+            <FontAwesomeIcon size="3x" icon={faGithub} />
+          </Link>
+        </SocialMediaLinks>
+      </SocialMedia>
     </MainContainer>
   );
 }
