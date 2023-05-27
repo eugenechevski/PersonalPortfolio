@@ -2,6 +2,7 @@
 
 import tw from "tailwind-styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
 const introImg = require("@/assets/intro.jpeg");
 const aboutImg = require("@/assets/about.jpeg");
@@ -94,6 +95,66 @@ export default function Page() {
     drop-shadow-2xl
   `;
 
+  const FeaturedProjects = tw.section`
+    min-h-[100vh]
+    flex
+    flex-col
+    gap-12
+    items-center
+    justify-evenly
+  `;
+
+  const ProjectsContainer = tw.div`
+    flex
+    flex-col
+    sm:flex-row
+    gap-12
+  `;
+
+  const Project = tw.article`
+    flex
+    flex-col
+    items-center
+    justify-center
+    gap-6
+  `;
+
+  const ProjectImageContainer = tw.figure`
+    flex
+    items-center
+    rounded-full
+    w-[150px]
+    h-[150px]
+    sm:w-[300px]
+    sm:h-[300px]
+    shadow-2xl
+    drop-shadow-2xl
+    overflow-hidden
+  `;
+
+  const ProjectTitle = tw.h1`
+    text-2xl
+    text-center
+  `;
+
+  const ProjectDescription = tw.p`
+    text-md
+    text-center
+    w-3/4
+  `;
+
+  const ExploreButton = tw.button`
+    w-64
+    p-4
+    bg-white
+    rounded-3xl
+    shadow-2xl
+    drop-shadow-2xl
+    text-[#6B21A5]
+    text-xl
+    mb-12
+  `;
+
   return (
     <MainContainer>
       <Intro>
@@ -112,14 +173,15 @@ export default function Page() {
       </Intro>
       <About>
         <AboutImageContainer>
-          <Image 
+          <Image
             className="shadow-2xl
                        drop-shadow-2xl"
-            src={aboutImg} 
+            src={aboutImg}
             alt="about photo"
             sizes="(max-width: 576px) 250px, 500px"
             quality={100}
-            priority={true}/>
+            priority={true}
+          />
         </AboutImageContainer>
         <AboutContent>
           <AboutHeading>About me</AboutHeading>
@@ -136,6 +198,79 @@ export default function Page() {
           </AboutText>
         </AboutContent>
       </About>
+      <FeaturedProjects>
+        <AboutHeading>Featured Projects</AboutHeading>
+        <ProjectsContainer>
+          <Project>
+            <ProjectImageContainer>
+              <Link
+                href={"https://github.com/eugenechevski/bookstore"}
+                className="h-full"
+              >
+                <Image
+                  src={
+                    "https://static01.nyt.com/images/2017/05/11/t-magazine/bookstore-slide-2MCD/bookstore-slide-2MCD-superJumbo.jpg"
+                  }
+                  alt="bookstore"
+                  quality={100}
+                  priority={true}
+                  fill
+                />
+              </Link>
+            </ProjectImageContainer>
+            <ProjectTitle>Bookstore</ProjectTitle>
+            <ProjectDescription>
+              A web application that provides content for best-selling books
+              according to New York Times.
+            </ProjectDescription>
+          </Project>
+          <Project>
+            <ProjectImageContainer>
+              <Link href={"https://github.com/eugenechevski/battleship"}>
+                <Image
+                  src={
+                    "https://nationalinterest.org/sites/default/files/main_images/RTXI80W.jpg"
+                  }
+                  alt="battleship"
+                  quality={100}
+                  priority={true}
+                  fill
+                />
+              </Link>
+            </ProjectImageContainer>
+            <ProjectTitle>Battleship</ProjectTitle>
+            <ProjectDescription>
+              A responsive web-version of the board-game Battleship.
+            </ProjectDescription>
+          </Project>
+          <Project>
+            <ProjectImageContainer>
+              <Link
+                href={"https://github.com/eugenechevski/checkers-game"}
+                className="h-full"
+              >
+                <Image
+                  src={
+                    "https://images.unsplash.com/photo-1551198581-aec5c1556d7c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2hlY2tlcnN8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+                  }
+                  alt="checkers"
+                  quality={100}
+                  priority={true}
+                  fill
+                />
+              </Link>
+            </ProjectImageContainer>
+            <ProjectTitle>Checkers</ProjectTitle>
+            <ProjectDescription>
+              Checkers is a team project to develop a digital version of the
+              classic board game Checkers.
+            </ProjectDescription>
+          </Project>
+        </ProjectsContainer>
+        <Link href={"https://github.com/eugenechevski"}>
+          <ExploreButton>Explore</ExploreButton>
+        </Link>
+      </FeaturedProjects>
     </MainContainer>
   );
 }
