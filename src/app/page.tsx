@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import tw from "tailwind-styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,8 +11,6 @@ import {
   faTwitter,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-
-import { useForm, SubmitHandler } from "react-hook-form";
 
 const introImg = require("@/assets/intro.jpeg");
 const aboutImg = require("@/assets/about.jpeg");
@@ -261,15 +258,6 @@ export default function Page() {
    * State
    */
 
-  const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInput>();
-  const onSubmit = (data: IFormInput) => router.push("/success");
-
   return (
     <MainContainer>
       <Intro>
@@ -417,41 +405,39 @@ export default function Page() {
         </ContactMessageContainer>
         <ContactForm
           name="contact"
-          onSubmit={handleSubmit(onSubmit)}
+          method="POST"
+          action={"/success"}
           data-netlify="true"
           data-netlify-recaptcha="true"
         >
           <Label htmlFor="first-name">First Name</Label>
           <Input
+            required
+            maxLength={20}
             type="text"
             id="first-name"
-            {...register("firstName", { required: true, maxLength: 20 })}
           />
-          {errors.firstName && "First name is required"}
           <Label htmlFor="last-name">Last Name</Label>
           <Input
+            required
+            maxLength={20}
             type="text"
             id="last-name"
-            {...register("firstName", { required: true, maxLength: 20 })}
           />
-          {errors.lastName && "Last name is required"}
           <Label htmlFor="email">Email</Label>
           <Input
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             type="email"
             id="email"
-            {...register("email", {
-              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-            })}
           />
-          {errors.email && "Email is required"}
           <Label htmlFor="message">Message</Label>
           <TextArea
+            required
+            minLength={30}
+            maxLength={200}
             id="message"
             rows={10}
-            {...(register("message"),
-            { required: true, minLength: 30, maxLength: 200 })}
           />
-          {errors.message && "Message is required"}
           <SubmitButton type="submit">Send</SubmitButton>
         </ContactForm>
       </Contact>
