@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import tw from "tailwind-styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,8 +13,17 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 
+import { useForm, SubmitHandler } from "react-hook-form";
+
 const introImg = require("@/assets/intro.jpeg");
 const aboutImg = require("@/assets/about.jpeg");
+
+interface IFormInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  message: string;
+}
 
 export default function Page() {
   /**
@@ -180,6 +190,86 @@ export default function Page() {
     h-[60vh]
   `;
 
+  const Contact = tw.section`
+    flex
+    flex-col
+    justify-center
+    items-center
+    sm:gap-12
+  `;
+
+  const ContactMessageContainer = tw.article`
+    flex
+    flex-col
+    items-center
+    justify-start
+    gap-6
+    h-[30vh]
+    sm:h-[15vh]
+  `;
+
+  const ContactMessageParagraph = tw.p`
+    text-md
+    h-3/4
+    text-center
+    sm:text-start
+  `;
+
+  const ContactForm = tw.form`
+    flex
+    flex-col
+    gap-4
+    sm:w-1/2
+    lg:w-1/6
+  `;
+
+  const Input = tw.input`
+    bg-white
+    outline-none
+    text-black
+    p-3
+    rounded-xl
+  `;
+
+  const Label = tw.label`
+    text-md
+  `;
+
+  const TextArea = tw.textarea`
+    bg-white
+    outline-none
+    text-black
+    p-3
+    rounded-xl
+    resize-none
+  `;
+
+  const SubmitButton = tw.button`
+    w-64
+    p-2
+    bg-white
+    rounded-3xl
+    shadow-2xl
+    drop-shadow-2xl
+    text-[#6B21A5]
+    text-xl
+    mb-12
+    self-center
+  `;
+
+  /**
+   * State
+   */
+
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>();
+  const onSubmit = (data: IFormInput) => router.push("/success");
+
   return (
     <MainContainer>
       <Intro>
@@ -317,6 +407,54 @@ export default function Page() {
           </Link>
         </SocialMediaLinks>
       </SocialMedia>
+      <Contact>
+        <ContactMessageContainer>
+          <SectionHeading>Contact me</SectionHeading>
+          <ContactMessageParagraph>
+            If you have any questions, concerns, or offers, feel free to contact
+            me through this form or the social media above.
+          </ContactMessageParagraph>
+        </ContactMessageContainer>
+        <ContactForm
+          name="contact"
+          onSubmit={handleSubmit(onSubmit)}
+          data-netlify="true"
+          data-netlify-recaptcha="true"
+        >
+          <Label htmlFor="first-name">First Name</Label>
+          <Input
+            type="text"
+            id="first-name"
+            {...register("firstName", { required: true, maxLength: 20 })}
+          />
+          {errors.firstName && "First name is required"}
+          <Label htmlFor="last-name">Last Name</Label>
+          <Input
+            type="text"
+            id="last-name"
+            {...register("firstName", { required: true, maxLength: 20 })}
+          />
+          {errors.lastName && "Last name is required"}
+          <Label htmlFor="email">Email</Label>
+          <Input
+            type="email"
+            id="email"
+            {...register("email", {
+              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+            })}
+          />
+          {errors.email && "Email is required"}
+          <Label htmlFor="message">Message</Label>
+          <TextArea
+            id="message"
+            rows={10}
+            {...(register("message"),
+            { required: true, minLength: 30, maxLength: 200 })}
+          />
+          {errors.message && "Message is required"}
+          <SubmitButton type="submit">Send</SubmitButton>
+        </ContactForm>
+      </Contact>
     </MainContainer>
   );
 }
