@@ -1,4 +1,5 @@
-// A success message page
+
+'use client';
 
 import tw from "tailwind-styled-components";
 import Link from "next/link";

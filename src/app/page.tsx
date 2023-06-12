@@ -12,15 +12,11 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 
-const introImg = require("@/assets/intro.jpeg");
-const aboutImg = require("@/assets/about.jpeg");
-
-interface IFormInput {
-  firstName: string;
-  lastName: string;
-  email: string;
-  message: string;
-}
+import introImg from "@/assets/intro.jpeg";
+import aboutImg from "@/assets/about.jpeg";
+import bookstoreImg from "@/assets/bookstore.jpg";
+import battleshipImg from "@/assets/battleship.jpg";
+import checkersImg from "@/assets/checkers.jpg";
 
 export default function Page() {
   /**
@@ -100,7 +96,6 @@ export default function Page() {
     sm:text-6xl
     font-bold
   `;
-
   const AboutText = tw.p`
     text-start
     text-sm
@@ -268,6 +263,8 @@ export default function Page() {
             sizes="(max-width: 576px) 250px, 500px"
             quality={100}
             priority={true}
+            width={500}
+            height={500}
           />
         </IntroImageContainer>
         <IntroHeading>
@@ -284,6 +281,8 @@ export default function Page() {
             sizes="(max-width: 576px) 250px, 500px"
             quality={100}
             priority={true}
+            width={500}
+            height={500}
           />
         </AboutImageContainer>
         <AboutContent>
@@ -308,15 +307,13 @@ export default function Page() {
             <ProjectImageContainer>
               <Link
                 href={"https://github.com/eugenechevski/bookstore"}
-                className="h-full"
               >
                 <Image
-                  src={
-                    "https://static01.nyt.com/images/2017/05/11/t-magazine/bookstore-slide-2MCD/bookstore-slide-2MCD-superJumbo.jpg"
-                  }
+                  src={bookstoreImg}
                   alt="bookstore"
                   quality={100}
                   priority={true}
+                  sizes="(max-width: 576px) 150px, 300px"
                   fill
                 />
               </Link>
@@ -331,12 +328,11 @@ export default function Page() {
             <ProjectImageContainer>
               <Link href={"https://github.com/eugenechevski/battleship"}>
                 <Image
-                  src={
-                    "https://nationalinterest.org/sites/default/files/main_images/RTXI80W.jpg"
-                  }
+                  src={battleshipImg}
                   alt="battleship"
                   quality={100}
                   priority={true}
+                  sizes="(max-width: 576px) 150px, 300px"
                   fill
                 />
               </Link>
@@ -350,15 +346,13 @@ export default function Page() {
             <ProjectImageContainer>
               <Link
                 href={"https://github.com/eugenechevski/checkers-game"}
-                className="h-full"
               >
                 <Image
-                  src={
-                    "https://images.unsplash.com/photo-1551198581-aec5c1556d7c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2hlY2tlcnN8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
-                  }
+                  src={checkersImg}
                   alt="checkers"
                   quality={100}
                   priority={true}
+                  sizes="(max-width: 576px) 150px, 300px"
                   fill
                 />
               </Link>
@@ -404,26 +398,17 @@ export default function Page() {
           </ContactMessageParagraph>
         </ContactMessageContainer>
         <ContactForm
-          name="contact"
           method="POST"
-          action={"/success"}
+          action={'/success'}
+          name="contact"
           data-netlify="true"
           data-netlify-recaptcha="true"
         >
+          <input type="hidden" name="form-name" value="contact" />
           <Label htmlFor="first-name">First Name</Label>
-          <Input
-            required
-            maxLength={20}
-            type="text"
-            id="first-name"
-          />
+          <Input required maxLength={20} type="text" id="first-name" />
           <Label htmlFor="last-name">Last Name</Label>
-          <Input
-            required
-            maxLength={20}
-            type="text"
-            id="last-name"
-          />
+          <Input required maxLength={20} type="text" id="last-name" />
           <Label htmlFor="email">Email</Label>
           <Input
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
