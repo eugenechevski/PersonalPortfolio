@@ -18,6 +18,30 @@ import bookstoreImg from "@/assets/bookstore.jpg";
 import battleshipImg from "@/assets/battleship.jpg";
 import checkersImg from "@/assets/checkers.jpg";
 
+import uniqid from "uniqid";
+
+const projects = [
+  {
+    name: "Battleship",
+    link: "https://github.com/eugenechevski/battleship",
+    description: "A responsive web-version of the board-game Battleship.",
+    image: battleshipImg,
+  },
+  {
+    name: "Bookstore",
+    link: "https://github.com/eugenechevski/bookstore",
+    description:
+      "A web application that provides content for best-selling books according to New York Times.",
+    image: bookstoreImg,
+  },
+  {
+    name: "Checkers",
+    link: "https://github.com/eugenechevski/checkers-game",
+    description: "A digital version of the classic board game Checkers.",
+    image: checkersImg,
+  },
+];
+
 export default function Page() {
   /**
    * Styled components
@@ -118,7 +142,6 @@ export default function Page() {
     flex
     flex-col
     sm:flex-row
-    gap-12
   `;
 
   const Project = tw.article`
@@ -303,66 +326,25 @@ export default function Page() {
       <FeaturedProjects>
         <SectionHeading>Featured Projects</SectionHeading>
         <ProjectsContainer>
-          <Project>
-            <ProjectImageContainer>
-              <Link
-                href={"https://github.com/eugenechevski/bookstore"}
-              >
-                <Image
-                  src={bookstoreImg}
-                  alt="bookstore"
-                  quality={100}
-                  priority={true}
-                  sizes="(max-width: 576px) 150px, 300px"
-                  fill
-                />
-              </Link>
-            </ProjectImageContainer>
-            <ProjectTitle>Bookstore</ProjectTitle>
-            <ProjectDescription>
-              A web application that provides content for best-selling books
-              according to New York Times.
-            </ProjectDescription>
-          </Project>
-          <Project>
-            <ProjectImageContainer>
-              <Link href={"https://github.com/eugenechevski/battleship"}>
-                <Image
-                  src={battleshipImg}
-                  alt="battleship"
-                  quality={100}
-                  priority={true}
-                  sizes="(max-width: 576px) 150px, 300px"
-                  fill
-                />
-              </Link>
-            </ProjectImageContainer>
-            <ProjectTitle>Battleship</ProjectTitle>
-            <ProjectDescription>
-              A responsive web-version of the board-game Battleship.
-            </ProjectDescription>
-          </Project>
-          <Project>
-            <ProjectImageContainer>
-              <Link
-                href={"https://github.com/eugenechevski/checkers-game"}
-              >
-                <Image
-                  src={checkersImg}
-                  alt="checkers"
-                  quality={100}
-                  priority={true}
-                  sizes="(max-width: 576px) 150px, 300px"
-                  fill
-                />
-              </Link>
-            </ProjectImageContainer>
-            <ProjectTitle>Checkers</ProjectTitle>
-            <ProjectDescription>
-              Checkers is a team project to develop a digital version of the
-              classic board game Checkers.
-            </ProjectDescription>
-          </Project>
+          {projects.map(({ name, link, description, image }) => (
+            <Project key={uniqid()}>
+              <ProjectImageContainer>
+                <Link className="relative h-full w-full" href={link}>
+                  <Image
+                    className="rounded-full"
+                    src={image}
+                    alt="bookstore"
+                    quality={100}
+                    priority={true}
+                    sizes="(max-width: 576px) 150px, 300px"
+                    fill
+                  />
+                </Link>
+              </ProjectImageContainer>
+              <ProjectTitle>{name}</ProjectTitle>
+              <ProjectDescription>{description}</ProjectDescription>
+            </Project>
+          ))}
         </ProjectsContainer>
         <Link href={"https://github.com/eugenechevski"}>
           <ExploreButton>Explore</ExploreButton>
@@ -398,8 +380,7 @@ export default function Page() {
           </ContactMessageParagraph>
         </ContactMessageContainer>
         <ContactForm
-          method="POST"
-          action={'/success'}
+          action={"/success"}
           name="contact"
           data-netlify="true"
           data-netlify-recaptcha="true"
