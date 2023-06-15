@@ -5,3 +5,30 @@
 .text-shadow {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.purple-haze {
+  --grape: #7C33B8;
+  --tekhelet: #461393;
+  --duration: 10s;
+
+  background-image: linear-gradient(
+    to bottom right,
+    var(--grape) 0%,
+    var(--tekhelet) 50%,
+    var(--grape) 100%
+  );
+  background-size: 200% 200%;
+  animation: backgroundAnimation var(--duration) infinite;
+}
