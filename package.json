@@ -32,7 +32,6 @@
     "uniqid": "^5.4.0"
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.26",
-    "tailwind-styled-components": "^2.2.0"
+    "@types/styled-components": "^5.1.26"
   }
 }
