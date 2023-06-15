@@ -1,7 +1,11 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
 
-const lato = Lato({ weight: "400", subsets: ["latin-ext"] });
+const lato = Lato({
+  weight: "400",
+  subsets: ["latin-ext"],
+  fallback: ["system-ui", "roboto", "arial"],
+});
 
 export const metadata = {
   title: "Eugene Chevski - Software Engineer",
@@ -16,7 +20,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={lato.className + " relative text-shadow purple-haze"}>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body
+        className={
+          lato.className + " relative text-shadow purple-haze scroll-smooth"
+        }
+      >
         {children}
       </body>
     </html>

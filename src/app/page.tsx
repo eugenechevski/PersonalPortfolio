@@ -117,7 +117,7 @@ export default function Page() {
           ))}
         </div>
         <Link href={"https://github.com/eugenechevski"}>
-          <button className="w-64 p-4 bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] text-xl mb-12">
+          <button className="w-64 p-4 bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] text-xl mb-12 hover:opacity-[35%]">
             Explore
           </button>
         </Link>
@@ -205,13 +205,18 @@ export default function Page() {
             rows={10}
           />
           <button
-            className="w-64 p-2 bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] text-xl mb-12 self-center"
+            className="w-64 p-2 bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] text-xl mb-12 self-center hover:opacity-[35%]"
             type="submit"
           >
             Send
           </button>
         </form>
       </section>
+      <footer className="h-32 flex justify-center items-center">
+        <p className="text-center text-md">
+          &copy; 2023 Eugene Chevski. All rights reserved.
+        </p>
+      </footer>
     </main>
   );
 }
