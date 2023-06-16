@@ -25,7 +25,7 @@ export default function RootLayout({
       </head>
       <body
         className={
-          lato.className + " relative text-shadow purple-haze scroll-smooth"
+          lato.className + " relative text-shadow purple-haze scroll-smooth hide-scrollbar"
         }
       >
         {children}
