@@ -42,7 +42,7 @@ const projects = [
 export default function Page() {
   return (
     <main className="w-100vw max-h-max text-white opacity-50 scroll-smooth transition-all duration-500 ease-in-out">
-      <header className="h-[100vh] flex flex-col items-center justify-center gap-12">
+      <header className="h-[100vh] flex flex-col items-center justify-center gap-12 mb-12">
         <figure className="rounded-full bg-purple-500 w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] overflow-hidden shadow-2xl drop-shadow-2xl">
           <Image
             src={introImg}
@@ -54,11 +54,11 @@ export default function Page() {
             height={500}
           />
         </figure>
-        <h1 className="text-2xl text-center sm:text-6xl font-bold">
+        <h1 className="text-2xl text-center text-4xl font-bold">
           Hello, I am Eugene Chevski - a full-stack software engineer.
         </h1>
       </header>
-      <section className="flex flex-col sm:flex-row items-center justify-center gap-12 p-12">
+      <section className="flex flex-col sm:flex-row items-center justify-center gap-12 p-12 mb-12">
         <figure className="shadow-2xl drop-shadow-2xl w-[250px] sm:w-[500px] sm:mb-6">
           <Image
             className="shadow-2xl drop-shadow-2xl"
