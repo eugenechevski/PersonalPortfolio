@@ -48,7 +48,8 @@ export default function Page() {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
-    fetch(form.action, {
+
+    fetch('/', {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
@@ -75,7 +76,7 @@ export default function Page() {
             height={500}
           />
         </figure>
-        <h1 className="text-2xl text-center text-4xl font-bold">
+        <h1 className="text-2xl text-center sm:text-4xl font-bold">
           Hello, I am Eugene Chevski - a full-stack software engineer.
         </h1>
       </header>

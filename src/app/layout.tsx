@@ -1,3 +1,5 @@
+import Loading from "./loading";
+
 import "./globals.css";
 import { Lato } from "next/font/google";
 
