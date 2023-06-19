@@ -1,5 +1,8 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -40,6 +43,24 @@ const projects = [
 ];
 
 export default function Page() {
+  const router = useRouter();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    fetch(form.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+    })
+      .then(() => {
+        router.push("/success");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <main className="w-100vw max-h-max text-white opacity-50 scroll-smooth transition-all duration-500 ease-in-out">
       <header className="h-[100vh] flex flex-col items-center justify-center gap-12 mb-12">
@@ -157,8 +178,7 @@ export default function Page() {
         </article>
         <form
           className="flex flex-col gap-4 sm:w-1/2 lg:w-1/4"
-          method="POST"
-          action={"/success"}
+          onSubmit={handleSubmit}
           name="contact"
           data-netlify="true"
           data-netlify-recaptcha="true"
