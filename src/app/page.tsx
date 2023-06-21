@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -43,25 +42,6 @@ const projects = [
 ];
 
 export default function Page() {
-  const router = useRouter();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-
-    fetch('/', {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
-    })
-      .then(() => {
-        router.push("/success");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
   return (
     <main className="w-100vw max-h-max text-white opacity-50 scroll-smooth transition-all duration-500 ease-in-out">
       <header className="h-[100vh] flex flex-col items-center justify-center gap-12 mb-12">
@@ -178,11 +158,12 @@ export default function Page() {
           </p>
         </article>
         <form
+          id="contact"
           className="flex flex-col gap-4 sm:w-1/2 lg:w-1/4"
-          onSubmit={handleSubmit}
+          method="POST"
+          action={"/success"}
           name="contact"
           data-netlify="true"
-          data-netlify-recaptcha="true"
         >
           <input type="hidden" name="form-name" value="contact" />
           <label className="text-md" htmlFor="first-name">
@@ -194,6 +175,7 @@ export default function Page() {
             maxLength={20}
             type="text"
             id="first-name"
+            name="first-name"
           />
           <label className="text-md" htmlFor="last-name">
             Last Name
@@ -204,6 +186,7 @@ export default function Page() {
             maxLength={20}
             type="text"
             id="last-name"
+            name="last-name"
           />
           <label className="text-md" htmlFor="email">
             Email
@@ -213,6 +196,7 @@ export default function Page() {
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             type="email"
             id="email"
+            name="email"
           />
           <label className="text-md" htmlFor="message">
             Message
@@ -224,8 +208,10 @@ export default function Page() {
             maxLength={200}
             id="message"
             rows={10}
+            name="message"
           />
           <button
+            name="submit"
             className="w-64 p-2 bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] text-xl mb-12 self-center hover:opacity-[35%]"
             type="submit"
           >
