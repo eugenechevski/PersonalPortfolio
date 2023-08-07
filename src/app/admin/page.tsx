@@ -14,8 +14,7 @@ const postData: IPost = {
   createdAt: Date.now(),
   updatedAt: Date.now(),
   published: true
-
-}
+};
 
 const commentData: IComment = {
   postId: uniqid(),

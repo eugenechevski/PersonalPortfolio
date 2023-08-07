@@ -47,3 +47,16 @@
   background-color: transparent;
 }
 
+.table-text-center thead tr th, .table-text-center tbody tr td{
+  text-align: center;
+}
+
+.table-border-white thead tr th, .table-border-white tbody tr td{
+  border: 1px solid white;
+  border-color: white;
+}
+
+.button-text-shadow *, .button-text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
