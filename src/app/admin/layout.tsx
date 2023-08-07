@@ -10,7 +10,7 @@ export default function AdminLayout({
 }) {
   return (
     <section className="w-screen h-screen">
-      <nav className="flex w-full h-1/6 p-12 text-white gap-12 text-center">
+      <nav className="flex w-full h-[10%] p-12 text-white gap-12 text-center">
         {/** Left side */}
         <div className="flex items-center gap-12">
           {/** Admin page */}
@@ -38,7 +38,9 @@ export default function AdminLayout({
           </Link>
         </div>
       </nav>
-      {children}
+      <main className="w-full h-[90%]">
+        {children}
+      </main>
     </section>
   );
 }
