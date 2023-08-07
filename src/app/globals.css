@@ -56,6 +56,10 @@
   border-color: white;
 }
 
+.table-row-hover-cursor tbody tr:hover{
+  cursor: pointer;
+}
+
 .button-text-shadow *, .button-text-shadow {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
