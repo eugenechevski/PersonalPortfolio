@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import uniqid from "uniqid";
+import Link from "next/link";
 
 const mockPosts: IPost[] = [1, 2, 3, 4].map((n) => {
   return {
@@ -23,10 +24,6 @@ const mockPosts: IPost[] = [1, 2, 3, 4].map((n) => {
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
 
 export default function Page() {
-  const addPost = () => {
-    // TODO
-  };
-
   const deletePost = () => {
     // TODO
   };
@@ -54,9 +51,9 @@ export default function Page() {
       {/** Toolbar */}
       <div className="w-3/4 h-[10%] flex text-shadow">
         {/** Add post button */}
-        <button className="button-text-shadow" onClick={addPost}>
+        <Link className="text-shadow" href='/admin/posts/new'>
           New post
-        </button>
+        </Link>
 
         {/** Edit, Delete, and Publish/Unpublish buttons */}
         <div className="flex gap-4 ml-auto button-text-shadow">
