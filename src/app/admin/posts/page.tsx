@@ -38,10 +38,6 @@ export default function Page() {
 
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
 
-  const selectPost = (targetPost: IPost) => {
-    setSelectedPost(targetPost);
-  };
-
   return (
     <section className="h-full w-full flex flex-col justify-center items-center text-white">
       {/** Toolbar */}
@@ -69,7 +65,6 @@ export default function Page() {
       </div>
 
       {/** Posts table */}
-      {/** Columns: #, Title, Date, Status, Author */}
       <div className="w-full h-[90%] flex items-center justify-center">
         <table className="h-1/2 w-1/2 border border-white table-auto table-text-center table-border-white table-row-hover-cursor">
           <thead>
@@ -86,7 +81,7 @@ export default function Page() {
               return (
                 <tr
                   key={post.postId}
-                  onClick={selectPost.bind(null, post)}
+                  onClick={setSelectedPost.bind(null, post)}
                   className={
                     selectedPost?.postId === post.postId ? selectionClasses : ""
                   }
