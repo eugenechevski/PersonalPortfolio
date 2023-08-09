@@ -1,14 +1,15 @@
-// Page for creating an new post
+// Page for editing an existing post
 
 "use client";
 
 import Editor from "@/components/Editor";
 import TextButton from "@/components/TextButton";
-import { useState } from "react";
+import { useState} from "react";
 
 export default function Page() {
   const [title, setTitle] = useState("");
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({ description: "" });
+  const [action, setAction] = useState(null);
 
   /**
    * Saves the edited version of the post as a draft
@@ -23,6 +24,26 @@ export default function Page() {
    */
   const publishNewPost = () => {
     // TODO
+  };
+
+  const discardChanges = () => {};
+
+  const confirmAction = () => {
+    action();
+    setAction(null);
+  };
+
+  const cancelAction = () => {
+    setAction(null);
+  };
+
+  /**
+   * Users must confirm their action before proceeding
+   * Ask for confirmation -> set the action to be executed -> confirm the action -> execute the action
+   *                                                       -> cancel the action -> discard the action
+   */
+  const askForConfirmation = (newAction: () => void) => {
+    setAction(() => newAction);
   };
 
   return (
@@ -52,11 +73,34 @@ export default function Page() {
       {/** Editor */}
       <Editor formData={formData} setFormData={setFormData} />
 
-      {/** Buttons */}
-      <div className="flex gap-5">
-        <TextButton text="Save" hanlderOnClick={saveAsDraft} />
-        <TextButton text="Publish" hanlderOnClick={publishNewPost} />
-      </div>
+      {/** Confirmation dialog */}
+      {action ? (
+        <div className="w-1/3 h-1/6 flex flex-col justify-center items-center text-white gap-5 p-4 rounded-lg">
+          <p className="mt-6">Are you sure you want to continue?</p>
+          <div className="flex gap-5">
+            <TextButton text="Yes" hanlderOnClick={confirmAction} />
+            <TextButton text="No" hanlderOnClick={cancelAction} />
+          </div>
+        </div>
+      ) : (
+        <>
+          {/** Buttons */}
+          <div className="flex gap-5">
+            <TextButton
+              text="Save"
+              hanlderOnClick={askForConfirmation.bind(null, saveAsDraft)}
+            />
+            <TextButton
+              text="Publish"
+              hanlderOnClick={askForConfirmation.bind(null, publishNewPost)}
+            />
+            <TextButton
+              text="Discard"
+              hanlderOnClick={askForConfirmation.bind(null, discardChanges)}
+            />
+          </div>
+        </>
+      )}
     </section>
   );
 }
