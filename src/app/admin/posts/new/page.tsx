@@ -3,7 +3,7 @@
 "use client";
 
 import Editor from "@/components/Editor";
-import TextButton from "@/components/TextButton";
+import Button from "@/components/Button";
 import { useState} from "react";
 
 export default function Page() {
@@ -78,24 +78,24 @@ export default function Page() {
         <div className="w-1/3 h-1/6 flex flex-col justify-center items-center text-white gap-5 p-4 rounded-lg">
           <p className="mt-6">Are you sure you want to continue?</p>
           <div className="flex gap-5">
-            <TextButton text="Yes" hanlderOnClick={confirmAction} />
-            <TextButton text="No" hanlderOnClick={cancelAction} />
+            <Button textContent="Yes" hanlderOnClick={confirmAction} />
+            <Button textContent="No" hanlderOnClick={cancelAction} />
           </div>
         </div>
       ) : (
         <>
           {/** Buttons */}
           <div className="flex gap-5">
-            <TextButton
-              text="Save"
+            <Button
+              textContent="Save"
               hanlderOnClick={askForConfirmation.bind(null, saveAsDraft)}
             />
-            <TextButton
-              text="Publish"
+            <Button
+              textContent="Publish"
               hanlderOnClick={askForConfirmation.bind(null, publishNewPost)}
             />
-            <TextButton
-              text="Discard"
+            <Button
+              textContent="Discard"
               hanlderOnClick={askForConfirmation.bind(null, discardChanges)}
             />
           </div>
