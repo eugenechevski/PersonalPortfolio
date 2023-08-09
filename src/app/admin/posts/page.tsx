@@ -28,10 +28,6 @@ export default function Page() {
     // TODO
   };
 
-  const editPost = () => {
-    // TODO
-  };
-
   const publishPost = () => {
     // TODO
   };
@@ -51,21 +47,25 @@ export default function Page() {
       {/** Toolbar */}
       <div className="w-3/4 h-[10%] flex text-shadow">
         {/** Add post button */}
-        <Link className="text-shadow" href='/admin/posts/new'>
+        <Link className="text-shadow" href="/admin/posts/new">
           New post
         </Link>
 
         {/** Edit, Delete, and Publish/Unpublish buttons */}
-        <div className="flex gap-4 ml-auto button-text-shadow">
-          <button onClick={editPost}>Edit</button>
-          <button onClick={deletePost}>Delete</button>
-          {/** Conditional rendering for published or unpublished posts*/}
-          {selectedPost?.published ? (
-            <button onClick={unpublishPost}>Unpublish</button>
-          ) : (
-            <button onClick={publishPost}>Publish</button>
-          )}
-        </div>
+        {selectedPost && (
+          <div className="flex gap-4 ml-auto button-text-shadow">
+            <button>
+              <Link href={`/admin/posts/${selectedPost?.postId}`}>Edit</Link>
+            </button>
+            <button onClick={deletePost}>Delete</button>
+            {/** Conditional rendering for published or unpublished posts*/}
+            {selectedPost?.published ? (
+              <button onClick={unpublishPost}>Unpublish</button>
+            ) : (
+              <button onClick={publishPost}>Publish</button>
+            )}
+          </div>
+        )}
       </div>
 
       {/** Posts table */}

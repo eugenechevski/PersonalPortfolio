@@ -1,4 +1,4 @@
-// Page for creating a new post
+// Page for creating an new post
 
 "use client";
 
@@ -10,11 +10,18 @@ export default function Page() {
   const [title, setTitle] = useState("");
   const [formData, setFormData] = useState("");
 
-  const save = () => {
+  /**
+   * Saves the edited version of the post as a draft
+   * However, it keeps the old version published
+   */
+  const saveAsDraft = () => {
     // TODO
   };
 
-  const publish = () => {
+  /**
+   * Publishes the edited version of the post
+   */
+  const publishNewPost = () => {
     // TODO
   };
 
@@ -24,15 +31,31 @@ export default function Page() {
       <input
         type="text"
         placeholder="Title"
-        className="w-1/3 p-3 text-2xl rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] mb-12 hover:opacity-[35%] outline-none"
+        className="w-1/3 p-3 text-2xl rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] hover:opacity-[35%] outline-none"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
+      {/** Cover file picker */}
+      <div className="flex flex-col text-white w-1/3 gap-5 justify-center items-center">
+        <label htmlFor="cover" className="">
+          Choose cover:
+        </label>
+        <input
+          type="file"
+          name="cover"
+          accept="image/jpeg, image/jpg image/png"
+          className="text-center"
+        />
+      </div>
+
+      {/** Editor */}
       <Editor formData={formData} setFormData={setFormData} />
+
       {/** Buttons */}
       <div className="flex gap-5">
-        <TextButton text="Save" />
-        <TextButton text="Publish" />
+        <TextButton text="Save" hanlderOnClick={saveAsDraft} />
+        <TextButton text="Publish" hanlderOnClick={publishNewPost} />
       </div>
     </section>
   );
