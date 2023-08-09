@@ -1,7 +1,10 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
+
+import Input from "@/components/Input";
+import Button from "@/components/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,6 +21,8 @@ import battleshipImg from "@/assets/battleship.jpg";
 import checkersImg from "@/assets/checkers.jpg";
 
 import uniqid from "uniqid";
+
+import { emailPattern, textColor } from "@/lib/constants";
 
 const projects = [
   {
@@ -119,9 +124,7 @@ export default function Page() {
           ))}
         </div>
         <Link href={"https://github.com/eugenechevski"}>
-          <button className="w-64 p-4 bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] text-xl mb-12 hover:opacity-[35%]">
-            Explore
-          </button>
+          <Button textContent="Explore" />
         </Link>
       </section>
       <section className="flex flex-col items-center justify-center gap-12 min-h-[100vh]">
@@ -169,40 +172,41 @@ export default function Page() {
           <label className="text-md" htmlFor="first-name">
             First Name
           </label>
-          <input
-            className="bg-white outline-none text-black p-3 rounded-xl"
-            required
-            maxLength={20}
-            type="text"
+          <Input
             id="first-name"
             name="first-name"
+            required={true}
+            className="w-full"
           />
           <label className="text-md" htmlFor="last-name">
             Last Name
           </label>
-          <input
-            className="bg-white outline-none text-black p-3 rounded-xl"
-            required
-            maxLength={20}
-            type="text"
+          <Input
             id="last-name"
             name="last-name"
+            required={true}
+            className="w-full"
           />
           <label className="text-md" htmlFor="email">
             Email
           </label>
-          <input
-            className="bg-white outline-none text-black p-3 rounded-xl"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          <Input
             type="email"
             id="email"
             name="email"
+            required={true}
+            className="w-full"
+            pattern={emailPattern}
           />
           <label className="text-md" htmlFor="message">
             Message
           </label>
           <textarea
-            className="bg-white outline-none text-black p-3 rounded-xl resize-none"
+            className={
+              "bg-white outline-none p-3 rounded-xl resize-none text-[" +
+              textColor +
+              "]"
+            }
             required
             minLength={30}
             maxLength={200}
@@ -210,13 +214,9 @@ export default function Page() {
             rows={10}
             name="message"
           />
-          <button
-            name="submit"
-            className="w-64 p-2 bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] text-xl mb-12 self-center hover:opacity-[35%]"
-            type="submit"
-          >
-            Send
-          </button>
+          <div className="self-center">
+            <Button textContent="Send" type="submit" size="md" />
+          </div>
         </form>
       </section>
       <footer className="h-32 flex justify-center items-center">
