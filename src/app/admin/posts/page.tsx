@@ -1,8 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import Link from "next/link";
+
+import {
+  useDispatch,
+  useSelector,
+  postsSlice,
+  selectPosts,
+  addPostAsync,
+  editPostAsync,
+  deletePostAsync,
+  getPostsAsync,
+} from '@/redux'
 
 const mockPosts: IPost[] = [1, 2, 3, 4].map((n) => {
   return {
@@ -24,19 +35,26 @@ const mockPosts: IPost[] = [1, 2, 3, 4].map((n) => {
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
 
 export default function Page() {
+  const dispatch = useDispatch();
+  const posts = useSelector(selectPosts);
+  const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
+
+  // Load posts
+  useEffect(() => {
+    dispatch(getPostsAsync());
+  }, [dispatch]);
+
   const deletePost = () => {
-    // TODO
+    dispatch(deletePostAsync(selectedPost?.postId));
   };
 
   const publishPost = () => {
-    // TODO
+    dispatch(editPostAsync({ ...selectedPost, published: true }));
   };
 
   const unpublishPost = () => {
-    // TODO
+    dispatch(editPostAsync({ ...selectedPost, published: false }));
   };
-
-  const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
 
   return (
     <section className="h-full w-full flex flex-col justify-center items-center text-white">
@@ -77,7 +95,7 @@ export default function Page() {
             </tr>
           </thead>
           <tbody>
-            {mockPosts.map((post, index) => {
+            {posts.map((post, index) => {
               return (
                 <tr
                   key={post.postId}
