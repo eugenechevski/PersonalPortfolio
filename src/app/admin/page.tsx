@@ -3,7 +3,7 @@ import PostWidget from "@/components/PostWidget";
 import uniqid from 'uniqid';
 
 const postData: IPost = {
-  postId: uniqid(),
+  _id: uniqid(),
   title: 'How to Create an Awesome Blog',
   imageURL: 'https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/Zugpsitze_mountain.jpg?crop=0%2C214%2C3008%2C1579&wid=1200&hei=630&scl=2.506666666666667',
   content: 'asdsad',

@@ -27,12 +27,12 @@ export const postsSlice = createSlice({
     },
     removePost: (state, action: PayloadAction<string>) => {
       state.value = state.value.filter(
-        (post) => post.postId !== action.payload
+        (post) => post._id !== action.payload
       );
     },
     updatePost: (state, action: PayloadAction<IPost>) => {
-      const { postId, title, content } = action.payload;
-      const existingPost = state.value.find((post) => post.postId === postId);
+      const { _id: postId, title, content } = action.payload;
+      const existingPost = state.value.find((post) => post._id === postId);
       if (existingPost) {
         existingPost.title = title;
         existingPost.content = content;
@@ -68,7 +68,7 @@ export const postsSlice = createSlice({
       .addCase(deletePostAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.value = state.value.filter(
-          (post) => post.postId !== action.payload
+          (post) => post._id !== action.payload
         );
       })
       .addCase(deletePostAsync.rejected, (state, action) => {
@@ -80,7 +80,7 @@ export const postsSlice = createSlice({
       .addCase(editPostAsync.fulfilled, (state, action) => {
         state.status = "idle";
         const { postId, title, content } = action.payload;
-        const existingPost = state.value.find((post) => post.postId === postId);
+        const existingPost = state.value.find((post) => post._id === postId);
         if (existingPost) {
           existingPost.title = title;
           existingPost.content = content;

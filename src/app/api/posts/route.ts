@@ -2,7 +2,6 @@
 
 import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
 
 export async function GET() {
   const client = await clientPromise;
@@ -18,29 +17,30 @@ export async function POST(req: Request) {
   const db = client.db("personal_blog");
   const result = await db
     .collection<IPost>("posts")
-    .insertOne({ _id: new ObjectId(post.postId), ...post });
+    .insertOne(post);
 
   return NextResponse.json(result);
 }
 
 export async function PUT(req: Request) {
-  const { postId, title, content } = (await req.json()) as IPost;
+  const post = (await req.json()) as IPost;
   const client = await clientPromise;
   const db = client.db("personal_blog");
   const result = await db
     .collection<IPost>("posts")
-    .updateOne({ _id: new ObjectId(postId) }, { $set: { title, content } });
+    .updateOne({ _id: post._id }, { $set: post });
 
   return NextResponse.json(result);
 }
 
 export async function DELETE(req: Request) {
-  const postId: string = await req.json();
+  // Obtain id from request query
+  const post: IPost = await req.json();
   const client = await clientPromise;
   const db = client.db("personal_blog");
 
   const result = await db.collection<IPost>("posts").deleteOne({
-    _id: new ObjectId(postId),
+    _id: post._id,
   });
 
   return NextResponse.json(result);

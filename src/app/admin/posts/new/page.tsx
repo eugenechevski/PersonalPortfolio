@@ -4,11 +4,20 @@
 
 import Editor from "@/components/Editor";
 import Button from "@/components/Button";
-import { useState} from "react";
+import Input from "@/components/Input";
+
+import { useState } from "react";
+
+import { useDispatch, addPostAsync } from "@/redux";
+
+import uniqid from "uniqid";
 
 export default function Page() {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [formData, setFormData] = useState({ description: "" });
+  const [coverUrl, setCoverUrl] = useState("");
   const [action, setAction] = useState(null);
 
   /**
@@ -23,7 +32,23 @@ export default function Page() {
    * Publishes the edited version of the post
    */
   const publishNewPost = () => {
-    // TODO
+    // Do validation
+
+    const newPost: IPost = {
+      _id: uniqid(),
+      title: title,
+      content: formData.description,
+      author: "Eugene Chevski",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      published: true,
+      imageURL: coverUrl,
+      tags: [],
+      likes: 0,
+      replies: [],
+    };
+
+    dispatch(addPostAsync(newPost));
   };
 
   const discardChanges = () => {};
@@ -57,18 +82,14 @@ export default function Page() {
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      {/** Cover file picker */}
-      <div className="flex flex-col text-white w-1/3 gap-5 justify-center items-center">
-        <label htmlFor="cover" className="">
-          Choose cover:
-        </label>
-        <input
-          type="file"
-          name="cover"
-          accept="image/jpeg, image/jpg image/png"
-          className="text-center"
-        />
-      </div>
+      {/** Cover image input */}
+      <Input
+        name="cover"
+        placeholder="Cover URL"
+        value={coverUrl}
+        onChange={(e) => setCoverUrl(e.target.value)}
+        maxLength={1000}
+      />
 
       {/** Editor */}
       <Editor formData={formData} setFormData={setFormData} />

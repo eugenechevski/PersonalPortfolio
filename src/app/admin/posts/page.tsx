@@ -9,28 +9,11 @@ import {
   useSelector,
   postsSlice,
   selectPosts,
-  addPostAsync,
   editPostAsync,
   deletePostAsync,
   getPostsAsync,
 } from '@/redux'
 
-const mockPosts: IPost[] = [1, 2, 3, 4].map((n) => {
-  return {
-    postId: uniqid(),
-    title: "How to Create an Awesome Blog",
-    imageURL:
-      "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/Zugpsitze_mountain.jpg?crop=0%2C214%2C3008%2C1579&wid=1200&hei=630&scl=2.506666666666667",
-    content: "asdsad",
-    author: "Suvashi Poblano",
-    tags: [],
-    likes: 100,
-    replies: [],
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-    published: true,
-  };
-});
 
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
 
@@ -45,15 +28,18 @@ export default function Page() {
   }, [dispatch]);
 
   const deletePost = () => {
-    dispatch(deletePostAsync(selectedPost?.postId));
+    dispatch(deletePostAsync(selectedPost));
+    dispatch(getPostsAsync());
   };
 
   const publishPost = () => {
     dispatch(editPostAsync({ ...selectedPost, published: true }));
+    dispatch(getPostsAsync());
   };
 
   const unpublishPost = () => {
     dispatch(editPostAsync({ ...selectedPost, published: false }));
+    dispatch(getPostsAsync());
   };
 
   return (
@@ -69,7 +55,7 @@ export default function Page() {
         {selectedPost && (
           <div className="flex gap-4 ml-auto button-text-shadow">
             <button>
-              <Link href={`/admin/posts/${selectedPost?.postId}`}>Edit</Link>
+              <Link href={`/admin/posts/${selectedPost?._id}`}>Edit</Link>
             </button>
             <button onClick={deletePost}>Delete</button>
             {/** Conditional rendering for published or unpublished posts*/}
@@ -98,10 +84,10 @@ export default function Page() {
             {posts.map((post, index) => {
               return (
                 <tr
-                  key={post.postId}
+                  key={post._id}
                   onClick={setSelectedPost.bind(null, post)}
                   className={
-                    selectedPost?.postId === post.postId ? selectionClasses : ""
+                    selectedPost?._id === post._id ? selectionClasses : ""
                   }
                 >
                   <td>{index + 1}</td>

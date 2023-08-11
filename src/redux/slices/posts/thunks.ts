@@ -31,13 +31,13 @@ export const addPostAsync = createAppAsyncThunk(
 
 export const deletePostAsync = createAppAsyncThunk(
   'posts/deletePost',
-  async (postId: string) => {
+  async (post: IPost) => {
     const data = await fetch('/api/posts', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ postId }),
+      body: JSON.stringify(post),
     }).then((res) => res.json());
 
     return data;

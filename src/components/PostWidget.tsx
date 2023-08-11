@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PostWidget(props: {post: IPost}): JSX.Element {
   const {
-    postId,
+    _id: postId,
     title,
     imageURL,
     likes,
