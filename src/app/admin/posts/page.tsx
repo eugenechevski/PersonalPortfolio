@@ -1,18 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import uniqid from "uniqid";
 import Link from "next/link";
 
 import {
   useDispatch,
   useSelector,
-  postsSlice,
   selectPosts,
   editPostAsync,
   deletePostAsync,
   getPostsAsync,
 } from '@/redux'
+import { set } from "react-hook-form";
 
 
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
@@ -28,18 +27,17 @@ export default function Page() {
   }, [dispatch]);
 
   const deletePost = () => {
-    dispatch(deletePostAsync(selectedPost));
-    dispatch(getPostsAsync());
+    dispatch(deletePostAsync(selectedPost._id));
   };
 
   const publishPost = () => {
     dispatch(editPostAsync({ ...selectedPost, published: true }));
-    dispatch(getPostsAsync());
+    setSelectedPost({ ...selectedPost, published: true });
   };
 
   const unpublishPost = () => {
     dispatch(editPostAsync({ ...selectedPost, published: false }));
-    dispatch(getPostsAsync());
+    setSelectedPost({ ...selectedPost, published: false });
   };
 
   return (

@@ -35,12 +35,12 @@ export async function PUT(req: Request) {
 
 export async function DELETE(req: Request) {
   // Obtain id from request query
-  const post: IPost = await req.json();
+  const postId = await req.text();
   const client = await clientPromise;
   const db = client.db("personal_blog");
 
   const result = await db.collection<IPost>("posts").deleteOne({
-    _id: post._id,
+    _id: postId,
   });
 
   return NextResponse.json(result);
