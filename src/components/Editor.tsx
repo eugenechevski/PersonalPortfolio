@@ -27,8 +27,9 @@ const TextEditor = ({
         // initialValue="<p>This is the initial content of the editor.</p>"
         apiKey={process.env.TINYMCE_KEY}
         init={{
-          height: 500,
+          height: '100%',
           menubar: true,
+          resize: 'both',
           plugins:
             "advlist autolink lists link image charmap preview anchor " +
             "searchreplace visualblocks code fullscreen " +
@@ -44,7 +45,6 @@ const TextEditor = ({
         value={formData}
         onEditorChange={handleEditorChange}
       />
-      {/* <button onClick={log}>Log editor content</button> */}
     </>
   );
 };
