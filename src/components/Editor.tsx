@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -17,7 +19,7 @@ const TextEditor = ({ formData, setFormData }) => {
         // and setting the initial value as the the default state value i.e. formData.description
         // is set to the placeholder text instead of just an empty string
         // initialValue="<p>This is the initial content of the editor.</p>"
-        apiKey={process.env.TINY_API_KEY}
+        apiKey={process.env.TINYMCE_KEY}
         init={{
           height: 500,
           menubar: true,

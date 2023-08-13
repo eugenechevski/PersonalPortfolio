@@ -13,8 +13,11 @@ const nextConfig = {
         pathname: '/**'
       }
     ]
+  },
+  env: {
+    TINYMCE_KEY: process.env.TINYMCE_KEY,
+    MONGODB_URI: process.env.MONGODB_URI,
   }
-  
 }
 
 module.exports = nextConfig
