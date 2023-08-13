@@ -1,15 +1,11 @@
 // Slice for posts
 
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import {
-  addPostAsync,
-  editPostAsync,
-  deletePostAsync,
-  getPostsAsync,
-} from "./thunks";
+import type { WritableDraft } from "immer/dist/internal";
 
 const initialState: PostsSliceState = {
-  value: [],
+  array: [],
+  map: {},
   status: "idle",
 };
 
@@ -23,24 +19,33 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     addPost: (state, action) => {
-      state.value.push(action.payload);
+      state.array.push(action.payload);
+      state.map[action.payload._id] = action.payload;
     },
     removePost: (state, action: PayloadAction<string>) => {
-      state.value = state.value.filter(
-        (post) => post._id !== action.payload
-      );
+      state.array = state.array.filter((post) => post._id !== action.payload);
+      delete state.map[action.payload];
     },
     updatePost: (state, action: PayloadAction<IPost>) => {
       const updatedPost = action.payload;
-      let existingPost = state.value.find((post) => post._id === updatedPost._id);
-      if (existingPost) {
+
+      if (state.map[updatedPost._id]) {
+        // Update state
+        // it updates array and map at the same time
+        let existingPost = state.array.find(
+          (post) => post._id === updatedPost._id
+        );
         for (let key in updatedPost) {
           existingPost[key] = updatedPost[key];
         }
       }
     },
     setPosts: (state, action) => {
-      state.value = action.payload;
+      state.array = action.payload;
+      state.map = {};
+      action.payload.forEach((post) => {
+        state.map[post._id] = post;
+      });
     },
     setStatus: (
       state,
@@ -52,6 +57,7 @@ export const postsSlice = createSlice({
 });
 
 export interface PostsSliceState {
-  value: IPost[];
+  array: IPost[];
+  map: { [key: string]: IPost };
   status: "idle" | "loading" | "failed";
 }

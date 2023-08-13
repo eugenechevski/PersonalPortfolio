@@ -6,19 +6,17 @@ import Link from "next/link";
 import {
   useDispatch,
   useSelector,
-  selectPosts,
+  selectPostsArray,
   editPostAsync,
   deletePostAsync,
   getPostsAsync,
 } from '@/redux'
-import { set } from "react-hook-form";
-
 
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
 
 export default function Page() {
   const dispatch = useDispatch();
-  const posts = useSelector(selectPosts);
+  const posts = useSelector(selectPostsArray);
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
 
   // Load posts

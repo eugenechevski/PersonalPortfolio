@@ -6,4 +6,5 @@ import type { ReduxState } from '@/redux/store'
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 // export const selectCount = (state: ReduxState) => state.counter.value
 
-export const selectPosts = (state: ReduxState) => state.posts.value
+export const selectPostsArray = (state: ReduxState) => state.posts.array
+export const selectPostsMap = (state: ReduxState) => state.posts.map
