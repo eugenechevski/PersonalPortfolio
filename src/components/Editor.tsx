@@ -1,19 +1,25 @@
 "use client";
 
-import React, { useRef } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
+import React, { useRef, type Dispatch, type SetStateAction } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 
-const TextEditor = ({ formData, setFormData }) => {
+const TextEditor = ({
+  formData,
+  setFormData,
+}: {
+  formData: string;
+  setFormData: Dispatch<SetStateAction<string>>;
+}) => {
   const editorRef = useRef(null);
 
   const handleEditorChange = (content, editor) => {
-    setFormData({ ...formData, description: content });
-  }
+    setFormData(content);
+  };
 
   return (
     <>
       <Editor
-        onInit={(evt, editor) => editorRef.current = editor}
+        onInit={(evt, editor) => (editorRef.current = editor)}
         // there's a known issue with how tinymce works where the intialValue and value
         // come into conflict when using useState. tinymce recommend removing initialValue
         // and setting the initial value as the the default state value i.e. formData.description
@@ -23,22 +29,24 @@ const TextEditor = ({ formData, setFormData }) => {
         init={{
           height: 500,
           menubar: true,
-          plugins: 'advlist autolink lists link image charmap preview anchor ' +
-            'searchreplace visualblocks code fullscreen ' +
-            'insertdatetime media table code help wordcount'
-          ,
-          toolbar: 'undo redo | formatselect | ' +
-          'bold italic backcolor | alignleft aligncenter ' +
-          'alignright alignjustify | bullist numlist outdent indent | ' +
-          'removeformat | help',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+          plugins:
+            "advlist autolink lists link image charmap preview anchor " +
+            "searchreplace visualblocks code fullscreen " +
+            "insertdatetime media table code help wordcount",
+          toolbar:
+            "undo redo | formatselect | " +
+            "bold italic backcolor | alignleft aligncenter " +
+            "alignright alignjustify | bullist numlist outdent indent | " +
+            "removeformat | help",
+          content_style:
+            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}
-        value={formData.description}
+        value={formData}
         onEditorChange={handleEditorChange}
       />
       {/* <button onClick={log}>Log editor content</button> */}
     </>
   );
-}
+};
 
-export default TextEditor
+export default TextEditor;
