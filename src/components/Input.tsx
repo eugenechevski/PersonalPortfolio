@@ -1,6 +1,7 @@
 // Generic input component
 
 import { textColor } from "@/lib/constants";
+import { useEffect, useRef } from "react";
 
 const sizeClasses = {
   sm: "w-1/4 p-2",
@@ -20,6 +21,8 @@ export default function TextInput({
   required,
   maxLength,
   className,
+  customValidator,
+  minLength,
 }: {
   name: string;
   value?: string;
@@ -32,9 +35,22 @@ export default function TextInput({
   required?: boolean;
   maxLength?: number;
   className?: string;
+  customValidator?: (value: string) => boolean;
+  minLength?: number;
 }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    // Custom validation
+    if (customValidator && !customValidator(value)) {
+      ref.current.setCustomValidity(`Invalid ${name}.`);
+      ref.current.reportValidity();
+    }
+  }, [value, customValidator, id, name]);
+
   return (
     <input
+      ref={ref}
       type={type || "text"}
       placeholder={placeholder}
       name={name}
@@ -47,6 +63,7 @@ export default function TextInput({
       pattern={pattern}
       required={required || false}
       maxLength={maxLength || 20}
+      minLength={minLength || 0}
     />
   );
 }
