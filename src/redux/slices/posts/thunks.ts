@@ -1,11 +1,11 @@
 import { type ReduxDispatch, type ReduxThunkAction } from "@/redux/store";
-import { selectPosts } from "@/redux/slices/posts/selectors";
+import { selectPostsArray } from "@/redux/slices/posts/selectors";
 import { postsSlice } from "./postsSlice";
 
 // Async and sync logic for fetching posts and updating UI
 export const getPostsAsync =
   (): ReduxThunkAction => async (dispatch, getState) => {
-    const posts = selectPosts(getState());
+    const posts = selectPostsArray(getState());
 
     // If posts are already in state, don't fetch again
     if (posts.length === 0) {
@@ -54,7 +54,7 @@ export const deletePostAsync =
 export const editPostAsync =
   (post: IPost): ReduxThunkAction =>
   async (dispatch: ReduxDispatch, getState) => {
-    const posts = selectPosts(getState());
+    const posts = selectPostsArray(getState());
 
     const data = await fetch("/api/posts", {
       method: "PUT",
