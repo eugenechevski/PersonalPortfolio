@@ -4,39 +4,62 @@
 
 import Editor from "@/components/Editor";
 import Button from "@/components/Button";
-import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import Input from "@/components/Input";
+
+import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+
+import {
+  useDispatch,
+  useSelector,
+  selectPostsMap,
+  editPostAsync
+} from "@/redux";
+import { isValidImgUrl } from "@/lib/utils";
 
 export default function Page() {
-  const { post } = useParams();
+  // Redux state hooks
+  const dispatch = useDispatch();
+  const postsMap = useSelector(selectPostsMap);
 
-  const [title, setTitle] = useState("");
-  const [formData, setFormData] = useState({ description: "" });
+  // Routing and navigation hooks
+  const postId = useParams().post as string;
+  const router = useRouter();
+
+  // Local state
+  const [title, setTitle] = useState(postsMap[postId]?.title);
+  const [formData, setFormData] = useState(postsMap[postId]?.content);
+  const [coverUrl, setCoverUrl] = useState(postsMap[postId]?.imageURL);
   const [action, setAction] = useState(null);
-
-  // obtain the post data
-  useEffect(() => {}, []);
-
-  /**
-   * Saves the edited version of the post as a draft
-   * However, it keeps the old version published
-   */
-  const saveAsDraft = () => {
-    // TODO
-  };
 
   /**
    * Publishes the edited version of the post
    */
   const publishNewVersion = () => {
-    // TODO
+    // Do validation
+
+    const newPost: IPost = {
+      ...postsMap[postId],
+      title: title,
+      content: formData,
+      updatedAt: Date.now(),
+      imageURL: coverUrl,
+    };
+
+    dispatch(editPostAsync(newPost));
   };
 
-  const discardChanges = () => {};
+  /**
+   * Discards the changes made to the post
+   */
+  const discardChanges = () => {
+    // Discarding logic here
+  };
 
   const confirmAction = () => {
     action();
     setAction(null);
+    router.push("/admin/posts");
   };
 
   const cancelAction = () => {
@@ -55,26 +78,25 @@ export default function Page() {
   return (
     <section className="h-full w-full flex flex-col justify-center items-center gap-5">
       {/** Title */}
-      <input
+      <Input
+        name="title"
         type="text"
         placeholder="Title"
-        className="w-1/3 p-3 text-2xl rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] hover:opacity-[35%] outline-none"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        minLength={5}
+        maxLength={100}
       />
 
-      {/** Cover file picker */}
-      <div className="flex flex-col text-white w-1/3 gap-5 justify-center items-center">
-        <label htmlFor="cover" className="">
-          Choose cover:
-        </label>
-        <input
-          type="file"
-          name="cover"
-          accept="image/jpeg, image/jpg image/png"
-          className="text-center"
-        />
-      </div>
+      {/** Cover image input */}
+      <Input
+        name="cover"
+        placeholder="Cover URL"
+        value={coverUrl}
+        onChange={(e) => setCoverUrl(e.target.value)}
+        maxLength={1000}
+        customValidator={isValidImgUrl}
+      />
 
       {/** Editor */}
       <Editor formData={formData} setFormData={setFormData} />
@@ -92,10 +114,6 @@ export default function Page() {
         <>
           {/** Buttons */}
           <div className="flex gap-5">
-            <Button
-              textContent="Save"
-              hanlderOnClick={askForConfirmation.bind(null, saveAsDraft)}
-            />
             <Button
               textContent="Publish"
               hanlderOnClick={askForConfirmation.bind(null, publishNewVersion)}
