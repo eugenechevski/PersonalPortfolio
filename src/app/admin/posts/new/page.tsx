@@ -12,20 +12,44 @@ import { useDispatch, addPostAsync } from "@/redux";
 
 import uniqid from "uniqid";
 
+import { isValidImgUrl } from "@/lib/utils";
+
+import { useRouter } from "next/navigation";
+
 export default function Page() {
+  // Routing and navigation hooks
+  const router = useRouter();
+
+  // Redux state hooks
   const dispatch = useDispatch();
 
+  // Local state
   const [title, setTitle] = useState("");
-  const [formData, setFormData] = useState({ description: "" });
+  const [formData, setFormData] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
   const [action, setAction] = useState(null);
 
   /**
-   * Saves the edited version of the post as a draft
-   * However, it keeps the old version published
+   * Saves the post as a draft
    */
   const saveAsDraft = () => {
-    // TODO
+    // The same logis as for publishing but with a different flag
+
+    const newPost: IPost = {
+      _id: uniqid(),
+      title: title,
+      content: formData,
+      author: "Eugene Chevski", // Update for the user once the auth is implemented
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      published: false,
+      imageURL: coverUrl,
+      tags: [],
+      likes: 0,
+      replies: [],
+    };
+
+    dispatch(addPostAsync(newPost));
   };
 
   /**
@@ -37,8 +61,8 @@ export default function Page() {
     const newPost: IPost = {
       _id: uniqid(),
       title: title,
-      content: formData.description,
-      author: "Eugene Chevski",
+      content: formData,
+      author: "Eugene Chevski", // Update for the user once the auth is implemented
       createdAt: Date.now(),
       updatedAt: Date.now(),
       published: true,
@@ -51,11 +75,14 @@ export default function Page() {
     dispatch(addPostAsync(newPost));
   };
 
-  const discardChanges = () => {};
+  const discardChanges = () => {
+    // Discarding logic here
+  };
 
   const confirmAction = () => {
     action();
     setAction(null);
+    router.push("/admin/posts");
   };
 
   const cancelAction = () => {
@@ -74,12 +101,14 @@ export default function Page() {
   return (
     <section className="h-full w-full flex flex-col justify-center items-center gap-5">
       {/** Title */}
-      <input
+      <Input
+        name="title"
         type="text"
         placeholder="Title"
-        className="w-1/3 p-3 text-2xl rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] hover:opacity-[35%] outline-none"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        minLength={5}
+        maxLength={100}
       />
 
       {/** Cover image input */}
@@ -89,6 +118,7 @@ export default function Page() {
         value={coverUrl}
         onChange={(e) => setCoverUrl(e.target.value)}
         maxLength={1000}
+        customValidator={isValidImgUrl}
       />
 
       {/** Editor */}
