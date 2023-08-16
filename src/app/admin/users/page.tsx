@@ -6,36 +6,6 @@ import { useState } from "react";
 import uniqid from "uniqid";
 import Link from "next/link";
 
-const mockUsers: IUser[] = [
-  {
-    userId: uniqid(),
-    fullName: "Eugene Chevski",
-    email: "eugenechevski@proton.me",
-    password: "eugene123",
-    title: "Founder",
-    articlesPublished: 12,
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 100).getTime(),
-  },
-  {
-    userId: uniqid(),
-    fullName: "Nathaly Simpliya",
-    email: "nathalysimp@gmail.com",
-    password: "nathaly123",
-    title: "Editor",
-    articlesPublished: 5,
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 75).getTime(),
-  },
-  {
-    userId: uniqid(),
-    fullName: "Andrew McFlaughter",
-    email: "andrewmcflaught@yahoo.me",
-    password: "andrew123",
-    title: "Author",
-    articlesPublished: 7,
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 50).getTime(),
-  },
-];
-
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
 
 export default function Page() {
@@ -78,23 +48,7 @@ export default function Page() {
             </tr>
           </thead>
           <tbody>
-            {mockUsers.map((user, index) => {
-              return (
-                <tr
-                  key={user.userId}
-                  onClick={setSelectedUser.bind(null, user)}
-                  className={
-                    selectedUser?.userId === user.userId ? selectionClasses : ""
-                  }
-                >
-                  <td>{index + 1}</td>
-                  <td>{user.fullName}</td>
-                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                  <td>{user.title}</td>
-                  <td>{user.articlesPublished}</td>
-                </tr>
-              );
-            })}
+            {/** Users here */}
           </tbody>
         </table>
       </div>

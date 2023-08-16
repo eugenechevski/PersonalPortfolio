@@ -7,7 +7,7 @@ import Button from "@/components/Button";
 import { useState, useEffect } from "react";
 
 import {
-  fullNamePattern,
+  userNamePattern,
   emailPattern,
   passwordPattern,
 } from "@/lib/constants";
@@ -44,7 +44,7 @@ export default function Page() {
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           size="lg"
-          pattern={fullNamePattern}
+          pattern={userNamePattern}
         />
         <Input
           name="password"
