@@ -3,43 +3,67 @@
 // Page for creating a new user
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import {
-  fullNamePattern,
+  userNamePattern,
   emailPattern,
-  passwordPattern
+  passwordPattern,
 } from "@/lib/constants";
 
+import uniqid from "uniqid";
+
 export default function Page() {
-  const [fullName, setFullName] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
+
+  const actions = {
+    add_posts: useRef<HTMLInputElement>(null),
+    edit_posts: useRef<HTMLInputElement>(null),
+    delete_posts: useRef<HTMLInputElement>(null),
+    add_users: useRef<HTMLInputElement>(null),
+    edit_users: useRef<HTMLInputElement>(null),
+    delete_users: useRef<HTMLInputElement>(null),
+  }
 
   const createUser = (e) => {
     e.preventDefault();
 
-    console.log({
-        fullName,
-        email,
-        password,
-        title
-    })
+    const user: IUser = {
+      userId: uniqid(),
+      userName,
+      email,
+      password,
+      createdAt: Date.now(),
+      articlesPublished: 0,
+      allowedActions: {
+        canCreatePost: actions.add_posts.current.checked,
+        canEditPost: actions.edit_posts.current.checked,
+        canDeletePost: actions.delete_posts.current.checked,
+        canCreateUser: actions.add_users.current.checked,
+        canEditUser: actions.edit_users.current.checked,
+        canDeleteUser: actions.delete_users.current.checked,
+      }
+    }
+
+    console.log(user);
   };
 
   return (
     <section className="w-full h-full flex items-center justify-center">
       {/** Form for creating a user: name, email, password, and title */}
-      <form className="w-1/2 h-1/2 flex flex-col justify-center items-center gap-5"
-            onSubmit={createUser}>
+      <form
+        className="w-1/2 h-1/2 flex flex-col justify-center items-center gap-5"
+        onSubmit={createUser}
+      >
         <Input
-          name="fullName"
-          placeholder="Full name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
+          name="userName"
+          placeholder="Username"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
           size="lg"
-          pattern={fullNamePattern}
+          pattern={userNamePattern}
         />
         <Input
           name="password"
@@ -59,22 +83,30 @@ export default function Page() {
           size="lg"
           pattern={emailPattern}
         />
-        {/** List of options */}
-        <select
-          className="text-2xl rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] hover:opacity-[35%] outline-none w-1/2 p-4"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        >
-          <option value="" disabled>
-            Select a title
-          </option>
-          <option value="Founder">Founder</option>
-          <option value="Editor">Editor</option>
-          <option value="Author">Writer</option>
-        </select>
-        <Button textContent="Create" type="submit"/>
+
+        {/** Checkbox of access control */}
+        {/** Includes: add, edit, and delete posts and users */}
+        <fieldset className="text-white mb-5">
+          <legend className="text-2xl mb-5">Allowed Actions</legend>
+          <div className="flex flex-col gap-2 justify-center">
+            {
+              Object.keys(actions).map((action) => {
+                return (
+                  <div key={uniqid()} className="flex flex-row items-center gap-2">
+                    <input
+                      type="checkbox"
+                      name={action}
+                      ref={actions[action]}
+                    />
+                    <label htmlFor={action} className="ml-8 text-center">{action.split('_').join(' ')}</label>
+                  </div>
+                )
+              })
+            }
+            
+          </div>
+        </fieldset>
+        <Button textContent="Create" type="submit" />
       </form>
     </section>
   );
