@@ -28,10 +28,17 @@ declare interface Tag {
 
 declare interface IUser {
   userId: string;
-  fullName: string;
+  userName: string;
   email: string;
   password: string;
-  title: string;
   articlesPublished: number;
   createdAt: number;
+  allowedActions: {
+    canCreatePost: boolean;
+    canDeletePost: boolean;
+    canEditPost: boolean;
+    canCreateUser: boolean;
+    canDeleteUser: boolean;
+    canEditUser: boolean;
+  }
 }
