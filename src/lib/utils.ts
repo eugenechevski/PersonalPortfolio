@@ -12,3 +12,5 @@ export const isValidImgUrl = (url: string) => {
 
     return img.complete;
 }
+
+export const strip = (str: string) => str.replace(/^\s+|\s+$/g, '');
