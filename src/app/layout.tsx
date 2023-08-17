@@ -3,6 +3,7 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
 import { Providers } from "@/redux/providers";
+import {SessionProvider} from 'next-auth/react';
 
 const lato = Lato({
   weight: "400",
@@ -32,7 +33,9 @@ export default function RootLayout({
             " relative text-shadow purple-haze scroll-smooth hide-scrollbar snap-center snap-normal snap-mandatory"
           }
         >
-          {children}
+          <SessionProvider>
+            {children}
+          </SessionProvider>
         </body>
       </html>
     </Providers>
