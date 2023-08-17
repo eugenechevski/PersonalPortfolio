@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
+import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
@@ -18,25 +19,30 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        // You can also use the `req` object to obtain additional parameters
-        // (i.e., the request IP address)
-        const res = await fetch("/your/endpoint", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
+        // Connect to database
+        const db = await clientPromise.then((client) => client.db());
+        const collection = await db.collection<IUser>('users');
+        const userFound = await collection.findOne({
+          userName: credentials.username,
         });
-        const user = await res.json();
 
-        // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user;
+        if (!userFound) {
+          throw new Error("No user found");
         }
-        // Return null if user data could not be retrieved
-        return null;
+
+        const passwordsMatch = await bcrypt.compare(
+          credentials.password,
+          userFound.password
+        );
+        
+        if (!passwordsMatch) {
+          throw new Error("Password do not match");
+        }
+
+        return {
+          username: userFound.userName,
+          email: userFound.email,
+        };
       },
     }),
   ],
