@@ -4,6 +4,12 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 
+interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -18,7 +24,7 @@ const handler = NextAuth({
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      authorize: async function (credentials, req): Promise<User> {
         // Connect to database
         const db = await clientPromise.then((client) => client.db());
         const collection = await db.collection<IUser>('users');
@@ -40,6 +46,7 @@ const handler = NextAuth({
         }
 
         return {
+          id: userFound._id.toString(),
           username: userFound.userName,
           email: userFound.email,
         };
