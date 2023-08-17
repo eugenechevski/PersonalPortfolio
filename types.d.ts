@@ -33,12 +33,12 @@ declare interface IUser {
   password: string;
   articlesPublished: number;
   createdAt: number;
-  allowedActions: {
-    canCreatePost: boolean;
-    canDeletePost: boolean;
-    canEditPost: boolean;
-    canCreateUser: boolean;
-    canDeleteUser: boolean;
-    canEditUser: boolean;
+  permissions: {
+    createPost: boolean;
+    deletePost: boolean;
+    editPost: boolean;
+    createUser: boolean;
+    deleteUser: boolean;
+    editUser: boolean;
   }
 }
