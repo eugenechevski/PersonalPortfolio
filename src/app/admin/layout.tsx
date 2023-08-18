@@ -1,13 +1,20 @@
+'use client';
+
 import type React from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react"
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data } = useSession({
+    required: true
+  });
+
   return (
     <section className="w-screen h-screen">
       <nav className="flex w-full h-[10%] p-12 text-white gap-12 text-center">
@@ -28,9 +35,9 @@ export default function AdminLayout({
 
         {/** Right side */}
         <div className="flex gap-12 mt-2 text-lg items-center ml-auto">
-          <span className="text-xl whitespace-nowrap">Hey, Eugene</span>
+          <span className="text-xl whitespace-nowrap">{`Hey, ${data?.user?.name}`}</span>
           <FontAwesomeIcon className="w-6" icon={faUser}></FontAwesomeIcon>
-          <Link href={"/admin/login"}>
+          <Link href={"/api/auth/signout"}>
             <FontAwesomeIcon
               className="w-6"
               icon={faRightFromBracket}

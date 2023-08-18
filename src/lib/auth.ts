@@ -5,12 +5,6 @@ import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 import { strip } from "@/lib/utils";
 
-interface User {
-  id: string;
-  username: string;
-  email: string;
-}
-
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -25,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         username: { type: "text" },
         password: { type: "password" },
       },
-      authorize: async function (credentials, req): Promise<User> {
+      authorize: async function (credentials, req): Promise<{id: string, name: string, email: string }> {
         // Connect to database
         const db = (await clientPromise).db("personal_blog");
         const collection = await db.collection<IUser>("users");
@@ -49,7 +43,7 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: userFound.userId,
-          username: userFound.userName,
+          name: userFound.userName,
           email: userFound.email,
         };
       },
