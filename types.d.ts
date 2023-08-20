@@ -33,6 +33,7 @@ declare interface AdminUser {
   password: string;
   articlesPublished: number;
   createdAt: number;
+  updatedAt: number;
   permissions: {
     createPost: boolean;
     deletePost: boolean;
