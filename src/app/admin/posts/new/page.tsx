@@ -6,9 +6,9 @@ import Editor from "@/components/Editor";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useDispatch, addPostAsync } from "@/redux";
+import { useDispatch, addPostAsync, selectUser, useSelector } from "@/redux";
 
 import uniqid from "uniqid";
 
@@ -22,6 +22,16 @@ export default function Page() {
 
   // Redux state hooks
   const dispatch = useDispatch();
+
+  // User
+  const user = useSelector(selectUser);
+
+  // Determine if the current user has the permissions to create a post
+  useEffect(() => {
+    if (user.userName.length > 0 && !user.permissions.createPost) {
+      router.push("/admin/posts");
+    }
+  }, [user, router]);
 
   // Local state
   const [title, setTitle] = useState("");
