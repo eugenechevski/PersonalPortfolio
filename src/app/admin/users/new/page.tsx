@@ -13,18 +13,18 @@ import {
 
 import uniqid from "uniqid";
 
-import {
-  useSelector,
-  selectUser
-} from '@/redux';
+import { useSelector, selectUser, addUserAsync, useDispatch } from "@/redux";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
+import bcrypt from "bcryptjs";
 
 export default function Page() {
   const router = useRouter();
 
   // User state
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   // Determine if the current user has the permissions to create a user
   useEffect(() => {
@@ -32,7 +32,6 @@ export default function Page() {
       router.push("/admin/users");
     }
   }, [user, router]);
-
 
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -45,17 +44,18 @@ export default function Page() {
     add_users: useRef<HTMLInputElement>(null),
     edit_users: useRef<HTMLInputElement>(null),
     delete_users: useRef<HTMLInputElement>(null),
-  }
+  };
 
   const createUser = (e) => {
     e.preventDefault();
 
     const user: AdminUser = {
-      userId: uniqid(),
+      _id: uniqid(),
       userName,
       email,
-      password,
+      password: bcrypt.hashSync(password, 10),
       createdAt: Date.now(),
+      updatedAt: Date.now(),
       articlesPublished: 0,
       permissions: {
         createPost: actions.add_posts.current.checked,
@@ -64,10 +64,11 @@ export default function Page() {
         createUser: actions.add_users.current.checked,
         editUser: actions.edit_users.current.checked,
         deleteUser: actions.delete_users.current.checked,
-      }
-    }
+      },
+    };
 
-    console.log(user);
+    dispatch(addUserAsync(user));
+    router.push("/admin/users");
   };
 
   return (
@@ -102,6 +103,7 @@ export default function Page() {
           type="email"
           size="lg"
           pattern={emailPattern}
+          maxLength={50}
         />
 
         {/** Checkbox of access control */}
@@ -109,21 +111,19 @@ export default function Page() {
         <fieldset className="text-white mb-5">
           <legend className="text-2xl mb-5">Allowed Actions</legend>
           <div className="flex flex-col gap-2 justify-center">
-            {
-              Object.keys(actions).map((action) => {
-                return (
-                  <div key={uniqid()} className="flex flex-row items-center gap-2">
-                    <input
-                      type="checkbox"
-                      name={action}
-                      ref={actions[action]}
-                    />
-                    <label htmlFor={action} className="ml-8 text-center">{action.split('_').join(' ')}</label>
-                  </div>
-                )
-              })
-            }
-            
+            {Object.keys(actions).map((action) => {
+              return (
+                <div
+                  key={uniqid()}
+                  className="flex flex-row items-center gap-2"
+                >
+                  <input type="checkbox" name={action} ref={actions[action]} />
+                  <label htmlFor={action} className="ml-8 text-center">
+                    {action.split("_").join(" ")}
+                  </label>
+                </div>
+              );
+            })}
           </div>
         </fieldset>
         <Button textContent="Create" type="submit" />
