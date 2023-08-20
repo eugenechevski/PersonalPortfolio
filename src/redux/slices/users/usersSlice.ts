@@ -24,18 +24,18 @@ export const adminUsersSlice = createSlice({
     },
     removeAdminUser: (state, action: PayloadAction<string>) => {
       state.array = state.array.filter(
-        (user) => user.userId !== action.payload
+        (user) => user._id !== action.payload
       );
       delete state.map[action.payload];
     },
     updateAdminUser: (state, action: PayloadAction<AdminUser>) => {
       const updatedUser = action.payload;
 
-      if (state.map[updatedUser.userId]) {
+      if (state.map[updatedUser._id]) {
         // Update state
         // it updates array and map at the same time
         let existingUser = state.array.find(
-          (user) => user.userId === updatedUser.userId
+          (user) => user._id === updatedUser._id
         );
         for (let key in updatedUser) {
           existingUser[key] = updatedUser[key];
@@ -45,7 +45,7 @@ export const adminUsersSlice = createSlice({
     setAdminUsers: (state, action: PayloadAction<AdminUser[]>) => {
       state.array = action.payload;
       state.map = action.payload.reduce((map, user) => {
-        map[user.userId] = user;
+        map[user._id] = user;
         return map;
       }, {} as { [key: string]: AdminUser });
     },

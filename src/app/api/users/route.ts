@@ -2,8 +2,6 @@
 
 import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
-
 export async function GET() {
   const client = await clientPromise;
   const db = client.db("personal_blog");
@@ -27,7 +25,7 @@ export async function PUT(req: Request) {
   const db = client.db("personal_blog");
   const result = await db
     .collection<AdminUser>("users")
-    .updateOne({ _id: new ObjectId(user.userId) }, { $set: user });
+    .updateOne({ _id: user._id }, { $set: user });
 
   return NextResponse.json(result);
 }
@@ -39,7 +37,7 @@ export async function DELETE(req: Request) {
   const db = client.db("personal_blog");
 
   const result = await db.collection<AdminUser>("users").deleteOne({
-    _id: new ObjectId(userId),
+    _id: userId,
   });
 
   return NextResponse.json(result);

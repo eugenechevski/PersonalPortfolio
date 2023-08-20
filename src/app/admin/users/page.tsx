@@ -32,9 +32,9 @@ export default function Page() {
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
 
   const deleteUser = () => {
-    if (selectedUser?.userId === 'eugenechevski') { return; }
+    if (selectedUser?._id === 'eugenechevski') { return; }
     
-    dispatch(deleteUserAsync(selectedUser?.userId));
+    dispatch(deleteUserAsync(selectedUser?._id));
   };
 
   return (
@@ -56,7 +56,7 @@ export default function Page() {
             {/** Edit button */}
             {user.permissions.editUser && (
               <button>
-                <Link href={`/admin/users/${selectedUser?.userId}`}>Edit</Link>
+                <Link href={`/admin/users/${selectedUser?._id}`}>Edit</Link>
               </button>
             )}
 
@@ -84,10 +84,10 @@ export default function Page() {
           <tbody>
             {users.map((user, index) => (
               <tr
-                key={user.userId}
+                key={user._id}
                 onClick={() => setSelectedUser(user)}
                 className={
-                  selectedUser?.userId === user?.userId ? selectionClasses : ""
+                  selectedUser?._id === user?._id ? selectionClasses : ""
                 }
               >
                 <td>{index + 1}</td>

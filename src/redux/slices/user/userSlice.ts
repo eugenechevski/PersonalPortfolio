@@ -9,11 +9,12 @@ export interface AdminUserSliceState {
 
 const initialState: AdminUserSliceState = {
   value: {
-    userId: "",
+    _id: "",
     userName: "",
     email: "",
     password: "",
     createdAt: 0,
+    updatedAt: 0,
     permissions: {
       createPost: false,
       editPost: false,

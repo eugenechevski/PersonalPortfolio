@@ -27,7 +27,7 @@ declare interface Tag {
 }
 
 declare interface AdminUser {
-  userId: string;
+  _id: string;
   userName: string;
   email: string;
   password: string;
