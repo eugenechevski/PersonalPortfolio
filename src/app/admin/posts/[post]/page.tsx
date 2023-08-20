@@ -6,14 +6,15 @@ import Editor from "@/components/Editor";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import {
   useDispatch,
   useSelector,
   selectPostsMap,
-  editPostAsync
+  editPostAsync,
+  selectUser
 } from "@/redux";
 import { isValidImgUrl } from "@/lib/utils";
 
@@ -25,6 +26,16 @@ export default function Page() {
   // Routing and navigation hooks
   const postId = useParams().post as string;
   const router = useRouter();
+
+  // User
+  const user = useSelector(selectUser);
+
+  // Determine if the current user has the permissions to edit a post
+  useEffect(() => {
+    if (user.userName.length > 0 && !user.permissions.editPost) {
+      router.push("/admin/posts");
+    }
+  }, [user, router])
 
   // Local state
   const [title, setTitle] = useState(postsMap[postId]?.title);
