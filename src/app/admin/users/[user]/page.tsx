@@ -12,14 +12,32 @@ import {
   passwordPattern,
 } from "@/lib/constants";
 
+import {
+  useDispatch,
+  useSelector,
+  selectUser,
+} from "@/redux";
+
+import { useRouter } from "next/navigation";
+
 export default function Page() {
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [title, setTitle] = useState<string>("");
 
+  // Routing and navigation hooks
+  const router = useRouter();
+
   // Get user data
-  useEffect(() => {}, []);
+  const user = useSelector(selectUser);
+
+  // Determine if the current user has the permissions to edit a user
+  useEffect(() => {
+    if (user.userName.length > 0 && !user.permissions.editUser) {
+      router.push("/admin/users");
+    }
+  }, [user, router]);
 
   const updateUser = (e) => {
     e.preventDefault();
