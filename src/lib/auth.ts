@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
       authorize: async function (credentials, req): Promise<{id: string, name: string, email: string }> {
         // Connect to database
         const db = (await clientPromise).db("personal_blog");
-        const collection = await db.collection<IUser>("users");
+        const collection = await db.collection<AdminUser>("users");
         let userFound = await collection.findOne({
           userName: strip(credentials.username),
         });

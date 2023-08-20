@@ -26,7 +26,7 @@ declare interface Tag {
   posts: IPost[];
 }
 
-declare interface IUser {
+declare interface AdminUser {
   userId: string;
   userName: string;
   email: string;

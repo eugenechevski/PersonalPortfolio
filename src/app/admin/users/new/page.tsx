@@ -30,20 +30,20 @@ export default function Page() {
   const createUser = (e) => {
     e.preventDefault();
 
-    const user: IUser = {
+    const user: AdminUser = {
       userId: uniqid(),
       userName,
       email,
       password,
       createdAt: Date.now(),
       articlesPublished: 0,
-      allowedActions: {
-        canCreatePost: actions.add_posts.current.checked,
-        canEditPost: actions.edit_posts.current.checked,
-        canDeletePost: actions.delete_posts.current.checked,
-        canCreateUser: actions.add_users.current.checked,
-        canEditUser: actions.edit_users.current.checked,
-        canDeleteUser: actions.delete_users.current.checked,
+      permissions: {
+        createPost: actions.add_posts.current.checked,
+        editPost: actions.edit_posts.current.checked,
+        deletePost: actions.delete_posts.current.checked,
+        createUser: actions.add_users.current.checked,
+        editUser: actions.edit_users.current.checked,
+        deleteUser: actions.delete_users.current.checked,
       }
     }
 

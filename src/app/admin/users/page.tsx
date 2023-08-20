@@ -13,7 +13,7 @@ export default function Page() {
     // TODO
   };
 
-  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
 
   return (
     <section className="h-full w-full flex flex-col justify-center items-center text-white">
