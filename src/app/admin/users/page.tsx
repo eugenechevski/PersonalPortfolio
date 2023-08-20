@@ -3,18 +3,38 @@
 
 import Link from "next/link";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { selectUser, useSelector } from "@/redux";
+import {
+  selectUser,
+  useSelector,
+  useDispatch,
+  deleteUserAsync,
+  getUsersAsync,
+  selectUsersArray
+} from "@/redux";
 
 export default function Page() {
+  const selectionClasses = "bg-opacity-[25%] bg-gray-500";
+
+  // Users state
+  const dispatch = useDispatch();
+  const users = useSelector(selectUsersArray);
+
+  // Load users
+  useEffect(() => {
+    dispatch(getUsersAsync());
+  }, [dispatch]);
+
   // User state
   const user = useSelector(selectUser);
 
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
 
   const deleteUser = () => {
-    // TODO
+    if (selectedUser?.userId === 'eugenechevski') { return; }
+    
+    dispatch(deleteUserAsync(selectedUser?.userId));
   };
 
   return (
@@ -58,11 +78,25 @@ export default function Page() {
               <th>#</th>
               <th>Name</th>
               <th>Date Added</th>
-              <th>Title</th>
               <th>Articles Published</th>
             </tr>
           </thead>
-          <tbody>{/** Users here */}</tbody>
+          <tbody>
+            {users.map((user, index) => (
+              <tr
+                key={user.userId}
+                onClick={() => setSelectedUser(user)}
+                className={
+                  selectedUser?.userId === user?.userId ? selectionClasses : ""
+                }
+              >
+                <td>{index + 1}</td>
+                <td>{user.userName}</td>
+                <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                <td>{user.articlesPublished}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </section>
