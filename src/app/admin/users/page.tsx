@@ -1,36 +1,51 @@
 // Page for for managing users
-
 "use client";
 
-import { useState } from "react";
-import uniqid from "uniqid";
 import Link from "next/link";
 
-const selectionClasses = "bg-opacity-[25%] bg-gray-500";
+import { useState } from "react";
+
+import { selectUser, useSelector } from "@/redux";
 
 export default function Page() {
+  // User state
+  const user = useSelector(selectUser);
+
+  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
+
   const deleteUser = () => {
     // TODO
   };
-
-  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
 
   return (
     <section className="h-full w-full flex flex-col justify-center items-center text-white">
       {/** Toolbar */}
       <div className="w-3/4 h-[10%] flex text-shadow">
         {/** Add user button */}
-        <Link className="text-shadow" href="/admin/users/new">
-          New User
-        </Link>
+        {user.permissions.createUser && (
+          <>
+            <Link className="text-shadow" href="/admin/users/new">
+              New User
+            </Link>
+          </>
+        )}
 
         {/** Edit and Delete */}
         {selectedUser && (
           <div className="flex gap-4 ml-auto button-text-shadow">
-            <button>
-              <Link href={`/admin/users/${selectedUser?.userId}`}>Edit</Link>
-            </button>
-            <button onClick={deleteUser}>Delete</button>
+            {/** Edit button */}
+            {user.permissions.editUser && (
+              <button>
+                <Link href={`/admin/users/${selectedUser?.userId}`}>Edit</Link>
+              </button>
+            )}
+
+            {/** Delete button */}
+            {user.permissions.deleteUser && (
+              <>
+                <button onClick={deleteUser}>Delete</button>
+              </>
+            )}
           </div>
         )}
       </div>
@@ -47,9 +62,7 @@ export default function Page() {
               <th>Articles Published</th>
             </tr>
           </thead>
-          <tbody>
-            {/** Users here */}
-          </tbody>
+          <tbody>{/** Users here */}</tbody>
         </table>
       </div>
     </section>
