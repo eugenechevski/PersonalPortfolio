@@ -10,7 +10,8 @@ import {
   editPostAsync,
   deletePostAsync,
   getPostsAsync,
-} from '@/redux'
+  selectUser,
+} from "@/redux";
 
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
 
@@ -18,6 +19,8 @@ export default function Page() {
   const dispatch = useDispatch();
   const posts = useSelector(selectPostsArray);
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
+
+  const user = useSelector(selectUser);
 
   // Load posts
   useEffect(() => {
@@ -43,22 +46,40 @@ export default function Page() {
       {/** Toolbar */}
       <div className="w-3/4 h-[10%] flex text-shadow">
         {/** Add post button */}
-        <Link className="text-shadow" href="/admin/posts/new">
-          New post
-        </Link>
+        {user.permissions.createPost && (
+          <>
+            <Link className="text-shadow" href="/admin/posts/new">
+              New post
+            </Link>
+          </>
+        )}
 
         {/** Edit, Delete, and Publish/Unpublish buttons */}
         {selectedPost && (
           <div className="flex gap-4 ml-auto button-text-shadow">
-            <button>
-              <Link href={`/admin/posts/${selectedPost?._id}`}>Edit</Link>
-            </button>
-            <button onClick={deletePost}>Delete</button>
-            {/** Conditional rendering for published or unpublished posts*/}
-            {selectedPost?.published ? (
-              <button onClick={unpublishPost}>Unpublish</button>
-            ) : (
-              <button onClick={publishPost}>Publish</button>
+            {/** Edit post button */}
+            {user.permissions.editPost && (
+              <>
+                <button>
+                  <Link href={`/admin/posts/${selectedPost?._id}`}>Edit</Link>
+                </button>
+
+                {/** Publish/Unpublish post button */}
+                <button
+                  onClick={
+                    selectedPost?.published ? unpublishPost : publishPost
+                  }
+                >
+                  {selectedPost?.published ? "Unpublish" : "Publish"}
+                </button>
+              </>
+            )}
+
+            {/** Delete post button */}
+            {user.permissions.deletePost && (
+              <>
+                <button onClick={deletePost}>Delete</button>
+              </>
             )}
           </div>
         )}
