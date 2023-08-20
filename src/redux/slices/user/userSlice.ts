@@ -2,12 +2,12 @@
 
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-export interface UserSliceState {
+export interface AdminUserSliceState {
   value: AdminUser;
   status: "idle" | "loading" | "failed";
 }
 
-const initialState: UserSliceState = {
+const initialState: AdminUserSliceState = {
   value: {
     userId: "",
     userName: "",
