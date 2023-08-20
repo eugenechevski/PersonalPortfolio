@@ -1,9 +1,9 @@
+// Page for creating a new user
 "use client";
 
-// Page for creating a new user
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import {
   userNamePattern,
@@ -13,7 +13,27 @@ import {
 
 import uniqid from "uniqid";
 
+import {
+  useSelector,
+  selectUser
+} from '@/redux';
+
+import { useRouter } from "next/router";
+
 export default function Page() {
+  const router = useRouter();
+
+  // User state
+  const user = useSelector(selectUser);
+
+  // Determine if the current user has the permissions to create a user
+  useEffect(() => {
+    if (user.userName.length > 0 && !user.permissions.createUser) {
+      router.push("/admin/users");
+    }
+  }, [user, router]);
+
+
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
