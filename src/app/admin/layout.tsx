@@ -1,19 +1,40 @@
 'use client';
 
-import type React from "react";
 import Link from "next/link";
+
+import { useSession } from "next-auth/react"
+
+import type React from "react";
+import { useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useSession } from "next-auth/react"
+
+import {
+  setUserAsync,
+  selectUser,
+  useSelector,
+  useDispatch
+} from '@/redux'
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
   const { data } = useSession({
     required: true
   });
+
+  useEffect(() => {
+    // Update the global admin user state
+    if (data?.user) {
+      dispatch(setUserAsync(data.user.name));
+    }
+  }, [data, data?.user, dispatch]);
 
   return (
     <section className="w-screen h-screen">
@@ -35,7 +56,7 @@ export default function AdminLayout({
 
         {/** Right side */}
         <div className="flex gap-12 mt-2 text-lg items-center ml-auto">
-          <span className="text-xl whitespace-nowrap">{`Hey, ${data?.user?.name}`}</span>
+          <span className="text-xl whitespace-nowrap">{`Hey, ${user.userName}`}</span>
           <FontAwesomeIcon className="w-6" icon={faUser}></FontAwesomeIcon>
           <Link href={"/api/auth/signout"}>
             <FontAwesomeIcon
