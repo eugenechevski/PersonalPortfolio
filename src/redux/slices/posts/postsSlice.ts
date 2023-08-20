@@ -1,7 +1,6 @@
 // Slice for posts
 
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { WritableDraft } from "immer/dist/internal";
 
 const initialState: PostsSliceState = {
   array: [],
