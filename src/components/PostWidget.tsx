@@ -22,7 +22,7 @@ export default function PostWidget(props: {post: IPost}): JSX.Element {
             <h1 className="font-bold text-3xl">{title}</h1>
         </Link>
 
-        <div className="flex">
+        <div className="flex gap-5">
           <div className="flex gap-3">
             {/** Likes */}
             <div>{likes} likes</div>

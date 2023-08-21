@@ -8,7 +8,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'natureconservancy-h.assetsadobe.com',
+        hostname: 'github.com',
         port: '',
         pathname: '/**'
       }
