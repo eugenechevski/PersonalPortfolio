@@ -30,7 +30,7 @@ export default function RootLayout({
         <body
           className={
             lato.className +
-            " relative text-shadow purple-haze scroll-smooth hide-scrollbar snap-center snap-normal snap-mandatory"
+            " relative text-shadow purple-haze scroll-smooth hide-scrollbar snap-center snap-normal snap-mandatory max-h-max max-w-max"
           }
         >
           <SessionProvider>

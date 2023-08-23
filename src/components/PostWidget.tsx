@@ -42,7 +42,7 @@ export default function PostWidget(props: {post: IPost}): JSX.Element {
       </div>
 
       {/** Blog image */}
-      <div className="relative w-1/3 h-1/3 md:w-1/4 md:h-1/2 shadow-2xl drop-shadow-2xl">
+      <div className="relative w-1/3 h-1/3 md:w-1/4 md:h-1/2">
         <Image src={imageURL} alt={"post thumbnail"} fill></Image>
       </div>
     </div>
