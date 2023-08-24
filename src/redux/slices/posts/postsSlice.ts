@@ -19,7 +19,7 @@ export const postsSlice = createSlice({
   reducers: {
     addPost: (state, action) => {
       state.array.push(action.payload);
-      state.map[action.payload._id] = action.payload;
+      state.map[action.payload._id] = state.array[state.array.length - 1];
     },
     removePost: (state, action: PayloadAction<string>) => {
       state.array = state.array.filter((post) => post._id !== action.payload);
@@ -29,20 +29,25 @@ export const postsSlice = createSlice({
       const updatedPost = action.payload;
 
       if (state.map[updatedPost._id]) {
-        // Update state
-        // it updates array and map at the same time
-        let existingPost = state.array.find(
+        // updates the map and array at the same time
+        for (const key in updatedPost) {
+          state.map[updatedPost._id][key] = updatedPost[key];
+        }
+
+        const index = state.array.findIndex(
           (post) => post._id === updatedPost._id
         );
-        for (let key in updatedPost) {
-          existingPost[key] = updatedPost[key];
+
+        // update the array
+        for (const key in updatedPost) {
+          state.array[index][key] = updatedPost[key];
         }
       }
     },
     setPosts: (state, action) => {
       state.array = action.payload;
       state.map = {};
-      action.payload.forEach((post) => {
+      state.array.forEach((post) => {
         state.map[post._id] = post;
       });
     },

@@ -4,7 +4,6 @@
 import parse, {
   type HTMLReactParserOptions,
   Element,
-  domToReact,
 } from "html-react-parser";
 
 import { useParams } from "next/navigation";
@@ -19,6 +18,8 @@ import {
 // Font awesome: share, comment, and like icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare, faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
+
+import { useState } from "react";
 
 const options: HTMLReactParserOptions = {
   replace: (domNode) => {
@@ -40,6 +41,10 @@ export default function PostPage() {
   const posts = useSelector(selectPostsMap);
 
   const post = posts[postId];
+  
+  // Obtain the current like state from the user's browser
+  const likedPosts: {[key: string]: boolean} = JSON.parse(localStorage.getItem('likedPosts') || '{}');
+  const [isLiked, setIsLiked] = useState(postId in likedPosts && likedPosts[postId] ? true : false);
 
   const handleShare = () => {
     // TODO
@@ -49,17 +54,34 @@ export default function PostPage() {
     // TODO
   };
 
-  const handleLike = () => {
-    // TODO
+  const handleLike = async () => {
+    // Update the like state of the post in the database
+    dispatch(
+      editPostAsync({
+        ...post,
+        likes: post.likes + (isLiked ? -1 : 1),
+      })
+    );
+    
+    // Update the like state of the user in the browser
+    likedPosts[postId] = !isLiked;
+    localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+
+    // Update the local state
+    setIsLiked(!isLiked);
   };
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center relative text-white mb-12 max-h-max overflow-scroll hide-scrollbar">
       {/** Title */}
-      <h1 className="text-2xl sm:text-5xl font-bold text-center">{post?.title}</h1>
+      <h1 className="text-2xl sm:text-5xl font-bold text-center">
+        {post?.title}
+      </h1>
 
       {/** Author */}
-      <h2 className="text-sm sm:text-xl italic text-center mt-12">by {post?.author}</h2>
+      <h2 className="text-sm sm:text-xl italic text-center mt-12">
+        by {post?.author}
+      </h2>
 
       {/** Date */}
       <h3 className="text-sm sm:text-xl text-center mb-12">
@@ -67,15 +89,13 @@ export default function PostPage() {
       </h3>
 
       {/** Content */}
-      <div className="blog-content">
-        {parse(post?.content || '', options)}
-      </div>
+      <div className="blog-content">{parse(post?.content || "", options)}</div>
 
       {/** Share, comment, and like buttons */}
       <div className="z-50 fixed flex flex-col right-3 sm:right-12 top-0 translate-y-[50vh] text-xl sm:text-2xl">
         {/** Share */}
         <button>
-          <FontAwesomeIcon icon={faShare}/>
+          <FontAwesomeIcon icon={faShare} />
         </button>
 
         {/** Comment */}
@@ -84,10 +104,11 @@ export default function PostPage() {
         </button>
 
         {/** Like */}
-        <button>
-          <FontAwesomeIcon icon={faHeart} />
+        <button onClick={handleLike}>
+          <FontAwesomeIcon icon={faHeart} color={(isLiked && 'red') || ''} beat={isLiked}/>
         </button>
       </div>
     </div>
   );
 }
+
