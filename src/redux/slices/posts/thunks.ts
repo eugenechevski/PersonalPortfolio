@@ -24,7 +24,7 @@ export const getPostsAsync =
 export const addPostAsync =
   (post: IPost): ReduxThunkAction =>
   async (dispatch: ReduxDispatch) => {
-    const data = await fetch("/api/posts", {
+    await fetch("/api/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,10 +53,8 @@ export const deletePostAsync =
 
 export const editPostAsync =
   (post: IPost): ReduxThunkAction =>
-  async (dispatch: ReduxDispatch, getState) => {
-    const posts = selectPostsArray(getState());
-
-    const data = await fetch("/api/posts", {
+  async (dispatch: ReduxDispatch) => {
+    await fetch("/api/posts", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -22,7 +22,7 @@ import {
   faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // next-share: sharing buttons
 import {
@@ -60,11 +60,30 @@ export default function PostPage() {
   const dispatch = useDispatch();
   const posts = useSelector(selectPostsMap);
 
-  const post = posts[postId];
+  // Obtain the post from the Redux store or make an API call
+  const [post, setPost] = useState(posts[postId]);
+
+  useEffect(() => {
+    if (!post) {
+      const fetchPost = async () => {
+        const data = await fetch(`/api/posts?postId=${encodeURIComponent(postId)}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((res) => res.json());
+
+        setPost(data);
+      }
+
+      fetchPost().catch((err) => console.error(err));
+    }
+
+  }, [postId, post]);
 
   // Obtain the current like state from the user's browser
   const likedPosts: { [key: string]: boolean } = JSON.parse(
-    localStorage.getItem("likedPosts") || "{}"
+    localStorage?.getItem("likedPosts") || "{}"
   );
   const [isLiked, setIsLiked] = useState(
     postId in likedPosts && likedPosts[postId] ? true : false
@@ -91,7 +110,7 @@ export default function PostPage() {
 
     // Update the like state of the user in the browser
     likedPosts[postId] = !isLiked;
-    localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
+    localStorage?.setItem("likedPosts", JSON.stringify(likedPosts));
 
     // Update the local state
     setIsLiked(!isLiked);

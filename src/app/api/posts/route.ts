@@ -1,11 +1,24 @@
 // Defines all CRUD routes for the Posts model.
 
 import clientPromise from "@/lib/mongodb";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  // Load database
   const client = await clientPromise;
   const db = client.db("personal_blog");
+
+  // Check if the request is for a specific post
+  const url = new URL(req.url);
+  const postId = url.searchParams.get("postId");
+
+  if (postId) {
+    const post = await db.collection<IPost>("posts").findOne({ _id: postId });
+
+    return NextResponse.json(post);
+  }
+
+  // If not, return all posts
   const posts = await db.collection<IPost>("posts").find({}).toArray();
 
   return NextResponse.json(posts);
