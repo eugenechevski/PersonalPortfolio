@@ -3,7 +3,17 @@
 
 import Link from "next/link";
 
+import { getPostsAsync, useDispatch } from "@/redux";
+import { useEffect } from "react";
+
 export default function BlogLayout({ children }) {
+  const dispatch = useDispatch();
+
+  // Load posts
+  useEffect(() => {
+    dispatch(getPostsAsync());
+  }, [dispatch]);
+
   return (
     <section className="w-screen h-screen">
       {/** Navbar: logo on the left displaying 'E-blog' and 'Home' link on the right point to the root page.*/}

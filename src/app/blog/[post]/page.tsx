@@ -63,23 +63,12 @@ export default function PostPage() {
   // Obtain the post from the Redux store or make an API call
   const [post, setPost] = useState(posts[postId]);
 
+  // Load the post from the Redux store
   useEffect(() => {
     if (!post) {
-      const fetchPost = async () => {
-        const data = await fetch(`/api/posts?postId=${encodeURIComponent(postId)}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then((res) => res.json());
-
-        setPost(data);
-      }
-
-      fetchPost().catch((err) => console.error(err));
+      setPost(posts[postId])
     }
-
-  }, [postId, post]);
+  }, [posts, post, postId, dispatch]);
 
   // Obtain the current like state from the user's browser
   const likedPosts: { [key: string]: boolean } = JSON.parse(
