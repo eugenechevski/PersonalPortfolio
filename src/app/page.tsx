@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import Input from "@/components/Input";
 import Button from "@/components/Button";
@@ -23,6 +24,8 @@ import checkersImg from "@/assets/checkers.jpg";
 import uniqid from "uniqid";
 
 import { emailPattern, textColor } from "@/lib/constants";
+
+import { useForm, ValidationError } from "@formspree/react";
 
 const projects = [
   {
@@ -47,6 +50,16 @@ const projects = [
 ];
 
 export default function Page() {
+  const router = useRouter();
+  const [state, handleSubmit] = useForm(
+    process.env.NEXT_PUBLIC_FRONT_PAGE_FORM
+  );
+
+  // Navigate to the success page if the form was submitted successfully
+  if (state.succeeded) {
+    router.push("/success");
+  }
+
   return (
     <main className="w-100vw max-h-max text-white opacity-50 scroll-smooth transition-all duration-500 ease-in-out">
       <header className="h-[100vh] flex flex-col items-center justify-center gap-12 mb-12">
@@ -64,7 +77,12 @@ export default function Page() {
         <h1 className="text-2xl text-center sm:text-4xl font-bold">
           Hello, I am Eugene Chevski - a full-stack software engineer.
         </h1>
-        <Link href={'/blog'} className="text-white text-xl absolute right-10 top-10">Blog</Link>
+        <Link
+          href={"/blog"}
+          className="text-white text-xl absolute right-10 top-10"
+        >
+          Blog
+        </Link>
       </header>
       <section className="flex flex-col sm:flex-row items-center justify-center gap-12 p-12 mb-12">
         <figure className="shadow-2xl drop-shadow-2xl w-[250px] sm:w-[500px] sm:mb-6">
@@ -164,12 +182,10 @@ export default function Page() {
         <form
           id="contact"
           className="flex flex-col gap-4 sm:w-1/2 lg:w-1/4"
+          onSubmit={handleSubmit}
           method="POST"
-          action={"/success"}
           name="contact"
-          data-netlify="true"
         >
-          <input type="hidden" name="form-name" value="contact" />
           <label className="text-md" htmlFor="first-name">
             First Name
           </label>
@@ -199,6 +215,7 @@ export default function Page() {
             className="w-full"
             pattern={emailPattern}
           />
+          <ValidationError prefix="Email" field="email" errors={state.errors} />
           <label className="text-md" htmlFor="message">
             Message
           </label>
@@ -215,9 +232,20 @@ export default function Page() {
             rows={10}
             name="message"
           />
+          <ValidationError
+            prefix="Message"
+            field="message"
+            errors={state.errors}
+          />
           <div className="self-center">
-            <Button textContent="Send" type="submit" size="md" />
+            <Button
+              textContent="Send"
+              type="submit"
+              size="md"
+              disabled={state.submitting}
+            />
           </div>
+          <ValidationError errors={state.errors} />
         </form>
       </section>
       <footer className="h-32 flex justify-center items-center">

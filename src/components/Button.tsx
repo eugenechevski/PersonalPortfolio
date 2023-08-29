@@ -9,11 +9,13 @@ export default function Button({
   size,
   hanlderOnClick,
   type,
+  disabled
 }: {
   textContent: string;
   size?: "sm" | "md" | "lg";
   hanlderOnClick?: () => void;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }) {
   return (
     <button
@@ -23,6 +25,7 @@ export default function Button({
         sizeClasses[size || "md"]
       }
       type={type || "button"}
+      disabled={disabled}
     >
       {textContent}
     </button>
