@@ -47,6 +47,16 @@ const options: HTMLReactParserOptions = {
       // Add the priority attribute to the image
       domNode.attribs.loading = "lazy";
     }
+
+    // Add spacing to paragraphs
+    if (domNode instanceof Element && domNode.name === "p") {
+      domNode.attribs.class = "mb-3";
+    }
+
+    // Add spacing to headings
+    if (domNode instanceof Element && domNode.name.startsWith("h")) {
+      domNode.attribs.class = "mb-5";
+    }
   },
 };
 
@@ -108,7 +118,7 @@ export default function PostPage() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center relative text-white mb-12 max-h-max overflow-scroll hide-scrollbar">
       {/** Title */}
-      <h1 className="text-2xl sm:text-5xl font-bold text-center">
+      <h1 className="text-xl sm:text-3xl font-bold text-center">
         {post?.title}
       </h1>
 
