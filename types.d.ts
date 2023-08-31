@@ -1,11 +1,11 @@
-declare interface IComment {
+declare interface IReply {
+  _id: string;
   postId: string;
-  commentId: string;
   authorName: string;
   content: string;
   createdAt: number;
   likes: number;
-  replies: Comment[];
+  replies: IReply[];
 }
 
 declare interface IPost {
@@ -16,7 +16,7 @@ declare interface IPost {
   author: string;
   tags: Tag[];
   likes: number;
-  replies: Comment[];
+  replies: IReply[];
   createdAt: number;
   updatedAt: number;
   published: boolean;

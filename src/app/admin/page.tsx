@@ -1,4 +1,4 @@
-import CommentWidget from "@/components/CommentWidget";
+import ReplyWidget from "@/components/ReplyWidget";
 import PostWidget from "@/components/PostWidget";
 import uniqid from 'uniqid';
 

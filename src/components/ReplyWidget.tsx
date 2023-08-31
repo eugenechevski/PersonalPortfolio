@@ -3,10 +3,10 @@ import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "next/link";
 
-export default function CommentWidget(props: {
-  comment: IComment;
+export default function ReplyWidget(props: {
+  comment: IReply;
 }): JSX.Element {
-  const { postId, commentId, authorName, content, createdAt, likes, replies } =
+  const { postId, _id, authorName, content, createdAt, likes, replies } =
     props.comment;
 
   const elapsedDays = Math.floor(
@@ -54,7 +54,7 @@ export default function CommentWidget(props: {
         </div>
         {/** Reply button */}
         <div className="ml-auto">
-          <Link href={`/blog/${postId}/comments/${commentId}`}>Reply</Link>
+          <Link href={`/blog/${postId}/comments/${_id}`}>Reply</Link>
         </div>
       </div>
       
