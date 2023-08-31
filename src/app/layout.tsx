@@ -4,6 +4,7 @@ import "./globals.css";
 import { Lato } from "next/font/google";
 import { Providers } from "@/redux/providers";
 import {SessionProvider} from 'next-auth/react';
+import { Analytics } from '@vercel/analytics/react';
 
 const lato = Lato({
   weight: "400",
@@ -36,6 +37,7 @@ export default function RootLayout({
           <SessionProvider>
             {children}
           </SessionProvider>
+          <Analytics/>
         </body>
       </html>
     </Providers>
