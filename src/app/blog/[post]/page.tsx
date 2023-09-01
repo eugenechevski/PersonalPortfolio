@@ -4,6 +4,7 @@
 import parse, { type HTMLReactParserOptions, Element } from "html-react-parser";
 
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 import {
   useDispatch,
@@ -94,7 +95,7 @@ export default function PostPage() {
     // TODO
   };
 
-  const handleComment = () => {
+  const handleReply = () => {
     // TODO
   };
 
@@ -147,10 +148,10 @@ export default function PostPage() {
           <FontAwesomeIcon icon={faShare} />
         </button>
 
-        {/** Comment */}
-        <button>
+        {/** Reply */}
+        <Link href={`/blog/${postId}/replies`}>
           <FontAwesomeIcon icon={faComment} />
-        </button>
+        </Link>
 
         {/** Like */}
         <button onClick={handleLike}>
