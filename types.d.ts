@@ -1,11 +1,11 @@
 declare interface IReply {
   _id: string;
-  postId: string;
+  replies: string[]; // ids of replies
+  repliedTo: string; // id of the reply that was replied to
   authorName: string;
   content: string;
   createdAt: number;
   likes: number;
-  replies: IReply[];
 }
 
 declare interface IPost {
@@ -16,7 +16,6 @@ declare interface IPost {
   author: string;
   tags: Tag[];
   likes: number;
-  replies: IReply[];
   createdAt: number;
   updatedAt: number;
   published: boolean;

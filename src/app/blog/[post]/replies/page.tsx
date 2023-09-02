@@ -1,6 +1,12 @@
+// Page for a blog post's replies
+// The page could rendered the first level of replies
+// or n-th level of replies, even at the same url level
+// as long as the reference to the parent reply is present
+// the new level of replies can be requested from the database
+
+
 "use client";
 
-// Page for a single blog post's replies
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -23,8 +29,8 @@ export default function RepliesPage() {
   // Get the post's name
   const postName = postsMap[post as string]?.title;
 
-  // Get the post's replies
-  const replies = postsMap[post as string]?.replies;
+  // Get the replies
+  const replies = [];
 
   return (
     <div className="flex flex-col w-full h-full text-white items-center justify-center">

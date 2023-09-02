@@ -56,7 +56,6 @@ export default function Page() {
       imageURL: coverUrl,
       tags: [],
       likes: 0,
-      replies: [],
     };
 
     dispatch(addPostAsync(newPost));
@@ -79,7 +78,6 @@ export default function Page() {
       imageURL: coverUrl,
       tags: [],
       likes: 0,
-      replies: [],
     };
 
     dispatch(addPostAsync(newPost));
