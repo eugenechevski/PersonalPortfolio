@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PostWidget(props: { post: IPost }): JSX.Element {
+export default function PostWidget(props: { post: IPost, replies?: number }): JSX.Element {
   const {
     _id: postId,
     title,
     imageURL,
     likes,
-    replies,
     createdAt,
   } = props.post;
+  const { replies } = props;
 
   const creationDate = new Date(createdAt);
 
@@ -26,7 +26,7 @@ export default function PostWidget(props: { post: IPost }): JSX.Element {
           <div className="flex gap-3">
             {/** Likes */}
             <div>{likes} likes</div>
-            <div>{replies.length} comments</div>
+            <div>{replies ? replies : 0} comments</div>
           </div>
 
           {/** Date of creation */}

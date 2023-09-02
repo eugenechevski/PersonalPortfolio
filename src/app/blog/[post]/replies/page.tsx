@@ -46,7 +46,7 @@ export default function RepliesPage() {
       {/** replies */}
       <div className="flex flex-col gap-5 mt-5 min-h-[75%]">
         {replies?.map((reply) => (
-          <ReplyWidget comment={reply} key={reply._id} />
+          <ReplyWidget reply={reply} key={reply._id} />
         ))}
       </div>
 
