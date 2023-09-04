@@ -4,7 +4,7 @@ import { repliesSlice } from "./repliesSlice";
 export const getRepliesAsync =
   (replyId: string): ReduxThunkAction =>
   async (dispatch: ReduxDispatch) => {
-    const data: IReply[] = await fetch(`/api/replies/${replyId}`, {
+    const data: IReply[] = await fetch(`/api/replies?=${replyId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
