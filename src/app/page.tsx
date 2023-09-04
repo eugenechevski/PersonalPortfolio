@@ -26,6 +26,7 @@ import uniqid from "uniqid";
 import { emailPattern, textColor } from "@/lib/constants";
 
 import { useForm, ValidationError } from "@formspree/react";
+import TextArea from "@/components/TextArea";
 
 const projects = [
   {
@@ -219,12 +220,7 @@ export default function Page() {
           <label className="text-md" htmlFor="message">
             Message
           </label>
-          <textarea
-            className={
-              "bg-white outline-none p-3 rounded-xl resize-none text-[" +
-              textColor +
-              "]"
-            }
+          <TextArea
             required
             minLength={30}
             maxLength={200}
