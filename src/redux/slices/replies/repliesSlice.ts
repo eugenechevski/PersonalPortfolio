@@ -1,11 +1,21 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export interface RepliesSliceState {
+  node: IReply;
   value: IReply[];
   status: "idle" | "loading" | "failed";
 }
 
 const initialState: RepliesSliceState = {
+  node : {
+    _id: "",
+    replies: [],
+    repliedTo: "",
+    authorName: "",
+    content: "",
+    createdAt: 0,
+    likes: 0
+  },
   value: [],
   status: "idle",
 };
