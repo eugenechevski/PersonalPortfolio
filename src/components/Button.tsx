@@ -9,9 +9,11 @@ export default function Button({
   size,
   hanlderOnClick,
   type,
-  disabled
+  disabled,
+  className,
 }: {
   textContent: string;
+  className?: string;
   size?: "sm" | "md" | "lg";
   hanlderOnClick?: () => void;
   type?: "button" | "submit" | "reset";
@@ -22,7 +24,9 @@ export default function Button({
       onClick={hanlderOnClick}
       className={
         "bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] mb-12 hover:opacity-[35%] " +
-        sizeClasses[size || "md"]
+        sizeClasses[size || "md"] +
+        " " +
+        className
       }
       type={type || "button"}
       disabled={disabled}
