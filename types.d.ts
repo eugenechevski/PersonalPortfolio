@@ -14,15 +14,10 @@ declare interface IPost {
   imageURL: string;
   content: string;
   author: string;
-  tags: Tag[];
   likes: number;
   createdAt: number;
   updatedAt: number;
   published: boolean;
-}
-
-declare interface Tag {
-  posts: IPost[];
 }
 
 declare interface AdminUser {

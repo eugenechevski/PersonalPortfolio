@@ -54,7 +54,6 @@ export default function Page() {
       updatedAt: Date.now(),
       published: false,
       imageURL: coverUrl,
-      tags: [],
       likes: 0,
     };
 
@@ -76,7 +75,6 @@ export default function Page() {
       updatedAt: Date.now(),
       published: true,
       imageURL: coverUrl,
-      tags: [],
       likes: 0,
     };
 
