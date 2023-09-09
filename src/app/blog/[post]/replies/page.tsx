@@ -1,24 +1,15 @@
-// Page for a blog post's replies
-// The page could rendered the first level of replies
-// or n-th level of replies, even at the same url level
-// as long as the reference to the parent reply is present
-// the new level of replies can be requested from the database
-
 "use client";
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   useDispatch,
   useSelector,
   selectPostsMap,
-  selectReplies,
-  getRepliesAsync,
-  editReplyAsync,
-  addReplyAsync,
+  editPostAsync,
 } from "@/redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,48 +24,53 @@ import { randomHex } from "@/lib/utils";
 
 export default function RepliesPage() {
   // Get the post id from the URL
-  const { post } = useParams();
+  const { post: postId } = useParams();
 
   // Redux stuff
   const dispatch = useDispatch();
 
-  // Get the replies from the database
-  useEffect(() => {
-    dispatch(getRepliesAsync(post as string));
-  }, [dispatch, post]);
-
-  // Load the post from the state
+  // Load the post map from the state
   const postsMap = useSelector(selectPostsMap);
 
+  // Get the post
+  const post = postsMap[postId as string];
+
   // Get the post's name
-  const postName = postsMap[post as string]?.title;
+  const postTitle = post?.title;
 
   // Get the replies
-  const replies = useSelector(selectReplies);
+  const replies = (post && Object.values(post?.replies)) || [];
 
   const [isReplyFormOpen, setIsReplyFormOpen] = useState(false);
   const [userName, setUserName] = useState("");
-  const [reply, setReply] = useState("");
+  const [newReplyContent, setNewReplyContent] = useState("");
 
   const closeForm = () => {
     setIsReplyFormOpen(false);
     setUserName("");
-    setReply("");
+    setNewReplyContent("");
   };
 
   const createReply = async () => {
-    console.log(userName, reply);
+    console.log(userName, newReplyContent);
     // Send the reply to the database
 
+    const newReplyId = randomHex(24);
+
     dispatch(
-      addReplyAsync({
-        _id: randomHex(24),
-        replies: [],
-        repliedTo: post as string,
-        authorName: userName,
-        content: reply,
-        createdAt: Date.now(),
-        likes: 0,
+      editPostAsync({
+        ...post,
+        replies: {
+          ...post?.replies,
+          [newReplyId]: {
+            _id: newReplyId,
+            authorName: userName,
+            repliedTo: post,
+            content: newReplyContent,
+            createdAt: Date.now(),
+            likes: 0,
+          },
+        },
       })
     );
 
@@ -85,11 +81,11 @@ export default function RepliesPage() {
     <div className="flex flex-col w-full h-full text-white items-center justify-center">
       {/** Navigation back to the post */}
       <Link
-        href={`/blog/${post}`}
+        href={`/blog/${postId}`}
         className="flex gap-3 items-center justify-center"
       >
         <FontAwesomeIcon icon={faArrowLeft} />
-        <span>{postName}</span>
+        <span>{postTitle}</span>
       </Link>
 
       {/** replies */}
@@ -144,8 +140,8 @@ export default function RepliesPage() {
           rows={10}
           cols={50}
           name="reply"
-          onChange={(e) => setReply(e.target.value)}
-          value={reply}
+          onChange={(e) => setNewReplyContent(e.target.value)}
+          value={newReplyContent}
         />
 
         {/** Submit button */}

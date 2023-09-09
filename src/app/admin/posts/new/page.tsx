@@ -10,11 +10,11 @@ import { useEffect, useState } from "react";
 
 import { useDispatch, addPostAsync, selectUser, useSelector } from "@/redux";
 
-import uniqid from "uniqid";
-
 import { isValidImgUrl } from "@/lib/utils";
 
 import { useRouter } from "next/navigation";
+
+import { randomHex } from "@/lib/utils";
 
 export default function Page() {
   // Routing and navigation hooks
@@ -46,7 +46,7 @@ export default function Page() {
     // The same logis as for publishing but with a different flag
 
     const newPost: IPost = {
-      _id: uniqid(),
+      _id: randomHex(24),
       title: title,
       content: formData,
       author: "Eugene Chevski", // Update for the user once the auth is implemented
@@ -55,6 +55,7 @@ export default function Page() {
       published: false,
       imageURL: coverUrl,
       likes: 0,
+      replies: {}
     };
 
     dispatch(addPostAsync(newPost));
@@ -67,7 +68,7 @@ export default function Page() {
     // Do validation
 
     const newPost: IPost = {
-      _id: uniqid(),
+      _id: randomHex(24),
       title: title,
       content: formData,
       author: "Eugene Chevski", // Update for the user once the auth is implemented
@@ -76,6 +77,7 @@ export default function Page() {
       published: true,
       imageURL: coverUrl,
       likes: 0,
+      replies: {}
     };
 
     dispatch(addPostAsync(newPost));
