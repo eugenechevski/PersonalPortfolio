@@ -41,6 +41,11 @@ export default function RepliesPage() {
   // Get the replies
   const replies = (post && Object.values(post?.replies)) || [];
 
+  // Get local storage of map of replies that have been liked
+  const likedReplies: { [key: string]: boolean } = JSON.parse(
+    localStorage?.getItem("likedReplies") || "{}"
+  );
+
   const [isReplyFormOpen, setIsReplyFormOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const [newReplyContent, setNewReplyContent] = useState("");
@@ -77,6 +82,32 @@ export default function RepliesPage() {
     closeForm();
   };
 
+  const handleLikeReply = (replyId: string) => {
+    // Send the like to the database
+
+    // Determine if the reply has already been liked
+    likedReplies[replyId] =
+      likedReplies[replyId] !== undefined ? !likedReplies[replyId] : true;
+    let likeChange = likedReplies[replyId] ? 1 : -1;
+
+    // Update the local storage
+    localStorage?.setItem("likedReplies", JSON.stringify(likedReplies));
+
+    // Update the post in the database
+    dispatch(
+      editPostAsync({
+        ...post,
+        replies: {
+          ...post?.replies,
+          [replyId]: {
+            ...post?.replies[replyId],
+            likes: post?.replies[replyId].likes + likeChange,
+          },
+        },
+      })
+    );
+  };
+
   return (
     <div className="flex flex-col w-full h-full text-white items-center justify-center">
       {/** Navigation back to the post */}
@@ -91,7 +122,18 @@ export default function RepliesPage() {
       {/** replies */}
       <div className="flex flex-col gap-5 mt-5 min-h-[75%] items-center justify-center">
         {replies && replies.length > 0 ? (
-          replies.map((reply) => <ReplyWidget reply={reply} key={reply._id} />)
+          replies.map((reply) => (
+            <ReplyWidget
+              reply={reply}
+              handleLike={handleLikeReply}
+              isLiked={
+                likedReplies[reply._id] !== undefined
+                  ? likedReplies[reply._id]
+                  : false
+              }
+              key={reply._id}
+            />
+          ))
         ) : (
           <span className="text-center font-bold text-xl">No replies yet</span>
         )}

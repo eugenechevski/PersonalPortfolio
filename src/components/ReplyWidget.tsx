@@ -1,8 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-export default function ReplyWidget(props: { reply: IReply }): JSX.Element {
-  const { authorName, content, createdAt, likes } = props.reply;
+export default function ReplyWidget(props: {
+  reply: IReply;
+  handleLike?: (replyId: string) => void;
+  isLiked?: boolean;
+}): JSX.Element {
+  const { _id, authorName, content, createdAt, likes } = props.reply;
+  const { handleLike, isLiked } = props;
 
   const elapsedDays = Math.floor(
     (Date.now() - createdAt) / (1000 * 60 * 60 * 24)
@@ -35,10 +40,19 @@ export default function ReplyWidget(props: { reply: IReply }): JSX.Element {
       </div>
 
       {/** Likes */}
-      <div className="w-6 flex-col justify-center items-center gap-3">
-        <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
-        <span className="text-sm">{likes}</span>
-      </div>
+      {handleLike && (
+        <button
+          className="w-6 flex-col justify-center items-center gap-3"
+          onClick={handleLike.bind(this, _id)}
+        >
+          <FontAwesomeIcon
+            icon={faHeart}
+            color={(isLiked && "red") || ""}
+            beat={isLiked}
+          ></FontAwesomeIcon>
+          <span className="text-sm">{likes}</span>
+        </button>
+      )}
 
       {/** Solid line */}
       <div className="w-full h-1 bg-white"></div>
