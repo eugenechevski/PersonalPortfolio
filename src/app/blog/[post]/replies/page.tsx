@@ -156,14 +156,15 @@ export default function RepliesPage() {
         {/** Close button */}
         <button
           onClick={() => closeForm()}
-          className="absolute right-36 top-0 border rounded-xl w-6 h-6 flex items-center justify-center"
+          className="w- absolute right-36 top-0 border rounded-xl w-6 h-6 flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faClose} />
         </button>
-
+        
         {/** Username input */}
         <Input
           required
+          className="w-96"
           placeholder="Username"
           name="name"
           maxLength={50}
@@ -175,7 +176,8 @@ export default function RepliesPage() {
         {/** Reply input */}
         <TextArea
           required
-          placeholder="Reply"
+          classes="w-96"
+          placeholder="Type your reply here..."
           minLength={30}
           maxLength={200}
           id="reply"
