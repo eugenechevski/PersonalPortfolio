@@ -109,18 +109,26 @@ export default function RepliesPage() {
   };
 
   return (
-    <div className="flex flex-col w-full h-full text-white items-center justify-center">
+    <div className="flex flex-col w-full min-h-[90vh] text-white items-center justify-center">
       {/** Navigation back to the post */}
       <Link
         href={`/blog/${postId}`}
-        className="flex gap-3 items-center justify-center"
+        className={
+          "gap-3 items-center justify-center text-lg sm:text-xl text-justify break-all whitespace-normal p-1 mt-6 sm:mt-0 " +
+          (isReplyFormOpen ? "hidden" : "hidden sm:flex")
+        }
       >
         <FontAwesomeIcon icon={faArrowLeft} />
         <span>{postTitle}</span>
       </Link>
 
       {/** replies */}
-      <div className="flex flex-col gap-5 mt-5 min-h-[75%] items-center justify-center">
+      <div
+        className={
+          "z-50 flex-col gap-5 mt-5 items-center justify-center " +
+          (isReplyFormOpen ? "hidden" : "flex")
+        }
+      >
         {replies && replies.length > 0 ? (
           replies.map((reply) => (
             <ReplyWidget
@@ -143,28 +151,28 @@ export default function RepliesPage() {
       <Button
         textContent="Create reply"
         hanlderOnClick={() => setIsReplyFormOpen((prev) => !prev)}
-        className={isReplyFormOpen ? "hidden" : "block"}
+        className={"z-50 fixed bottom-1 " +  (isReplyFormOpen ? "hidden" : "block")}
       />
 
       {/** Reply form */}
       <div
         className={
-          "flex flex-col justify-center items-center gap-3 w-1/2 relative " +
+          "flex flex-col justify-center items-center gap-3 w-full sm:w-1/2 relative " +
           (isReplyFormOpen ? "block" : "hidden")
         }
       >
         {/** Close button */}
         <button
           onClick={() => closeForm()}
-          className="w- absolute right-36 top-0 border rounded-xl w-6 h-6 flex items-center justify-center"
+          className="z-50 absolute top-0 right-2 sm:right-36 sm:top-0 border rounded-xl w-6 h-6 flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faClose} />
         </button>
-        
+
         {/** Username input */}
         <Input
           required
-          className="w-96"
+          className="w-72 sm:w-96"
           placeholder="Username"
           name="name"
           maxLength={50}
@@ -176,7 +184,7 @@ export default function RepliesPage() {
         {/** Reply input */}
         <TextArea
           required
-          classes="w-96"
+          classes="w-72 sm:w-96"
           placeholder="Type your reply here..."
           minLength={30}
           maxLength={200}

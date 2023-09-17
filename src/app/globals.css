@@ -94,7 +94,7 @@ input[type="file"]::file-selector-button:active {
   }
 
   .blog-content p {
-    @apply whitespace-normal text-justify;
+    @apply whitespace-normal text-justify break-all;
   }
 
   .blog-content h1 {

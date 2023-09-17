@@ -1,36 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PostWidget(props: { post: IPost, replies?: number }): JSX.Element {
+export default function PostWidget(props: { post: IPost }): JSX.Element {
   const {
     _id: postId,
     title,
     imageURL,
     likes,
     createdAt,
+    replies,
   } = props.post;
-  const { replies } = props;
 
   const creationDate = new Date(createdAt);
 
   return (
     <div className="flex justify-evenly items-center h-full w-full p-5">
       {/** Blog info */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 items-start w-full sm:w-1/3">
         {/** Title */}
-        <Link href={`/blog/${postId}`}>
-          <h1 className="font-bold text-xl">{title}</h1>
+        <Link href={`/blog/${postId}`} className="w-full">
+          <h1 className="font-bold text-lg lg:text-xl overflow-hidden whitespace-nowrap text-ellipsis">{title}</h1>
         </Link>
 
         <div className="flex gap-5">
-          <div className="flex gap-3">
-            {/** Likes */}
-            <div>{likes} likes</div>
-            <div>{replies ? replies : 0} comments</div>
-          </div>
+          {/** Likes */}
+          <div>{likes} likes</div>
+
+          {/** Replies */}
+          <div>{Object.keys(replies).length} comments</div>
 
           {/** Date of creation */}
-          <div className="ml-auto">
+          <div className="ml-12 lg:ml-auto">
             {creationDate.getMonth() +
               1 +
               "/" +
@@ -42,15 +42,19 @@ export default function PostWidget(props: { post: IPost, replies?: number }): JS
       </div>
 
       {/** Blog image */}
-      <div className="relative w-1/3 h-1/3 md:w-1/4 md:h-1/2">
+      {innerWidth > 576 ? (
         <Image
           src={
             imageURL.endsWith("?raw=true") ? imageURL : imageURL + "?raw=true"
           }
           alt={"post thumbnail"}
-          fill
+          width={200}
+          height={100}
+          sizes="200px"
         ></Image>
-      </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

@@ -14,17 +14,17 @@ export default function ReplyWidget(props: {
   );
 
   return (
-    <div className="flex flex-col gap-5 w-full h-full">
+    <div className="flex flex-col gap-5 w-full h-full p-3">
       {/** Icon, name, and elapsed time */}
       <div className="flex gap-6">
         {/** Icon */}
-        <div className="w-12 h-12 flex items-center justify-center purple-haze rounded-full drop-shadow-2xl text-xl font-bold border border-white-2">
+        <div className="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center purple-haze rounded-full drop-shadow-2xl text-xl font-bold border border-white-2">
           {authorName[0].toUpperCase()}
         </div>
         {/** Name and elapsed time */}
         <div className="flex flex-col gap-3">
-          <h1 className="font-bold text-xl">{authorName}</h1>
-          <h6>
+          <h1 className="font-bold text-md sm:text-xl">{authorName}</h1>
+          <h6 className="text-sm sm:text-lg">
             {elapsedDays == 0
               ? "Today"
               : elapsedDays == 1
@@ -35,7 +35,7 @@ export default function ReplyWidget(props: {
       </div>
 
       {/** Reply content */}
-      <div className="whitespace-normal max-w-full max-h-full break-all">
+      <div className="text-sm sm:text-lg whitespace-normal text-justify max-w-full max-h-full break-all">
         {content}
       </div>
 
@@ -49,8 +49,9 @@ export default function ReplyWidget(props: {
             icon={faHeart}
             color={(isLiked && "red") || ""}
             beat={isLiked}
+            size={innerWidth < 768 ? "lg" : "2xl"}
           ></FontAwesomeIcon>
-          <span className="text-sm">{likes}</span>
+          <span className="text-sm sm:text-lg">{likes}</span>
         </button>
       )}
 

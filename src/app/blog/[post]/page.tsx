@@ -91,14 +91,6 @@ export default function PostPage() {
 
   const [isSharing, setIsSharing] = useState(false);
 
-  const handleShare = () => {
-    // TODO
-  };
-
-  const handleReply = () => {
-    // TODO
-  };
-
   const handleLike = async () => {
     // Update the like state of the post in the database
     dispatch(
@@ -119,12 +111,12 @@ export default function PostPage() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center relative text-white mb-12 max-h-max overflow-scroll hide-scrollbar">
       {/** Title */}
-      <h1 className="text-xl sm:text-3xl font-bold text-center">
+      <h1 className="p-3 text-xl sm:text-3xl font-bold text-center">
         {post?.title}
       </h1>
 
       {/** Author */}
-      <h2 className="text-sm sm:text-xl italic text-center mt-12">
+      <h2 className="text-sm sm:text-xl italic text-center sm:mt-12">
         by {post?.author}
       </h2>
 

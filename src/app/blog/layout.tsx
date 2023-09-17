@@ -15,9 +15,9 @@ export default function BlogLayout({ children }) {
   }, [dispatch]);
 
   return (
-    <section className="w-screen h-screen">
+    <section className="w-screen min-h-screen">
       {/** Navbar: logo on the left displaying 'E-blog' and 'Home' link on the right point to the root page.*/}
-      <nav className="flex w-full h-[10%] p-12 text-white gap-12 text-center">
+      <nav className="flex w-full h-[10vh] p-12 text-white gap-12 text-center">
         {/** Left side */}
         <div className="italic text-xl sm:text-3xl">
           <Link href={"/blog"}>E-blog</Link>
@@ -30,7 +30,7 @@ export default function BlogLayout({ children }) {
         </div>
       </nav>
       {/** Main content */}
-      <main className="w-full h-[90%]">{children}</main>
+      <main className="w-full min-h-[90vh]">{children}</main>
     </section>
   );
 }

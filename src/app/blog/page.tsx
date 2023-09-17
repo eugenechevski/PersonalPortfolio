@@ -14,7 +14,7 @@ export default function BlogPage() {
   const posts = useSelector(selectPostsArray);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center text-white">
+    <div className="w-full min-h-[90vh] flex flex-col justify-center items-center text-white">
       {/** Posts */}
       {posts.map((post) => (
         post.published && <PostWidget key={post._id} post={post} />
