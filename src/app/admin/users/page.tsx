@@ -10,7 +10,6 @@ import {
   useSelector,
   useDispatch,
   deleteUserAsync,
-  getUsersAsync,
   selectUsersArray
 } from "@/redux";
 
@@ -20,11 +19,6 @@ export default function Page() {
   // Users state
   const dispatch = useDispatch();
   const users = useSelector(selectUsersArray);
-
-  // Load users
-  useEffect(() => {
-    dispatch(getUsersAsync());
-  }, [dispatch]);
 
   // User state
   const user = useSelector(selectUser);

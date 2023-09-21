@@ -11,10 +11,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 import {
+  getUsersAsync,
+  getPostsAsync,
   setUserAsync,
   selectUser,
   useSelector,
-  useDispatch
+  useDispatch,
 } from '@/redux'
 
 export default function AdminLayout({
@@ -30,9 +32,11 @@ export default function AdminLayout({
   });
 
   useEffect(() => {
-    // Update the global admin user state
+    // Load data to redux store
     if (data?.user) {
       dispatch(setUserAsync(data.user.name));
+      dispatch(getUsersAsync());
+      dispatch(getPostsAsync());
     }
   }, [data, data?.user, dispatch]);
 

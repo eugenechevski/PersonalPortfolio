@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 import {
@@ -9,7 +9,6 @@ import {
   selectPostsArray,
   editPostAsync,
   deletePostAsync,
-  getPostsAsync,
   selectUser,
 } from "@/redux";
 
@@ -21,11 +20,6 @@ export default function Page() {
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
 
   const user = useSelector(selectUser);
-
-  // Load posts
-  useEffect(() => {
-    dispatch(getPostsAsync());
-  }, [dispatch]);
 
   const deletePost = () => {
     dispatch(deletePostAsync(selectedPost._id));
