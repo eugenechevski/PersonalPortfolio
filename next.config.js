@@ -20,7 +20,7 @@ const nextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXT_PUBLIC_FRONT_PAGE_FORM: process.env.NEXT_PUBLIC_FRONT_PAGE_FORM,
-  }
+  },
 }
 
 module.exports = nextConfig

@@ -125,7 +125,7 @@ export default function RepliesPage() {
       {/** replies */}
       <div
         className={
-          "z-50 flex-col gap-5 mt-5 items-center justify-center " +
+          "z-50 flex-col gap-5 mt-5 items-center justify-center min-h-[70vh] w-1/3 " +
           (isReplyFormOpen ? "hidden" : "flex")
         }
       >

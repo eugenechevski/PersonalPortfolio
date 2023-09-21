@@ -35,7 +35,7 @@ export default function ReplyWidget(props: {
       </div>
 
       {/** Reply content */}
-      <div className="text-sm sm:text-lg whitespace-normal text-justify max-w-full max-h-full break-all">
+      <div className="text-sm sm:text-lg whitespace-normal text-justify w-full h-full max-h-full max-w-full hide-scrollbar break-all overflow-auto">
         {content}
       </div>
 
