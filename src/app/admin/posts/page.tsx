@@ -12,6 +12,9 @@ import {
   selectUser,
 } from "@/redux";
 
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 const selectionClasses = "bg-opacity-[25%] bg-gray-500";
 
 export default function Page() {
@@ -22,17 +25,69 @@ export default function Page() {
   const user = useSelector(selectUser);
 
   const deletePost = () => {
-    dispatch(deletePostAsync(selectedPost._id));
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete this post?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            dispatch(deletePostAsync(selectedPost._id));
+            setSelectedPost(null);
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
   };
 
   const publishPost = () => {
-    dispatch(editPostAsync({ ...selectedPost, published: true }));
-    setSelectedPost({ ...selectedPost, published: true });
+    confirmAlert({
+      title: "Confirm publish",
+      message: "Are you sure you want to publish this post?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            dispatch(editPostAsync({ ...selectedPost, published: true }));
+            setSelectedPost({ ...selectedPost, published: true });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
   };
 
   const unpublishPost = () => {
-    dispatch(editPostAsync({ ...selectedPost, published: false }));
-    setSelectedPost({ ...selectedPost, published: false });
+    confirmAlert({
+      title: "Confirm unpublish",
+      message: "Are you sure you want to unpublish this post?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            dispatch(editPostAsync({ ...selectedPost, published: false }));
+            setSelectedPost({ ...selectedPost, published: false });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
   };
 
   return (
