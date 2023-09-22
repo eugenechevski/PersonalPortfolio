@@ -1,8 +1,18 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 
+import { useEffect, useState } from "react";
+
 export default function PostWidget(props: { post: IPost }): JSX.Element {
   const post = props.post;
+
+  const [innerWidth, setInnerWidth] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    setInnerWidth(window.innerWidth);
+  }, []);
 
   const creationDate = new Date(post?.createdAt);
 
