@@ -1,21 +1,34 @@
-import ReplyWidget from "@/components/ReplyWidget";
+"use client";
+
 import PostWidget from "@/components/PostWidget";
-import uniqid from 'uniqid';
+
+import { selectPostsArray, useSelector } from "@/redux";
+import { useEffect, useState } from "react";
 
 export default function Page() {
-    return (
-        <section className="h-full w-full flex flex-col text-white items-center justify-center">
-            {/** Latest post */}
-            <div className="flex flex-col justify-start items-center h-1/2 w-full">
-                <h1 className="font-bold text-5xl h-1/6">Latest Post</h1>
-            </div>
+  // Get posts from redux store
+  const posts = useSelector(selectPostsArray);
 
-            {/** Latest comment */}
-            <div className="flex flex-col justify-center items-center w-3/4 h-1/2 gap-12">
-                <h1 className="font-bold text-5xl h-1/6">Latest Comment</h1>
-                <div className="w-1/2 h-full">
-                </div>
-            </div>
-        </section>
-    );
+  const [latestPost, setLatestPost] = useState<IPost | null>(null);
+
+  // Get latest post
+  useEffect(() => {
+    const latest = posts.reduce((latestPost, post) => {
+      if (!latestPost || post.createdAt > latestPost.createdAt) {
+        return post;
+      }
+      return latestPost;
+    }, null);
+    setLatestPost(latest);
+  }, [posts]);
+
+  return (
+    <section className="h-full w-full flex flex-col text-white items-center justify-center">
+      {/** Latest post */}
+      <div className="flex flex-col justify-start items-center h-1/2 w-full">
+        <h1 className="font-bold text-5xl h-1/6">Latest Post</h1>
+        <PostWidget post={latestPost} />
+      </div>
+    </section>
+  );
 }
