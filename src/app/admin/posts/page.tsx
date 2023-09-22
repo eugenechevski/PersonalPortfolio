@@ -86,7 +86,8 @@ export default function Page() {
             <tr>
               <th>#</th>
               <th>Title</th>
-              <th>Date</th>
+              <th>Date Added</th>
+              <th>Date Updated</th>
               <th>Status</th>
               <th>Author</th>
             </tr>
@@ -104,6 +105,7 @@ export default function Page() {
                   <td>{index + 1}</td>
                   <td>{post.title}</td>
                   <td>{new Date(post.createdAt).toLocaleDateString()}</td>
+                  <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
                   <td>{post.published ? "Published" : "Unpublished"}</td>
                   <td>{post.author}</td>
                 </tr>

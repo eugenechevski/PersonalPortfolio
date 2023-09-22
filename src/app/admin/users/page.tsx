@@ -72,6 +72,7 @@ export default function Page() {
               <th>#</th>
               <th>Name</th>
               <th>Date Added</th>
+              <th>Date Updated</th>
               <th>Articles Published</th>
             </tr>
           </thead>
@@ -87,6 +88,7 @@ export default function Page() {
                 <td>{index + 1}</td>
                 <td>{user.userName}</td>
                 <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
                 <td>{user.articlesPublished}</td>
               </tr>
             ))}
