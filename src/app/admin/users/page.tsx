@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import {
   selectUser,
@@ -12,6 +12,9 @@ import {
   deleteUserAsync,
   selectUsersArray
 } from "@/redux";
+
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 export default function Page() {
   const selectionClasses = "bg-opacity-[25%] bg-gray-500";
@@ -25,10 +28,26 @@ export default function Page() {
 
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
 
-  const deleteUser = () => {
-    if (selectedUser?._id === 'eugenechevski') { return; }
-    
-    dispatch(deleteUserAsync(selectedUser?._id));
+  const deleteUser = () => {    
+    confirmAlert({
+      title: "Confirm to delete",
+      message: "Are you sure you want to delete this user?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            dispatch(deleteUserAsync(selectedUser?._id));
+            setSelectedUser(null);
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+    });
   };
 
   return (
@@ -36,7 +55,7 @@ export default function Page() {
       {/** Toolbar */}
       <div className="w-3/4 h-[10%] flex text-shadow">
         {/** Add user button */}
-        {user.permissions.createUser && (
+        {user?.permissions.createUser && (
           <>
             <Link className="text-shadow" href="/admin/users/new">
               New User
@@ -48,14 +67,14 @@ export default function Page() {
         {selectedUser && (
           <div className="flex gap-4 ml-auto button-text-shadow">
             {/** Edit button */}
-            {user.permissions.editUser && (
+            {user?.permissions.editUser && (
               <button>
                 <Link href={`/admin/users/${selectedUser?._id}`}>Edit</Link>
               </button>
             )}
 
             {/** Delete button */}
-            {user.permissions.deleteUser && (
+            {user?.permissions.deleteUser && selectedUser?.userName !== 'eugenechevski' && (
               <>
                 <button onClick={deleteUser}>Delete</button>
               </>
@@ -79,17 +98,17 @@ export default function Page() {
           <tbody>
             {users.map((user, index) => (
               <tr
-                key={user._id}
+                key={user?._id}
                 onClick={() => setSelectedUser(user)}
                 className={
                   selectedUser?._id === user?._id ? selectionClasses : ""
                 }
               >
                 <td>{index + 1}</td>
-                <td>{user.userName}</td>
-                <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                <td>{new Date(user.updatedAt).toLocaleDateString()}</td>
-                <td>{user.articlesPublished}</td>
+                <td>{user?.userName}</td>
+                <td>{new Date(user?.createdAt).toLocaleDateString()}</td>
+                <td>{new Date(user?.updatedAt).toLocaleDateString()}</td>
+                <td>{user?.articlesPublished}</td>
               </tr>
             ))}
           </tbody>
