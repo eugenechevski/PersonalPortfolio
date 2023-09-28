@@ -30,3 +30,5 @@ export const dummyReply: IReply = {
 };
 
 dummyPost.replies[dummyReply._id] = dummyReply;
+
+export const selectionClasses = "bg-opacity-[25%] bg-gray-500";

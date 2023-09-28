@@ -120,6 +120,10 @@ input[type="file"]::file-selector-button:active {
   path {
     @apply text-shadow drop-shadow-2xl;
   }
+
+  .text-overflow-ellipsis {
+    @apply overflow-hidden whitespace-nowrap text-ellipsis;
+  }
 }
 
 

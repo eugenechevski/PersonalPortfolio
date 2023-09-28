@@ -15,7 +15,7 @@ import {
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const selectionClasses = "bg-opacity-[25%] bg-gray-500";
+import { selectionClasses } from "@/lib/constants";
 
 export default function Page() {
   const dispatch = useDispatch();
@@ -90,6 +90,8 @@ export default function Page() {
     });
   };
 
+  console.log(selectionClasses)
+
   return (
     <section className="h-full w-full flex flex-col justify-center items-center text-white">
       {/** Toolbar */}
@@ -135,37 +137,45 @@ export default function Page() {
       </div>
 
       {/** Posts table */}
-      <div className="w-full h-[90%] flex items-center justify-center">
-        <table className="h-1/2 w-1/2 border border-white table-auto table-text-center table-border-white table-row-hover-cursor">
+      <div className="w-1/2 h-[90%] flex items-center justify-center">
+        <table className="w-full border border-white table-auto table-text-center table-border-white table-row-hover-cursor">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Date Added</th>
-              <th>Date Updated</th>
-              <th>Status</th>
-              <th>Author</th>
+              <th className="w-[8.33%]">#</th>
+              <th className="w-1/2">Title</th>
+              <th className="w-[10.42%]">Date Added</th>
+              <th className="w-[10.42%]">Date Updated</th>
+              <th className="w-[10.42%]">Status</th>
+              <th className="w-[10.42%]">Author</th>
             </tr>
           </thead>
           <tbody>
-            {posts.map((post, index) => {
-              return (
-                <tr
-                  key={post._id}
-                  onClick={setSelectedPost.bind(null, post)}
-                  className={
-                    selectedPost?._id === post._id ? selectionClasses : ""
-                  }
-                >
-                  <td>{index + 1}</td>
-                  <td>{post.title}</td>
-                  <td>{new Date(post.createdAt).toLocaleDateString()}</td>
-                  <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
-                  <td>{post.published ? "Published" : "Unpublished"}</td>
-                  <td>{post.author}</td>
-                </tr>
-              );
-            })}
+            {posts.map((post, index) => (
+              <tr
+                key={post._id}
+                onClick={setSelectedPost.bind(null, post)}
+                className={`${
+                  selectedPost?._id === post._id && selectionClasses
+                    ? selectionClasses
+                    : ""
+                }`}
+              >
+                <td className="w-[8.33%] h-12">{index + 1}</td>
+                <td className="w-1/2 h-12">
+                  {post.title}
+                </td>
+                <td className="w-[10.42%] h-12">
+                  {new Date(post.createdAt).toLocaleDateString()}
+                </td>
+                <td className="w-[10.42%] h-12">
+                  {new Date(post.updatedAt).toLocaleDateString()}
+                </td>
+                <td className="w-[10.42%] h-12">
+                  {post.published ? "Published" : "Unpublished"}
+                </td>
+                <td className="w-[10.42%] h-12">{post.author}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -22,7 +22,7 @@ export default function PostWidget(props: { post: IPost }): JSX.Element {
       <div className="flex flex-col gap-3 items-start w-full sm:w-1/3">
         {/** Title */}
         <Link href={`/blog/${post?._id || ""}`} className="w-full">
-          <h1 className="font-bold text-lg lg:text-xl overflow-hidden whitespace-nowrap text-ellipsis">
+          <h1 className="font-bold text-lg lg:text-xl text-overflow-ellipsis">
             {post?.title}
           </h1>
         </Link>
