@@ -16,9 +16,9 @@ import {
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-export default function Page() {
-  const selectionClasses = "bg-opacity-[25%] bg-gray-500";
+import { selectionClasses } from "@/lib/constants";
 
+export default function Page() {
   // Users state
   const dispatch = useDispatch();
   const users = useSelector(selectUsersArray);
@@ -84,15 +84,15 @@ export default function Page() {
       </div>
 
       {/** Users table */}
-      <div className="w-full h-[90%] flex items-center justify-center">
-        <table className="h-1/2 w-1/2 border border-white table-auto table-text-center table-border-white table-row-hover-cursor">
+      <div className="w-1/2 h-[90%] flex items-center justify-center">
+        <table className="w-full border border-white table-auto table-text-center table-border-white table-row-hover-cursor">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Date Added</th>
-              <th>Date Updated</th>
-              <th>Articles Published</th>
+              <th className="h-12">#</th>
+              <th className="h-12">Name</th>
+              <th className="h-12">Date Added</th>
+              <th className="h-12">Date Updated</th>
+              <th className="h-12">Articles Published</th>
             </tr>
           </thead>
           <tbody>
@@ -104,11 +104,11 @@ export default function Page() {
                   selectedUser?._id === user?._id ? selectionClasses : ""
                 }
               >
-                <td>{index + 1}</td>
-                <td>{user?.userName}</td>
-                <td>{new Date(user?.createdAt).toLocaleDateString()}</td>
-                <td>{new Date(user?.updatedAt).toLocaleDateString()}</td>
-                <td>{user?.articlesPublished}</td>
+                <td className="h-12">{index + 1}</td>
+                <td className="h-12">{user?.userName}</td>
+                <td className="h-12">{new Date(user?.createdAt).toLocaleDateString()}</td>
+                <td className="h-12">{new Date(user?.updatedAt).toLocaleDateString()}</td>
+                <td className="h-12">{user?.articlesPublished}</td>
               </tr>
             ))}
           </tbody>

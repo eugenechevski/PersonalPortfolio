@@ -1,5 +1,3 @@
-// Page for editing a user
-
 "use client";
 
 import Input from "@/components/Input";
