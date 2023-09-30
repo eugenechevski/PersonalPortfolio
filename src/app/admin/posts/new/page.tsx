@@ -1,4 +1,4 @@
-// Page for editing an existing post
+// Page for creating a new post
 
 "use client";
 
@@ -6,20 +6,21 @@ import Editor from "@/components/Editor";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 
+import {
+  useRouter as useNavRouter,
+} from "next/navigation";
+
 import { useEffect, useState } from "react";
 
 import { useDispatch, addPostAsync, selectUser, useSelector } from "@/redux";
 
-import { isValidImgUrl } from "@/lib/utils";
-
-import { useRouter } from "next/navigation";
-
 import { randomHex } from "@/lib/utils";
+import { isValidImgUrl } from "@/lib/utils";
 
 export default function Page() {
   // Routing and navigation hooks
-  const router = useRouter();
-
+  const navRouter = useNavRouter();
+  
   // Redux state hooks
   const dispatch = useDispatch();
 
@@ -28,16 +29,46 @@ export default function Page() {
 
   // Determine if the current user has the permissions to create a post
   useEffect(() => {
-    if (user.userName.length > 0 && !user.permissions.createPost) {
-      router.push("/admin/posts");
+    if (user?.userName.length > 0 && !user?.permissions.createPost) {
+      navRouter.push("/admin/posts");
     }
-  }, [user, router]);
+  }, [user, navRouter]);
 
   // Local state
   const [title, setTitle] = useState("");
   const [formData, setFormData] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
   const [action, setAction] = useState(null);
+  const [isSaved, setIsSaved] = useState(false);
+
+  // The event for leaving the page
+  useEffect(() => {
+    // Handler for the 'beforeunload' event
+    const handleUnload = (e: BeforeUnloadEvent) => {
+      if (isSaved) return;
+
+      // Prevent the default behavior
+      e.preventDefault();
+
+      // Chrome requires returnValue to be set
+      e.returnValue = "";
+
+      // Show the alert
+      alert("You have unsaved changes.");
+
+      // Ask for confirmation
+      return "";
+    };
+
+    // Add the event listener
+    window.addEventListener("beforeunload", handleUnload);
+
+    // Remove the event listener
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+    
+  }, [isSaved, navRouter]);
 
   /**
    * Saves the post as a draft
@@ -49,16 +80,17 @@ export default function Page() {
       _id: randomHex(24),
       title: title,
       content: formData,
-      author: "Eugene Chevski", // Update for the user once the auth is implemented
+      author: user?.userName,
       createdAt: Date.now(),
       updatedAt: Date.now(),
       published: false,
       imageURL: coverUrl,
       likes: 0,
-      replies: {}
+      replies: {},
     };
 
     dispatch(addPostAsync(newPost));
+    setIsSaved(true);
   };
 
   /**
@@ -71,13 +103,13 @@ export default function Page() {
       _id: randomHex(24),
       title: title,
       content: formData,
-      author: "Eugene Chevski", // Update for the user once the auth is implemented
+      author: user?.userName,
       createdAt: Date.now(),
       updatedAt: Date.now(),
       published: true,
       imageURL: coverUrl,
       likes: 0,
-      replies: {}
+      replies: {},
     };
 
     dispatch(addPostAsync(newPost));
@@ -90,7 +122,7 @@ export default function Page() {
   const confirmAction = () => {
     action();
     setAction(null);
-    router.push("/admin/posts");
+    navRouter.push("/admin/posts");
   };
 
   const cancelAction = () => {

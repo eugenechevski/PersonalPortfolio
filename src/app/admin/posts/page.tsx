@@ -90,8 +90,6 @@ export default function Page() {
     });
   };
 
-  console.log(selectionClasses)
-
   return (
     <section className="h-full w-full flex flex-col justify-center items-center text-white">
       {/** Toolbar */}
