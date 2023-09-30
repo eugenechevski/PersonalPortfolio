@@ -6,9 +6,7 @@ import Editor from "@/components/Editor";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 
-import {
-  useRouter as useNavRouter,
-} from "next/navigation";
+import { useRouter as useNavRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
 
@@ -18,14 +16,29 @@ import { randomHex } from "@/lib/utils";
 import { isValidImgUrl } from "@/lib/utils";
 
 export default function Page() {
+  // Local state
+
   // Routing and navigation hooks
   const navRouter = useNavRouter();
-  
+
   // Redux state hooks
   const dispatch = useDispatch();
 
   // User
   const user = useSelector(selectUser);
+
+  // Form data
+  const [title, setTitle] = useState("");
+  const [formData, setFormData] = useState("");
+  const [coverUrl, setCoverUrl] = useState("");
+
+  // Confirmation dialog action
+  const [action, setAction] = useState(null);
+
+  // Saved state tracker
+  const [isSaved, setIsSaved] = useState(true);
+
+  // Effect hooks
 
   // Determine if the current user has the permissions to create a post
   useEffect(() => {
@@ -33,13 +46,6 @@ export default function Page() {
       navRouter.push("/admin/posts");
     }
   }, [user, navRouter]);
-
-  // Local state
-  const [title, setTitle] = useState("");
-  const [formData, setFormData] = useState("");
-  const [coverUrl, setCoverUrl] = useState("");
-  const [action, setAction] = useState(null);
-  const [isSaved, setIsSaved] = useState(false);
 
   // The event for leaving the page
   useEffect(() => {
@@ -67,15 +73,47 @@ export default function Page() {
     return () => {
       window.removeEventListener("beforeunload", handleUnload);
     };
-    
   }, [isSaved, navRouter]);
+
+  // update saved state whenever the title, cover image or content changes
+  useEffect(() => {
+    if (title?.length > 0 || coverUrl?.length > 0 || formData?.length > 0) {
+      setIsSaved(false);
+    }
+  }, [title, coverUrl, formData]);
+
+  // Actions
+
+  /**
+   * Validation logic
+   */
+  const isValidForm = () => {
+    // Validate the title
+    if (title?.length < 5 || title?.length > 100) {
+      alert("Title must be between 5 and 100 characters.");
+      return false;
+    }
+
+    // Validate the cover image URL
+    if (!isValidImgUrl(coverUrl)) {
+      alert("Invalid cover image URL.");
+      return false;
+    }
+
+    // Validate the content
+    if (formData?.length < 5) {
+      alert("The content must be at least 5 characters long.");
+      return false;
+    }
+
+    return true;
+  };
 
   /**
    * Saves the post as a draft
    */
   const saveAsDraft = () => {
-    // The same logis as for publishing but with a different flag
-
+    // The same logic as for publishing but with a different flag
     const newPost: IPost = {
       _id: randomHex(24),
       title: title,
@@ -91,14 +129,14 @@ export default function Page() {
 
     dispatch(addPostAsync(newPost));
     setIsSaved(true);
+    alert("Saved as a draft.");
+    navRouter.push("/admin/posts");
   };
 
   /**
    * Publishes the edited version of the post
    */
   const publishNewPost = () => {
-    // Do validation
-
     const newPost: IPost = {
       _id: randomHex(24),
       title: title,
@@ -113,16 +151,23 @@ export default function Page() {
     };
 
     dispatch(addPostAsync(newPost));
+    setIsSaved(true);
+    alert("Published.");
+    navRouter.push("/admin/posts");
   };
 
   const discardChanges = () => {
-    // Discarding logic here
+    // Remove all the data
+    setTitle("");
+    setCoverUrl("");
+    setFormData("");
+    setIsSaved(true);
   };
 
   const confirmAction = () => {
+    if (!isValidForm()) return;
     action();
     setAction(null);
-    navRouter.push("/admin/posts");
   };
 
   const cancelAction = () => {
