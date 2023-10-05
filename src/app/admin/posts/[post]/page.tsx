@@ -5,6 +5,7 @@
 import Editor from "@/components/Editor";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import ReplyWidget from "@/components/ReplyWidget";
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter as useNavRouter } from "next/navigation";
@@ -15,7 +16,7 @@ import {
   selectPostsMap,
   editPostAsync,
   selectUser,
-  getPostsAsync
+  getPostsAsync,
 } from "@/redux";
 import { isValidImgUrl } from "@/lib/utils";
 
@@ -30,11 +31,14 @@ export default function Page() {
   const postId = useParams().post as string;
   const navRouter = useNavRouter();
 
-  // Post object
-  const post = postsMap[postId];
-
   // User
   const user = useSelector(selectUser);
+
+  // Post object
+  const [post, setPost] = useState(postsMap[postId]);
+
+  // Table of marked replies for deletion
+  const [markedReplies, setMarkedReplies] = useState(new Set<IReply>());
 
   // Form data
   const [title, setTitle] = useState(postsMap[postId]?.title);
@@ -65,7 +69,7 @@ export default function Page() {
     if (user.userName.length > 0 && !user.permissions.editPost) {
       navRouter.push("/admin/posts");
     }
-  }, [user, navRouter])
+  }, [user, navRouter]);
 
   // The event for leaving the page
   useEffect(() => {
@@ -99,7 +103,12 @@ export default function Page() {
   // except the initial render or when the data is the same as the original
   useEffect(() => {
     // Skip the initial render or when the data is the same as the original
-    if (title === post?.title && coverUrl === post?.imageURL && formData === post?.content) return;
+    if (
+      title === post?.title &&
+      coverUrl === post?.imageURL &&
+      formData === post?.content
+    )
+      return;
 
     if (title?.length > 0 || coverUrl?.length > 0 || formData?.length > 0) {
       setIsSaved(false);
@@ -143,8 +152,17 @@ export default function Page() {
       content: formData,
       updatedAt: Date.now(),
       imageURL: coverUrl,
+      // TODO: test
+      replies: { // Include only the replies that are not marked for deletion 
+        ...Object.fromEntries(
+          Object.entries(postsMap[postId]?.replies).filter(
+            ([_, reply]) => !markedReplies.has(reply)
+          )
+        ),
+      }
     };
 
+    markedReplies.clear();
     dispatch(editPostAsync(newPost));
     setIsSaved(true);
     alert("Updated the post.");
@@ -181,8 +199,21 @@ export default function Page() {
     setAction(() => newAction);
   };
 
+  /**
+   * Toggle the marked replies
+   */
+  const toggleMarkedReplies = (reply: IReply) => {
+    if (markedReplies.has(reply)) {
+      markedReplies.delete(reply);
+    } else {
+      markedReplies.add(reply);
+    }
+
+    setMarkedReplies(new Set(markedReplies));
+  };
+
   return (
-    <section className="h-full w-full flex flex-col justify-center items-center gap-5">
+    <section className="flex flex-col justify-center items-center gap-5">
       {/** Title */}
       <Input
         name="title"
@@ -205,7 +236,9 @@ export default function Page() {
       />
 
       {/** Editor */}
-      <Editor formData={formData} setFormData={setFormData} />
+      <div className="w-1/2 h-[60vh]">
+        <Editor formData={formData} setFormData={setFormData} />
+      </div>
 
       {/** Confirmation dialog */}
       {action ? (
@@ -231,6 +264,29 @@ export default function Page() {
           </div>
         </>
       )}
+
+      {/** Replies of the post */}
+      <div className="w-1/2 h-full text-white flex flex-col justify-center items-center gap-5">
+        <h1 className="text-2xl font-bold">Replies</h1>
+        <div className="w-full h-full flex flex-col justify-center items-center gap-5">
+          {post &&
+            Object.values(post.replies).map((reply) => (
+              <div key={reply._id} className="relative w-full h-full">
+                <ReplyWidget key={reply._id} reply={reply} />
+
+                {/** Marker for deletion */}
+                <div className="flex gap-3 absolute top-3 right-3 z-50">
+                  <label htmlFor="markToDelete">Mark for Deletion</label>
+                  <input
+                    type="checkbox"
+                    name="markToDelete"
+                    onChange={toggleMarkedReplies.bind(this, reply)}
+                  />
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
     </section>
   );
 }
