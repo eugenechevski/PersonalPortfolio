@@ -23,7 +23,7 @@ export default function Page() {
   }, [posts]);
 
   return (
-    <section className="h-full w-full flex flex-col text-white items-center justify-center">
+    <section className="h-[90vh] w-full flex flex-col text-white items-center justify-center">
       {/** Latest post */}
       <div className="flex flex-col justify-start items-center h-1/2 w-full">
         <h1 className="font-bold text-5xl h-1/6">Latest Post</h1>

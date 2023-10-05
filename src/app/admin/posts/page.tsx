@@ -91,7 +91,7 @@ export default function Page() {
   };
 
   return (
-    <section className="h-full w-full flex flex-col justify-center items-center text-white">
+    <section className="h-[90vh] w-full flex flex-col justify-center items-center text-white">
       {/** Toolbar */}
       <div className="w-3/4 h-[10%] flex text-shadow">
         {/** Add post button */}

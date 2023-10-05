@@ -84,7 +84,7 @@ export default function Page() {
       </div>
 
       {/** Users table */}
-      <div className="w-1/2 h-[90%] flex items-center justify-center">
+      <div className="w-1/2 h-[90vh] flex items-center justify-center">
         <table className="w-full border border-white table-auto table-text-center table-border-white table-row-hover-cursor">
           <thead>
             <tr>

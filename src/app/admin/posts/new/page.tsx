@@ -206,8 +206,10 @@ export default function Page() {
         customValidator={isValidImgUrl}
       />
 
-      {/** Editor */}
-      <Editor formData={formData} setFormData={setFormData} />
+      <div className="w-1/2 h-[60vh]">
+        {/** Editor */}
+        <Editor formData={formData} setFormData={setFormData} />
+      </div>
 
       {/** Confirmation dialog */}
       {action ? (

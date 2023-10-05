@@ -72,7 +72,7 @@ export default function Page() {
   };
 
   return (
-    <section className="w-full h-full flex items-center justify-center">
+    <section className="w-full h-[90vh] flex items-center justify-center">
       {/** Form for creating a user: name, email, password, and title */}
       <form
         className="w-1/2 h-1/2 flex flex-col justify-center items-center gap-5"

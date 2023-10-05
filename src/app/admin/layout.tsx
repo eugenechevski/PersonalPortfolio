@@ -41,7 +41,7 @@ export default function AdminLayout({
   }, [data, data?.user, dispatch]);
 
   return (
-    <section className="w-screen h-screen">
+    <section className="w-screen min-h-screen">
       <nav className="flex w-full h-[10%] p-12 text-white gap-12 text-center">
         {/** Left side */}
         <div className="flex items-center gap-12">
