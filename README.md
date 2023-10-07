@@ -1,23 +1,28 @@
 # Personal Portfolio Website ✨👩‍💻
 
-This repository contains the source code for my personal portfolio website. The website is built using Next.js and deployed on Netlify.
+This repository contains the source code for my personal portfolio website. The website is built using Next.js and deployed on Vercel.
 
 ## Technologies Used 🚀
 
 - [Next.js](https://nextjs.org): A React framework for building server-side rendered and statically generated web applications.
 - [React](https://reactjs.org): A JavaScript library for building user interfaces.
-- [Netlify](https://www.netlify.com): A platform for deploying modern web projects.
+- [Vercel](https://vercel.com): A platform for deploying modern web projects.
+- [Redux](https://redux.js.org): A predictable state container for managing the application's global state.
+- [NextAuth](https://next-auth.js.org): An authentication library for Next.js applications.
+- [MongoDB](https://www.mongodb.com): A NoSQL database for storing and managing data.
 
 ## Features 🌟
 
 - **Home**: Introduce myself and provide an overview of my skills and experience.
 - **Projects**: Showcase my projects, including descriptions, technologies used, and live demo or GitHub links.
+- **Blog**: Share my thoughts and knowledge through blog posts.
+- **Admin Panel**: Manage the content of the blog, including publishing and editing.
 - **Resume**: Provide a downloadable version of my resume.
 - **Contact**: Display my contact information and a contact form for visitors to get in touch with me.
 
 ## Deployment 🚀
 
-The website is deployed using Netlify, which provides continuous deployment and hosting. Whenever changes are pushed to the `main` branch, Netlify automatically builds and deploys the updated site.
+The website is deployed using Vercel, which provides continuous deployment and hosting. Whenever changes are pushed to the `main` branch, Vercel automatically builds and deploys the updated site.
 
 You can access the live version of the website at: [https://eugenechevski.com](eugenechevski.com)
 
