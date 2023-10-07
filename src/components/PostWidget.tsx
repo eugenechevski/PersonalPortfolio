@@ -1,14 +1,55 @@
-'use client';
+"use client";
 
-import Image from "next/image";
+import NextImage from "next/image";
 import Link from "next/link";
+
+import fallBackImg from "@/assets/fallback.jpg";
 
 import { useEffect, useState } from "react";
 
 export default function PostWidget(props: { post: IPost }): JSX.Element {
-  const post = props.post;
-
+  const [post, setPost] = useState<IPost | undefined>(props.post);
+  const [coverImg, setCoverImage] = useState(
+    <NextImage
+      src={fallBackImg}
+      alt={"post thumbnail"}
+      width={200}
+      height={200}
+      sizes="200px"
+    />
+  );
   const [innerWidth, setInnerWidth] = useState<number | undefined>(undefined);
+
+  // Post is loaded
+  useEffect(() => {
+    setPost(props.post);
+    
+    // Determine if the image url can be loaded
+    // if not, use fallback image
+    if (props?.post?.imageURL) {
+      // ?raw=true is a hack to get the image to load if it's not present
+      let imageUrl = props.post.imageURL;
+      imageUrl = !imageUrl.endsWith("?raw=true") ? imageUrl + "?raw=true" : imageUrl;
+
+      // Load the image
+      const img = new Image();
+      img.src = imageUrl;
+
+      // Image is loaded
+      img.onload = () => {
+        setCoverImage(
+          <NextImage
+            src={imageUrl}
+            alt={"post thumbnail"}
+            width={200}
+            height={200}
+            sizes="200px"
+          />
+        );
+      };
+    }
+
+  }, [props.post]);
 
   useEffect(() => {
     setInnerWidth(window.innerWidth);
@@ -49,23 +90,7 @@ export default function PostWidget(props: { post: IPost }): JSX.Element {
       </div>
 
       {/** Blog image */}
-      {innerWidth !== undefined && innerWidth > 576 ? (
-        <Image
-          src={
-            post?.imageURL
-              ? post?.imageURL.endsWith("?raw=true")
-                ? post?.imageURL
-                : post?.imageURL + "?raw=true"
-              : ""
-          }
-          alt={"post thumbnail"}
-          width={200}
-          height={100}
-          sizes="200px"
-        ></Image>
-      ) : (
-        <></>
-      )}
+      {innerWidth !== undefined && innerWidth > 576 ? <>{coverImg}</> : <></>}
     </div>
   );
 }
