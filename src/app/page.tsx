@@ -107,9 +107,9 @@ export default function Page() {
             user-friendly application development. My expertise spans
             JavaScript, HTML, CSS, React, TypeScript, Tailwind, MongoDB, SQL,
             Java, Python, and Node.js. Fluent in Russian and English, I am
-            currently completing my computer science degree at a university in
-            Florida. I thrive on new challenges and have a strong desire to
-            continuously learn and grow. I am confident that my skills and
+            currently completing my computer science degree at the University of
+            Central Florida. I thrive on new challenges and have a strong desire
+            to continuously learn and grow. I am confident that my skills and
             experience would make me a valuable asset to any team. Feel free to
             explore my portfolio for more information about my work.
           </p>
