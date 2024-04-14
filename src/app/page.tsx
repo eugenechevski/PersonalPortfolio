@@ -11,42 +11,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
   faInstagram,
-  faTwitter,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 
 import introImg from "@/assets/intro.jpeg";
-import aboutImg from "@/assets/about.jpeg";
+
+import mealMateImg from "@/assets/meal-mate.jpg";
 import bookstoreImg from "@/assets/bookstore.jpg";
-import battleshipImg from "@/assets/battleship.jpg";
-import checkersImg from "@/assets/checkers.jpg";
+import reactChatterImg from "@/assets/react-chatter.jpg";
 
 import uniqid from "uniqid";
 
-import { emailPattern, textColor } from "@/lib/constants";
+import { emailPattern } from "@/lib/constants";
 
 import { useForm, ValidationError } from "@formspree/react";
 import TextArea from "@/components/TextArea";
 
 const projects = [
   {
-    name: "Battleship",
-    link: "https://github.com/eugenechevski/battleship",
-    description: "A responsive web-version of the board-game Battleship.",
-    image: battleshipImg,
+    name: "Meal Mate AI",
+    link: "https://meal-mate-ai.vercel.app/",
+    description: "A team project for generating smart recipes powered by AI.",
+    image: mealMateImg,
   },
   {
     name: "Bookstore",
-    link: "https://github.com/eugenechevski/bookstore",
+    link: "https://bookstore-f3276.firebaseapp.com/",
     description:
       "A web application that provides content for best-selling books according to New York Times.",
     image: bookstoreImg,
   },
   {
-    name: "Checkers",
-    link: "https://github.com/eugenechevski/checkers-game",
-    description: "A digital version of the classic board game Checkers.",
-    image: checkersImg,
+    name: "React Chatter",
+    link: "https://github.com/eugenechevski/react-chatter",
+    description:
+      "A dynamic and feature-rich mobile messaging app built with React Native.",
+    image: reactChatterImg,
   },
 ];
 
@@ -63,7 +63,7 @@ export default function Page() {
 
   return (
     <main className="w-100vw max-h-max text-white opacity-50 scroll-smooth transition-all duration-500 ease-in-out">
-      <header className="h-[100vh] flex flex-col items-center justify-center gap-12 mb-12">
+      <header className="h-[60vh] lg:h-[100vh] flex flex-col items-center justify-center gap-3 lg:gap-12 lg:mb-12">
         <figure className="rounded-full bg-purple-500 w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] overflow-hidden shadow-2xl drop-shadow-2xl relative">
           <Image
             src={introImg}
@@ -75,51 +75,128 @@ export default function Page() {
             height={500}
           />
         </figure>
-        <h1 className="text-2xl text-center sm:text-4xl font-bold">
-          Hello, I am Eugene Chevski - a full-stack software engineer.
+        <h1 className="text-2xl text-center sm:text-4xl font-bold p-5 lg:p-0">
+          Hello, I am Yauheni Khvashcheuski(Eugene Chevski) - a full-stack
+          software engineer.
         </h1>
         <Link
           href={"/blog"}
-          className="text-white text-xl absolute right-10 top-10"
+          className="text-white text-xl absolute right-5 top-5"
         >
           Blog
         </Link>
       </header>
-      <section className="flex flex-col sm:flex-row items-center justify-center gap-12 p-12 mb-12">
-        <figure className="shadow-2xl drop-shadow-2xl w-[250px] sm:w-[500px] sm:mb-6">
-          <Image
-            className="shadow-2xl drop-shadow-2xl"
-            src={aboutImg}
-            alt="about photo"
-            sizes="(max-width: 576px) 250px, 500px"
-            quality={100}
-            priority={true}
-            width={500}
-            height={500}
-          />
-        </figure>
-        <article className="flex flex-col items-center justify-center gap-6 sm:gap-12 lg:w-1/2">
-          <h1 className="text-3xl text-center sm:text-6xl font-bold">
-            About me
-          </h1>
-          <p className="text-start text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
-            I am a passionate software engineer specializing in innovative and
-            user-friendly application development. My expertise spans
-            JavaScript, HTML, CSS, React, TypeScript, Tailwind, MongoDB, SQL,
-            Java, Python, and Node.js. Fluent in Russian and English, I am
-            currently completing my computer science degree at the University of
-            Central Florida. I thrive on new challenges and have a strong desire
-            to continuously learn and grow. I am confident that my skills and
-            experience would make me a valuable asset to any team. Feel free to
-            explore my portfolio for more information about my work.
-          </p>
+      <section className="flex flex-col items-center justify-center gap-12 p-12 mb-12">
+        <h1 className="text-3xl text-center sm:text-6xl font-bold">About me</h1>
+        <p className="text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
+          Software engineer with a comprehensive background in full-stack
+          development, showcasing expertise in JavaScript, React, and Node.js.
+          Proficient in Java, Python, and C, with experience in enhancing AI
+          models&apos; performance and developing dynamic web applications.
+          Skilled in UI/UX design, system architecture, and effective
+          collaboration.
+        </p>
+        <article className="flex flex-col gap-5 lg:w-3/4">
+          <h2 className="self-start font-bold text-2xl">Experience</h2>
+          <div className="flex flex-col gap-3">
+            <p>
+              <strong>Data Annotation</strong>, AI Trainer, Remote, Jan 2024 -
+              Present
+            </p>
+            <ul className="list-inside list-disc flex flex-col gap-1">
+              <li>
+                Increased models’ truthfulness and correctness by 15% in
+                visualization-related tasks
+              </li>
+              <li>Provided feedback on models’ responses to a prompt</li>
+              <li>
+                Honed models’ output for coding-related prompts which made them
+                produce better code by approximately 20%
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col gap-3">
+            <p>
+              <strong>Freelance</strong>, Full-stack developer, Remote, Sep
+              2021- Present
+            </p>
+            <ul className="list-inside list-disc flex flex-col gap-1">
+              <li>
+                Led the creation of user-friendly web apps using cutting-edge
+                tech, delighting clients with seamless experiences.
+              </li>
+              <li>
+                Worked closely with clients to understand needs and deliver
+                tailored solutions on time and budget.
+              </li>
+              <li>
+                Kept apps running smoothly by fixing bugs and reviewing code
+                with attention to detail.
+              </li>
+            </ul>
+          </div>
+        </article>
+        <article className="flex flex-col gap-5 lg:w-3/4">
+          <h2 className="self-start font-bold text-2xl">Education</h2>
+          <div className="flex flex-col gap-3">
+            <p>
+              <strong>BS in Computer Science</strong>, University of Central
+              Florida, Jan 2024 - Present
+            </p>
+            <ul className="list-inside list-disc flex flex-col gap-1">
+              <li>
+                Joined the Knight Hacks club where led a team for a
+                semester-long project
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col gap-3">
+            <p>
+              <strong>AA in Computer Science</strong>, Broward College, Jan 2022
+              - Dec 2023
+            </p>
+            <ul className="list-inside list-disc flex flex-col gap-1">
+              <li>
+                GPA: 3.8, graduated with highest honors, hit President’s and
+                Dean’s lists, was invited to National Honor Society.
+              </li>
+            </ul>
+          </div>
+        </article>
+        <article className="flex flex-col gap-5 lg:w-3/4">
+          <h2 className="self-start font-bold text-2xl">Skills</h2>
+          <div className="flex flex-col gap-3">
+            <ul className="list-inside list-disc flex flex-col gap-1">
+              <li>
+                <strong>Core</strong>: Java(Built Sudoku & Chess games),
+                Python(used for scripting, data-structure & algorithms, and AI
+                training), C(took a class at UCF)
+              </li>
+              <li>
+                <strong>Web & Mobile</strong>: JavaScript, TypeScript, HTML,
+                CSS, React, Node.js, TailwindCSS, React Native
+              </li>
+              <li>
+                <strong>Tools</strong>: Git (using constantly for collaboration
+                and personal projects), Figma(employing for creation of mock-ups
+                & wire- frames)
+              </li>
+              <li>
+                <strong>Other</strong>: Russian language(Native), Math(completed
+                Calculus I & Calculus II with ‘A’ & ‘B’), Customer
+                service(worked as a part- time waiter), Communication(took a
+                lead in a several team projects at school), Public speaking &
+                Presentations(took two public speaking courses in college).
+              </li>
+            </ul>
+          </div>
         </article>
       </section>
-      <section className="min-h-[100vh] flex flex-col gap-12 items-center justify-evenly">
+      <section className="min-h-[100vh] flex flex-col gap-12 items-center justify-center lg:p-36">
         <h1 className="text-3xl text-center sm:text-6xl font-bold">
           Featured Projects
         </h1>
-        <div className="flex flex-col sm:flex-row">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
           {projects.map(({ name, link, description, image }) => (
             <article
               className="flex flex-col items-center justify-center gap-6"
@@ -143,20 +220,17 @@ export default function Page() {
             </article>
           ))}
         </div>
-        <Link href={"https://github.com/eugenechevski"}>
+        <Link href={"https://github.com/eugenechevski"} className="self-center">
           <Button textContent="Explore" />
         </Link>
       </section>
-      <section className="flex flex-col items-center justify-center gap-12 min-h-[100vh]">
+      <section className="flex flex-col items-center justify-center gap-12 lg:min-h-[100vh]">
         <h1 className="text-3xl text-center sm:text-6xl font-bold">
           Social Media
         </h1>
-        <div className="flex items-center justify-center gap-12 h-[60vh]">
+        <div className="flex items-center justify-center gap-12 h-[50vh] lg:h-[60vh]">
           <Link href={"https://www.instagram.com/eugenechevski/"}>
             <FontAwesomeIcon className="w-12" size="3x" icon={faInstagram} />
-          </Link>
-          <Link href={"https://twitter.com/eugenechevski7"}>
-            <FontAwesomeIcon className="w-12" size="3x" icon={faTwitter} />
           </Link>
           <Link
             href={
@@ -246,7 +320,8 @@ export default function Page() {
       </section>
       <footer className="h-32 flex justify-center items-center">
         <p className="text-center text-md">
-          &copy; 2023 Eugene Chevski. All rights reserved.
+          &copy; 2024 Yauheni Khvashcheuski(Eugene Chevski). All rights
+          reserved.
         </p>
       </footer>
     </main>
