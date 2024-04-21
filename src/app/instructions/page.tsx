@@ -12,7 +12,8 @@ export default function CoverLetterPage() {
     setNumPages(numPages);
   }
   return (
-    <main className="primary-page flex flex-col justify-center items-center gap-3">
+    <main className="primary-page flex flex-col justify-center items-center gap-3 p-6">
+      <h1 className="text-4xl font-bold">Instructions</h1>
       <p className="sm:w-3/4 p-12">
         For this assignment, I was tasked with creating a set of written
         instructions accompanied by visuals. My goal was to break down a complex
