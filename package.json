@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
+    "file-loader": "^6.2.0",
     "react-confirm-alert": "^3.0.6"
   }
 }
