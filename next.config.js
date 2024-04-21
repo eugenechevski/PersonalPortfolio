@@ -7,6 +7,16 @@ const nextConfig = {
       test: /\.(pdf)$/,
       type: "asset/resource",
     });
+    config.module.rules.push({
+      test: /\.(mp4)$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'static/videos',
+        },
+      }],
+    });
     return config;
   },
   productionBrowserSourceMaps: true,
