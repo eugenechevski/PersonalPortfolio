@@ -62,7 +62,7 @@ export default function Page() {
   }
 
   return (
-    <main className="w-100vw max-h-max text-white opacity-50 scroll-smooth transition-all duration-500 ease-in-out">
+    <main className="w-100vw max-h-max text-white scroll-smooth transition-all duration-500 ease-in-out">
       <header className="h-[60vh] lg:h-[100vh] flex flex-col items-center justify-center gap-3 lg:gap-12 lg:mb-12">
         <figure className="rounded-full bg-purple-500 w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] overflow-hidden shadow-2xl drop-shadow-2xl relative">
           <Image
@@ -86,15 +86,28 @@ export default function Page() {
           Blog
         </Link>
       </header>
-      <section className="flex flex-col items-center justify-center gap-12 p-12 mb-12">
+      <section id="about" className="flex flex-col items-center justify-center gap-12 p-12 mb-12">
         <h1 className="text-3xl text-center sm:text-6xl font-bold">About me</h1>
         <p className="text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
-          Software engineer with a comprehensive background in full-stack
+          I am Software engineer with a comprehensive background in full-stack
           development, showcasing expertise in JavaScript, React, and Node.js.
           Proficient in Java, Python, and C, with experience in enhancing AI
           models&apos; performance and developing dynamic web applications.
           Skilled in UI/UX design, system architecture, and effective
           collaboration.
+        </p>
+        <p className="text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
+        Reflecting on the development of my digital portfolio, 
+          I&apos;m pleased with the progress. Designing the site required careful planning, 
+          leading me to choose a user-friendly layout that&apos;s easy to navigate. 
+          The color scheme I selected, &quot;Purple Haze,&quot; gives the site a unique and appealing look. 
+          Making sure the site works well on different devices was important, so I focused on responsive design. 
+          This approach required me to adjust the transparency settings to make the content clear, 
+          removing the 50% opacity for better visibility. 
+          These design decisions not only match my personal style but also ensure the site is practical and accessible.
+        </p>
+        <p className="text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
+          Building the website from scratch using the Next.js framework was a rewarding challenge that significantly improved my technical skills. Implementing the blog section was particularly tricky, pushing me to learn more about the technical details of web development. I often used Google to find solutions and best practices. As I continue to improve the site, I wonder about the value it offers to potential employers compared to a traditional resume. This project not only demonstrates my technical and design skills but also serves as an ongoing learning experience, evolving as I expand my web development abilities.
         </p>
         <article className="flex flex-col gap-5 lg:w-3/4">
           <h2 className="self-start font-bold text-2xl">Experience</h2>
@@ -192,7 +205,7 @@ export default function Page() {
           </div>
         </article>
       </section>
-      <section className="min-h-[100vh] flex flex-col gap-12 items-center justify-center lg:p-36">
+      <section id="projects" className="min-h-[100vh] flex flex-col gap-12 items-center justify-center lg:p-36">
         <h1 className="text-3xl text-center sm:text-6xl font-bold">
           Featured Projects
         </h1>
@@ -224,7 +237,7 @@ export default function Page() {
           <Button textContent="Explore" />
         </Link>
       </section>
-      <section className="flex flex-col items-center justify-center gap-12 lg:min-h-[100vh]">
+      <section id="socials" className="flex flex-col items-center justify-center gap-12 lg:min-h-[100vh]">
         <h1 className="text-3xl text-center sm:text-6xl font-bold">
           Social Media
         </h1>
@@ -244,7 +257,7 @@ export default function Page() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col justify-center items-center sm:gap-12">
+      <section id="contact" className="flex flex-col justify-center items-center sm:gap-12">
         <article className="flex flex-col items-center justify-start gap-6 h-[30vh] sm:h-[15vh]">
           <h1 className="text-3xl text-center sm:text-6xl font-bold">
             Contact me
