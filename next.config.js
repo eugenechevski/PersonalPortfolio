@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
+  webpack: (config, options) => {
+    config.resolve.alias.canvas = false;
+    config.module.rules.push({
+      test: /\.(pdf)$/,
+      type: "asset/resource",
+    });
+    return config;
+  },
   productionBrowserSourceMaps: true,
   compiler: {
     styledComponents: true

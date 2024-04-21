@@ -90,7 +90,7 @@ input[type="file"]::file-selector-button:active {
 
 @layer components {
   .primary-page {
-    @apply w-[100vw] max-h-max text-white scroll-smooth transition-all duration-500 ease-in-out;
+    @apply w-[100vw] min-h-screen max-h-max text-white scroll-smooth transition-all duration-500 ease-in-out;
   }
 
   .primary-icon {

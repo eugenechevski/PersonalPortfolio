@@ -3,8 +3,16 @@
 import "./globals.css";
 import { Lato } from "next/font/google";
 import { Providers } from "@/redux/providers";
-import {SessionProvider} from 'next-auth/react';
-import { Analytics } from '@vercel/analytics/react';
+import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react";
+
+import workerSrc from "../../pdf-worker.js";
+
+import { pdfjs } from "react-pdf";
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+
+pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
 const lato = Lato({
   weight: "400",
@@ -34,10 +42,8 @@ export default function RootLayout({
             " relative text-shadow purple-haze scroll-smooth hide-scrollbar snap-center snap-normal snap-mandatory max-h-max max-w-max"
           }
         >
-          <SessionProvider>
-            {children}
-          </SessionProvider>
-          <Analytics/>
+          <SessionProvider>{children}</SessionProvider>
+          <Analytics />
         </body>
       </html>
     </Providers>
