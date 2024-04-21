@@ -89,6 +89,9 @@ input[type="file"]::file-selector-button:active {
 }
 
 @layer components {
+  .progress-bar {
+    @apply fixed top-0 left-0 right-0 h-3 bg-white;
+  }
   .primary-page {
     @apply w-[100vw] min-h-screen max-h-max text-white scroll-smooth transition-all duration-500 ease-in-out;
   }

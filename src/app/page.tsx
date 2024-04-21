@@ -46,6 +46,8 @@ import { emailPattern } from "@/lib/constants";
 import { useForm, ValidationError } from "@formspree/react";
 import TextArea from "@/components/TextArea";
 
+import { motion, useScroll, AnimatePresence } from "framer-motion";
+
 const projects = [
   {
     name: "Meal Mate AI",
@@ -69,12 +71,17 @@ const projects = [
   },
 ];
 
+const sentence =
+  "Hello, I am Yauheni Khvashcheuski - a full-stack software engineer.";
+const letters = sentence.split("");
+
 export default function Page() {
   const router = useRouter();
   const [state, handleSubmit] = useForm(
     process.env.NEXT_PUBLIC_FRONT_PAGE_FORM
   );
 
+  const { scrollYProgress } = useScroll();
   const [scrollY, setScrollY] = useState(0);
 
   const scrollTop = () => {
@@ -101,64 +108,120 @@ export default function Page() {
   }, [onScroll]);
 
   return (
-    <main className="primary-page">
+    <motion.main
+      className="primary-page"
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      exit={{
+        opacity: 0,
+      }}
+      transition={{
+        duration: 1,
+      }}
+    >
+      <motion.div
+        style={{ scaleX: scrollYProgress }}
+        className="progress-bar"
+      />
       {scrollY > 100 && (
-        <FontAwesomeIcon
-          icon={faArrowUp}
+        <motion.div
           className={`primary-icon fixed left-3 top-3 translate-y-[90vh] cursor-pointer`}
-          size="2x"
-          onClick={scrollTop}
-        />
-      )}
-      <nav className="flex w-full p-12 h-12 gap-6">
-        <Link href={"#about"} className="primary-icon">
-          <FontAwesomeIcon icon={faAddressCard} size="2x" />
-        </Link>
-        <Link href={"#projects"} className="primary-icon">
-          <FontAwesomeIcon icon={faDiagramProject} size="2x" />
-        </Link>
-        <Link href={"#socials"} className="primary-icon">
-          <FontAwesomeIcon icon={faThumbsUp} size="2x" />
-        </Link>
-        <Link href={"#contact"} className="primary-icon">
-          <FontAwesomeIcon icon={faAddressBook} size="2x" />
-        </Link>
-        <Dropdown
-          backdrop="blur"
-          closeOnSelect={false}
-          className="bg-white text-primary shadow-2xl rounded-xl p-1"
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          exit={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+          }}
         >
-          <DropdownTrigger className="primary-icon">
-            <FontAwesomeIcon icon={faPen} size="2x" />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Static Actions">
-            <DropdownItem key="materials">
-              <Dropdown placement="left">
-                <DropdownTrigger>Materials</DropdownTrigger>
-                <DropdownMenu>
-                  <DropdownSection className="bg-white text-primary shadow-2xl rounded-xl p-2">
-                    <DropdownItem key="resume" href="/resume">
-                      Resume
-                    </DropdownItem>
-                    <DropdownItem key="cover-letter" href="/cover-letter">
-                      Cover Letter
-                    </DropdownItem>
-                    <DropdownItem key="mini-interview" href="/mini-interview">
-                      Mini Interview
-                    </DropdownItem>
-                  </DropdownSection>
-                </DropdownMenu>
-              </Dropdown>
-            </DropdownItem>
-            <DropdownItem key="instructions" href="/instructions">
-              Instructions
-            </DropdownItem>
-            <DropdownItem key="Proposal" href="/proposal">
-              Proposal
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      </nav>
+          <FontAwesomeIcon icon={faArrowUp} size="2x" onClick={scrollTop} />
+        </motion.div>
+      )}
+      <motion.nav
+        initial={{
+          x: -100,
+          opacity: 0,
+        }}
+        animate={{
+          x: 0,
+          opacity: 1,
+        }}
+        exit={{
+          x: -100,
+          opacity: 0,
+        }}
+        transition={{
+          duration: 1,
+        }}
+        className="flex w-full p-12 h-12 gap-6"
+      >
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <Link href={"#about"} className="primary-icon">
+            <FontAwesomeIcon icon={faAddressCard} size="2x" />
+          </Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <Link href={"#projects"} className="primary-icon">
+            <FontAwesomeIcon icon={faDiagramProject} size="2x" />
+          </Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <Link href={"#socials"} className="primary-icon">
+            <FontAwesomeIcon icon={faThumbsUp} size="2x" />
+          </Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <Link href={"#contact"} className="primary-icon">
+            <FontAwesomeIcon icon={faAddressBook} size="2x" />
+          </Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <Dropdown
+            backdrop="blur"
+            closeOnSelect={false}
+            className="bg-white text-primary shadow-2xl rounded-xl p-1"
+          >
+            <DropdownTrigger className="primary-icon">
+              <FontAwesomeIcon icon={faPen} size="2x" />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Static Actions">
+              <DropdownItem key="materials">
+                <Dropdown placement="left">
+                  <DropdownTrigger>Materials</DropdownTrigger>
+                  <DropdownMenu>
+                    <DropdownSection className="bg-white text-primary shadow-2xl rounded-xl p-2">
+                      <DropdownItem key="resume" href="/resume">
+                        Resume
+                      </DropdownItem>
+                      <DropdownItem key="cover-letter" href="/cover-letter">
+                        Cover Letter
+                      </DropdownItem>
+                      <DropdownItem key="mini-interview" href="/mini-interview">
+                        Mini Interview
+                      </DropdownItem>
+                    </DropdownSection>
+                  </DropdownMenu>
+                </Dropdown>
+              </DropdownItem>
+              <DropdownItem key="instructions" href="/instructions">
+                Instructions
+              </DropdownItem>
+              <DropdownItem key="Proposal" href="/proposal">
+                Proposal
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </motion.div>
+      </motion.nav>
       <header className="h-[60vh] lg:h-[100vh] flex flex-col items-center justify-center gap-3 lg:gap-12 lg:mb-12">
         <figure className="rounded-full bg-purple-500 w-[300px] h-[300px] overflow-hidden shadow-2xl drop-shadow-2xl relative">
           <Image
@@ -172,14 +235,27 @@ export default function Page() {
           />
         </figure>
         <h1 className="text-2xl text-center sm:text-4xl font-bold p-5 lg:p-0">
-          Hello, I am Yauheni Khvashcheuski - a full-stack software engineer.
+          <AnimatePresence>
+            {letters.map((char, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </AnimatePresence>
         </h1>
-        <Link
-          href={"/blog"}
-          className="text-white text-xl absolute right-5 top-5"
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          className="absolute right-5 top-10"
         >
-          <FontAwesomeIcon icon={faBlog} size="2x" />
-        </Link>
+          <Link href={"/blog"} className="text-white text-xl">
+            <FontAwesomeIcon icon={faBlog} size="2x" />
+          </Link>
+        </motion.div>
       </header>
       <section
         id="about"
@@ -455,6 +531,6 @@ export default function Page() {
           reserved.
         </p>
       </footer>
-    </main>
+    </motion.main>
   );
 }
