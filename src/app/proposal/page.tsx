@@ -1,7 +1,7 @@
 "use client";
 
 import { Document, Page } from "react-pdf";
-import proposalDoc from "@/assets/docs/proposal.pdf";
+import proposalDoc from "../../assets/docs/proposal.pdf";
 
 import { useState } from "react";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Document, Page } from "react-pdf";
-import instructionsDoc from "@/assets/docs/instructions.pdf";
+import instructionsDoc from "../../assets/docs/instructions.pdf";
 
 import { useState } from "react";
 

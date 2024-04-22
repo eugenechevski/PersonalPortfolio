@@ -1,7 +1,7 @@
 "use client";
 
 import { Document, Page } from "react-pdf";
-import resumeDoc from "@/assets/docs/Resume.pdf";
+import resumeDoc from "../../assets/docs/Resume.pdf";
 
 export default function ResumePage() {
   return (

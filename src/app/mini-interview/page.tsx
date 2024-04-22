@@ -1,6 +1,6 @@
 'use client';
 
-import miniInterviewVideo from "@/assets/mini-interview.mp4";
+import miniInterviewVideo from "../../assets/mini-interview.mp4";
 
 export default function MiniInterviewPage() {
   return (

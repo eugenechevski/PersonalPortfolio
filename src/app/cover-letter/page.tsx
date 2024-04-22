@@ -1,7 +1,7 @@
 "use client";
 
 import { Document, Page } from "react-pdf";
-import coverLetterDoc from "@/assets/docs/cover-letter.pdf";
+import coverLetterDoc from "../../assets/docs/cover-letter.pdf";
 
 export default function CoverLetterPage() {
   return (
