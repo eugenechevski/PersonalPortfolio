@@ -18,16 +18,17 @@
   }
 }
 
-.purple-haze {
-  --grape: #7C33B8;
-  --tekhelet: #461393;
+.bg-grad {
+  --light: #334155;
+  --medium: #1e293b;
+  --hard: #0f172a;
   --duration: 10s;
 
   background-image: linear-gradient(
     to bottom right,
-    var(--grape) 0%,
-    var(--tekhelet) 50%,
-    var(--grape) 100%
+    var(--light) 0%,
+    var(--medium) 50%,
+    var(--hard) 100%
   );
   background-size: 200% 200%;
   animation: backgroundAnimation var(--duration) infinite;

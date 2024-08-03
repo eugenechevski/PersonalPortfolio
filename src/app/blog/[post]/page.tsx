@@ -109,7 +109,7 @@ export default function PostPage() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center relative text-white mb-12 max-h-max overflow-scroll hide-scrollbar">
+    <div className="w-full h-full flex flex-col items-center justify-center relative text-white max-h-max overflow-scroll hide-scrollbar">
       {/** Title */}
       <h1 className="p-3 text-xl sm:text-3xl font-bold text-center">
         {post?.title}

@@ -18,15 +18,7 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAddressCard,
-  faDiagramProject,
-  faThumbsUp,
-  faAddressBook,
-  faBlog,
-  faPen,
-  faArrowUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPen, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
   faInstagram,
@@ -71,8 +63,7 @@ const projects = [
   },
 ];
 
-const sentence =
-  "Hello, I am Yauheni Khvashcheuski - a full-stack software engineer.";
+const sentence = "Hey, I'm Yauheni👋";
 const letters = sentence.split("");
 
 export default function Page() {
@@ -162,29 +153,29 @@ export default function Page() {
         transition={{
           duration: 1,
         }}
-        className="flex w-full p-12 h-12 gap-6"
+        className="flex w-full p-5 md:p-12 h-12 gap-6"
       >
         <motion.div whileHover={{ scale: 1.1 }}>
           <Link href={"#about"} className="primary-icon">
-            <FontAwesomeIcon icon={faAddressCard} size="2x" />
+            About
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
           <Link href={"#projects"} className="primary-icon">
-            <FontAwesomeIcon icon={faDiagramProject} size="2x" />
+            Projects
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
           <Link href={"#socials"} className="primary-icon">
-            <FontAwesomeIcon icon={faThumbsUp} size="2x" />
+            Socials
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
           <Link href={"#contact"} className="primary-icon">
-            <FontAwesomeIcon icon={faAddressBook} size="2x" />
+            Contact
           </Link>
         </motion.div>
-        <motion.div whileHover={{ scale: 1.1 }}>
+        <motion.div whileHover={{ scale: 1.1 }} className="hidden">
           <Dropdown
             backdrop="blur"
             closeOnSelect={false}
@@ -223,15 +214,14 @@ export default function Page() {
         </motion.div>
       </motion.nav>
       <header className="h-[60vh] lg:h-[100vh] flex flex-col items-center justify-center gap-3 lg:gap-12 lg:mb-12">
-        <figure className="rounded-full bg-purple-500 w-[300px] h-[300px] overflow-hidden shadow-2xl drop-shadow-2xl relative">
+        <figure className="rounded-3xl w-[300px] h-[250px] overflow-hidden shadow-2xl drop-shadow-2xl relative">
           <Image
             src={introImg}
             alt="introduction photo"
             sizes="(max-width: 576px) 250px, 500px"
             quality={100}
             priority={true}
-            width={500}
-            height={500}
+            fill
           />
         </figure>
         <h1 className="text-2xl text-center sm:text-4xl font-bold p-5 lg:p-0">
@@ -250,10 +240,13 @@ export default function Page() {
         </h1>
         <motion.div
           whileHover={{ scale: 1.1 }}
-          className="absolute right-5 top-10"
+          className="absolute right-10 top-10"
         >
-          <Link href={"/blog"} className="text-white text-xl">
-            <FontAwesomeIcon icon={faBlog} size="2x" />
+          <Link
+            href={"/blog"}
+            className="text-white text-3xl font-sans italic bold"
+          >
+            ?
           </Link>
         </motion.div>
       </header>
@@ -263,36 +256,12 @@ export default function Page() {
       >
         <h1 className="text-3xl text-center sm:text-6xl font-bold">About me</h1>
         <p className="text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
-          I am Software engineer with a comprehensive background in full-stack
+          Software engineer with a comprehensive background in full-stack
           development, showcasing expertise in JavaScript, React, and Node.js.
           Proficient in Java, Python, and C, with experience in enhancing AI
           models&apos; performance and developing dynamic web applications.
           Skilled in UI/UX design, system architecture, and effective
           collaboration.
-        </p>
-        <p className="text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
-          Reflecting on the development of my digital portfolio, I&apos;m
-          pleased with the progress. Designing the site required careful
-          planning, leading me to choose a user-friendly layout that&apos;s easy
-          to navigate. The color scheme I selected, &quot;Purple Haze,&quot;
-          gives the site a unique and appealing look. Making sure the site works
-          well on different devices was important, so I focused on responsive
-          design. This approach required me to adjust the transparency settings
-          to make the content clear, removing the 50% opacity for better
-          visibility. These design decisions not only match my personal style
-          but also ensure the site is practical and accessible.
-        </p>
-        <p className="text-sm sm:text-xl font-light lg:w-3/4 drop-shadow-2xl">
-          Building the website from scratch using the Next.js framework was a
-          rewarding challenge that significantly improved my technical skills.
-          Implementing the blog section was particularly tricky, pushing me to
-          learn more about the technical details of web development. I often
-          used Google to find solutions and best practices. As I continue to
-          improve the site, I wonder about the value it offers to potential
-          employers compared to a traditional resume. This project not only
-          demonstrates my technical and design skills but also serves as an
-          ongoing learning experience, evolving as I expand my web development
-          abilities.
         </p>
         <article className="flex flex-col gap-5 lg:w-3/4">
           <h2 className="self-start font-bold text-2xl">Experience</h2>
@@ -343,8 +312,8 @@ export default function Page() {
             </p>
             <ul className="list-inside list-disc flex flex-col gap-1">
               <li>
-                Joined the Knight Hacks club where led a team for a
-                semester-long project
+                Knight Hacks Workshop Team member, a participant of Hackabull,
+                Shellhacks, and KnightHacks VII
               </li>
             </ul>
           </div>
@@ -366,25 +335,27 @@ export default function Page() {
           <div className="flex flex-col gap-3">
             <ul className="list-inside list-disc flex flex-col gap-1">
               <li>
-                <strong>Core</strong>: Java(Built Sudoku & Chess games),
-                Python(used for scripting, data-structure & algorithms, and AI
-                training), C(took a class at UCF)
+                <strong>Core</strong>: Java, Python, C
               </li>
               <li>
                 <strong>Web & Mobile</strong>: JavaScript, TypeScript, HTML,
                 CSS, React, Node.js, TailwindCSS, React Native
               </li>
               <li>
-                <strong>Tools</strong>: Git (using constantly for collaboration
-                and personal projects), Figma(employing for creation of mock-ups
-                & wire- frames)
+                <strong>Tools</strong>: Git, GitHub, Figma, Docker, Linux, REST
+                APIs, Cloud
               </li>
               <li>
-                <strong>Other</strong>: Russian language(Native), Math(completed
-                Calculus I & Calculus II with ‘A’ & ‘B’), Customer
-                service(worked as a part- time waiter), Communication(took a
-                lead in a several team projects at school), Public speaking &
-                Presentations(took two public speaking courses in college).
+                <strong>Related coursework</strong>: Intro to programming with
+                C(A), Computer Science I(A), Object Oriented Programming(A)
+              </li>
+              <li>
+                <strong>Other</strong>: Russian & Belarusian languages(Native),
+                Math(completed Calculus I & Calculus II with ‘A’ & ‘B’),
+                Customer service(worked as a part-time waiter),
+                Communication(took a lead in a several team projects at school),
+                Public speaking & Presentations(took two public speaking courses
+                in college, taught programming concepts for workshops).
               </li>
             </ul>
           </div>

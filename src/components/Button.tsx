@@ -23,7 +23,7 @@ export default function Button({
     <button
       onClick={hanlderOnClick}
       className={
-        "bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#6B21A5] mb-12 hover:opacity-[35%] " +
+        "bg-white rounded-3xl shadow-2xl drop-shadow-2xl text-[#0f172a] mb-12 hover:opacity-[35%] " +
         sizeClasses[size || "md"] +
         " " +
         className
