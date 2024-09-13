@@ -63,7 +63,7 @@ const projects = [
   },
 ];
 
-const sentence = "Hey, I'm Yauheni👋";
+const sentence = "Hey, I'm Eugene👋";
 const letters = sentence.split("");
 
 export default function Page() {
@@ -244,9 +244,8 @@ export default function Page() {
         >
           <Link
             href={"/blog"}
-            className="text-white text-3xl font-sans italic bold"
           >
-            ?
+            Blog
           </Link>
         </motion.div>
       </header>
@@ -263,103 +262,6 @@ export default function Page() {
           Skilled in UI/UX design, system architecture, and effective
           collaboration.
         </p>
-        <article className="flex flex-col gap-5 lg:w-3/4">
-          <h2 className="self-start font-bold text-2xl">Experience</h2>
-          <div className="flex flex-col gap-3">
-            <p>
-              <strong>Data Annotation</strong>, AI Trainer, Remote, Jan 2024 -
-              Present
-            </p>
-            <ul className="list-inside list-disc flex flex-col gap-1">
-              <li>
-                Increased models’ truthfulness and correctness by 15% in
-                visualization-related tasks
-              </li>
-              <li>Provided feedback on models’ responses to a prompt</li>
-              <li>
-                Honed models’ output for coding-related prompts which made them
-                produce better code by approximately 20%
-              </li>
-            </ul>
-          </div>
-          <div className="flex flex-col gap-3">
-            <p>
-              <strong>Freelance</strong>, Full-stack developer, Remote, Sep
-              2021- Present
-            </p>
-            <ul className="list-inside list-disc flex flex-col gap-1">
-              <li>
-                Led the creation of user-friendly web apps using cutting-edge
-                tech, delighting clients with seamless experiences.
-              </li>
-              <li>
-                Worked closely with clients to understand needs and deliver
-                tailored solutions on time and budget.
-              </li>
-              <li>
-                Kept apps running smoothly by fixing bugs and reviewing code
-                with attention to detail.
-              </li>
-            </ul>
-          </div>
-        </article>
-        <article className="flex flex-col gap-5 lg:w-3/4">
-          <h2 className="self-start font-bold text-2xl">Education</h2>
-          <div className="flex flex-col gap-3">
-            <p>
-              <strong>BS in Computer Science</strong>, University of Central
-              Florida, Jan 2024 - Present
-            </p>
-            <ul className="list-inside list-disc flex flex-col gap-1">
-              <li>
-                Knight Hacks Workshop Team member, a participant of Hackabull,
-                Shellhacks, and KnightHacks VII
-              </li>
-            </ul>
-          </div>
-          <div className="flex flex-col gap-3">
-            <p>
-              <strong>AA in Computer Science</strong>, Broward College, Jan 2022
-              - Dec 2023
-            </p>
-            <ul className="list-inside list-disc flex flex-col gap-1">
-              <li>
-                GPA: 3.8, graduated with highest honors, hit President’s and
-                Dean’s lists, was invited to National Honor Society.
-              </li>
-            </ul>
-          </div>
-        </article>
-        <article className="flex flex-col gap-5 lg:w-3/4">
-          <h2 className="self-start font-bold text-2xl">Skills</h2>
-          <div className="flex flex-col gap-3">
-            <ul className="list-inside list-disc flex flex-col gap-1">
-              <li>
-                <strong>Core</strong>: Java, Python, C
-              </li>
-              <li>
-                <strong>Web & Mobile</strong>: JavaScript, TypeScript, HTML,
-                CSS, React, Node.js, TailwindCSS, React Native
-              </li>
-              <li>
-                <strong>Tools</strong>: Git, GitHub, Figma, Docker, Linux, REST
-                APIs, Cloud
-              </li>
-              <li>
-                <strong>Related coursework</strong>: Intro to programming with
-                C(A), Computer Science I(A), Object Oriented Programming(A)
-              </li>
-              <li>
-                <strong>Other</strong>: Russian & Belarusian languages(Native),
-                Math(completed Calculus I & Calculus II with ‘A’ & ‘B’),
-                Customer service(worked as a part-time waiter),
-                Communication(took a lead in a several team projects at school),
-                Public speaking & Presentations(took two public speaking courses
-                in college, taught programming concepts for workshops).
-              </li>
-            </ul>
-          </div>
-        </article>
       </section>
       <section
         id="projects"
@@ -404,12 +306,9 @@ export default function Page() {
           Social Media
         </h1>
         <div className="flex items-center justify-center gap-12 h-[50vh] lg:h-[60vh]">
-          <Link href={"https://www.instagram.com/eugenechevski/"}>
-            <FontAwesomeIcon className="w-12" size="3x" icon={faInstagram} />
-          </Link>
           <Link
             href={
-              "https://www.linkedin.com/in/yauheni-khvashcheuski-181b06263/"
+              "https://www.linkedin.com/in/eugenechevski/"
             }
           >
             <FontAwesomeIcon className="w-12" size="3x" icon={faLinkedinIn} />
@@ -498,7 +397,7 @@ export default function Page() {
       </section>
       <footer className="h-32 flex justify-center items-center">
         <p className="text-center text-md">
-          &copy; 2024 Yauheni Khvashcheuski(Eugene Chevski). All rights
+          &copy; 2024 Eugene Chevski. All rights
           reserved.
         </p>
       </footer>

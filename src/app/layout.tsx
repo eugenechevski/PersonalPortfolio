@@ -32,7 +32,7 @@ export default function RootLayout({
             name="description"
             content="A personal portfolio website to showcase my experience and create the contact point for potential employers or business partners."
           />
-          <title>Yauheni Khvashcheuski(Eugene Chevski)</title>
+          <title>Eugene Chevski</title>
         </head>
         <body
           className={
