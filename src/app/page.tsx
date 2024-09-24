@@ -21,7 +21,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
-  faInstagram,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 
@@ -156,61 +155,24 @@ export default function Page() {
         className="flex w-full p-5 md:p-12 h-12 gap-6"
       >
         <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href={"#about"} className="primary-icon">
-            About
+          <Link href={"#about"} className="primary-icon text-2xl">
+            ℹ️
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href={"#projects"} className="primary-icon">
-            Projects
+          <Link href={"#projects"} className="primary-icon text-2xl">
+            🔨
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href={"#socials"} className="primary-icon">
-            Socials
+          <Link href={"#socials"} className="primary-icon text-2xl">
+            👥
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href={"#contact"} className="primary-icon">
-            Contact
+          <Link href={"#contact"} className="primary-icon text-3xl">
+            📧  
           </Link>
-        </motion.div>
-        <motion.div whileHover={{ scale: 1.1 }} className="hidden">
-          <Dropdown
-            backdrop="blur"
-            closeOnSelect={false}
-            className="bg-white text-primary shadow-2xl rounded-xl p-1"
-          >
-            <DropdownTrigger className="primary-icon">
-              <FontAwesomeIcon icon={faPen} size="2x" />
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="materials">
-                <Dropdown placement="left">
-                  <DropdownTrigger>Materials</DropdownTrigger>
-                  <DropdownMenu>
-                    <DropdownSection className="bg-white text-primary shadow-2xl rounded-xl p-2">
-                      <DropdownItem key="resume" href="/resume">
-                        Resume
-                      </DropdownItem>
-                      <DropdownItem key="cover-letter" href="/cover-letter">
-                        Cover Letter
-                      </DropdownItem>
-                      <DropdownItem key="mini-interview" href="/mini-interview">
-                        Mini Interview
-                      </DropdownItem>
-                    </DropdownSection>
-                  </DropdownMenu>
-                </Dropdown>
-              </DropdownItem>
-              <DropdownItem key="instructions" href="/instructions">
-                Instructions
-              </DropdownItem>
-              <DropdownItem key="Proposal" href="/proposal">
-                Proposal
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
         </motion.div>
       </motion.nav>
       <header className="h-[60vh] lg:h-[100vh] flex flex-col items-center justify-center gap-3 lg:gap-12 lg:mb-12">
@@ -218,10 +180,9 @@ export default function Page() {
           <Image
             src={introImg}
             alt="introduction photo"
-            sizes="(max-width: 576px) 250px, 500px"
+            sizes="(max-width: 576px) 300px, 500px"
             quality={100}
             priority={true}
-            fill
           />
         </figure>
         <h1 className="text-2xl text-center sm:text-4xl font-bold p-5 lg:p-0">
@@ -240,12 +201,12 @@ export default function Page() {
         </h1>
         <motion.div
           whileHover={{ scale: 1.1 }}
-          className="absolute right-10 top-10"
+          className="text-5xl absolute right-3 top-3 sm:right-5 sm:top-5"
         >
           <Link
             href={"/blog"}
           >
-            Blog
+            ✍️
           </Link>
         </motion.div>
       </header>
