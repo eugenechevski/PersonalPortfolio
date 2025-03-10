@@ -160,11 +160,6 @@ export default function Page() {
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.1 }}>
-          <Link href={"#projects"} className="primary-icon text-2xl">
-            🔨
-          </Link>
-        </motion.div>
-        <motion.div whileHover={{ scale: 1.1 }}>
           <Link href={"#socials"} className="primary-icon text-2xl">
             👥
           </Link>
@@ -223,41 +218,6 @@ export default function Page() {
           Skilled in UI/UX design, system architecture, and effective
           collaboration.
         </p>
-      </section>
-      <section
-        id="projects"
-        className="min-h-[100vh] flex flex-col gap-12 items-center justify-center lg:p-36"
-      >
-        <h1 className="text-3xl text-center sm:text-6xl font-bold">
-          Featured Projects
-        </h1>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
-          {projects.map(({ name, link, description, image }) => (
-            <article
-              className="flex flex-col items-center justify-center gap-6"
-              key={uniqid()}
-            >
-              <figure className="flex items-center rounded-full w-[150px] h-[150px] sm:w-[300px] sm:h-[300px] shadow-2xl drop-shadow-2xl overflow-hidden">
-                <Link className="relative h-full w-full" href={link}>
-                  <Image
-                    className="rounded-full"
-                    src={image}
-                    alt="bookstore"
-                    quality={100}
-                    priority={true}
-                    sizes="(max-width: 576px) 150px, 300px"
-                    fill
-                  />
-                </Link>
-              </figure>
-              <h1 className="text-2xl text-center">{name}</h1>
-              <p className="text-md text-center w-3/4">{description}</p>
-            </article>
-          ))}
-        </div>
-        <Link href={"https://github.com/eugenechevski"} className="self-center">
-          <Button textContent="Explore" />
-        </Link>
       </section>
       <section
         id="socials"
