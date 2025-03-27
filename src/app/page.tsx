@@ -318,7 +318,7 @@ export default function Page() {
       </section>
       <footer className="h-32 flex justify-center items-center">
         <p className="text-center text-md">
-          &copy; 2024 Eugene Chevski. All rights
+          &copy; {new Date().getFullYear()} Eugene Chevski. All rights
           reserved.
         </p>
       </footer>
