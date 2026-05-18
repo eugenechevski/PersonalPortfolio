@@ -2,6 +2,9 @@
   "name": "eugenechevski-portfolio",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20.x"
+  },
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
