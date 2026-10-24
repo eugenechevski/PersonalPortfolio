@@ -1,0 +1,7 @@
+# Index portfolio design
+
+The user chose the working Index prototype by name. Its desktop/mobile captures in `.impeccable/review/index-{desktop,mobile}.png` and `public/prototypes/index-fold.html` are the approved visual target. Preserve its warm paper, vermilion typography, Syne display/DM Sans body, large editorial project index, direct contact links, and folding project disclosures.
+
+Promote Index into the existing Next.js homepage; preserve the three prototypes for comparison. Reuse approved project data from `lib/constants.ts` and factual biography/contact content. Maintain header navigation to work/about/contact; opening a project reveals its complete approved description and tech. One disclosure at a time; all may close. Native keyboard controls and a readable no-JavaScript baseline are required. No loaders, forced intros, WebGL, or smooth-scroll interception in the main page. Use local font files and server-rendered content. Mobile retains readable disclosures without horizontal overflow. Reduced motion removes fold effects.
+
+Considered approaches: serve the static prototype as the homepage (fast, but duplicates content and bypasses the existing app); port its selected design into existing Next.js components (chosen implementation approach, keeps approved data and metadata); redesign beyond the selected concept (outside this request). The user's choice approves Index's visual world; no additional design direction is introduced.
